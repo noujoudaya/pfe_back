@@ -5,7 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EmployeDto {
+public class TypeCongeDto {
 
     private Long id;
+    private String Libelle;
+    private String code;
 }

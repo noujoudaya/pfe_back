@@ -4,14 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.scheduling.annotation.EnableAsync;
 
 @Entity
 @Getter
 @Setter
-public class Employe {
+public class TypeConge {
     @Id
     private Long id;
-
-
+    private String Libelle;
+    private String code;
 }
