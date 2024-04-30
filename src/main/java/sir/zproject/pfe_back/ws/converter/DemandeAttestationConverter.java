@@ -1,9 +1,7 @@
 package sir.zproject.pfe_back.ws.converter;
 
 import org.springframework.stereotype.Component;
-import sir.zproject.pfe_back.bean.Absence;
 import sir.zproject.pfe_back.bean.DemandeAttestation;
-import sir.zproject.pfe_back.ws.dto.AbsenceDto;
 import sir.zproject.pfe_back.ws.dto.DemandeAttestationDto;
 
 import java.util.List;
