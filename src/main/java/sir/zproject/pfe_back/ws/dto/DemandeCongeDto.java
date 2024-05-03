@@ -1,9 +1,7 @@
 package sir.zproject.pfe_back.ws.dto;
 
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
-import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.StatutConge;
 import sir.zproject.pfe_back.bean.TypeConge;
 
