@@ -39,7 +39,8 @@ public class TypeCongeServiceImpl implements TypeCongeService {
     }
 
     @Override
-    public int save(TypeConge typeConge) {
-        return 0;
+    public String save(TypeConge typeConge) {
+        typeCongeDao.save(typeConge);
+        return "Type Conge ajouté avec succes";
     }
 }
