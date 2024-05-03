@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EmployeDto {
-
+public class ResponsableRHDto extends EmployeDto {
     private Long id;
 }
