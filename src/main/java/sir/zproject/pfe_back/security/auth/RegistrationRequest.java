@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import sir.zproject.pfe_back.security.role.Role;
 
 import java.time.LocalDate;
 
@@ -29,5 +30,6 @@ public class RegistrationRequest {
     @NotBlank(message = "Le mot de passe ne peut pas être vide.")
     @Size(min = 8,message = "Le mot de passe doit comporter au moins 8 caractères.")
     private String password;
+    private Role role;
 
 }

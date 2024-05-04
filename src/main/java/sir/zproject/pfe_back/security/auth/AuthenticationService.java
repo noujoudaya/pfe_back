@@ -39,8 +39,8 @@ public class AuthenticationService {
     private String password;
 
     public void register(RegistrationRequest request) throws Exception {
-        var userRole = roleRepository.findByName("USER")
-                .orElseThrow(() -> new IllegalStateException("ROLE USER was not initialized"));
+      // var userRole = roleRepository.findByName("USER")
+        //        .orElseThrow(() -> new IllegalStateException("ROLE USER was not initialized"));
 
         this.password = request.getPassword();
         var user = User.builder()
@@ -50,7 +50,7 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
                 .enabled(false)
-                .roles(List.of(userRole))
+                .roles(List.of(roleRepository.findByName(request.getRole().getName())))
                 .build();
         userRepository.save(user);
         sendValidationEmail(user);
