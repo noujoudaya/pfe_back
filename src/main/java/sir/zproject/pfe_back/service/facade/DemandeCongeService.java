@@ -4,7 +4,6 @@ package sir.zproject.pfe_back.service.facade;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.DemandeConge;
-import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.StatutConge;
 import sir.zproject.pfe_back.bean.TypeConge;
 

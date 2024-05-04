@@ -1,25 +1,22 @@
 package sir.zproject.pfe_back.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
-import sir.zproject.pfe_back.bean.*;
+import sir.zproject.pfe_back.bean.DemandeConge;
+import sir.zproject.pfe_back.bean.Employe;
+import sir.zproject.pfe_back.bean.StatutConge;
+import sir.zproject.pfe_back.bean.TypeConge;
 import sir.zproject.pfe_back.dao.DemandeCongeDao;
-import sir.zproject.pfe_back.dao.EmployeDao;
 import sir.zproject.pfe_back.service.facade.DemandeCongeService;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DemandeCongeServiceImpl implements DemandeCongeService {
 
     @Autowired
     private DemandeCongeDao demandeCongeDao;
-    @Autowired
-    private EmployeDao employeDao;
-
     @Override
     public List<DemandeConge> findByEmploye(Employe employe) {
         return demandeCongeDao.findByEmploye(employe);
@@ -81,36 +78,7 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
     }
 
     @Override
-    public String save(DemandeConge demande) {
-        if (demande == null) {
-            return "L'objet demande ne doit pas être null";
-        }
-        if (demande.getId() != null && demandeCongeDao.findById(demande.getId()).isPresent()) {
-            return "Cette demande existe déjà";
-        }
-        if (demande.getEmploye() == null) {
-            return "L'employé est obligatoire";
-        }
-        Optional<Employe> employeOptional = employeDao.findById(demande.getEmploye().getId());
-        if (employeOptional.isEmpty()) {
-            return "Aucun employé trouvé avec cet ID";
-        }
-
-        demande.setEmploye(employeOptional.get());
-        demande.setStatutConge(StatutConge.EnAttente);
-        demandeCongeDao.save(demande);
-        return "Demande ajoutée avec succès";
-    }
-
-    public String accepterDemande(DemandeConge demande) {
-        demande.setStatutConge(StatutConge.Acceptee);
-        demandeCongeDao.save(demande);
-        return "Demande acceptée";
-    }
-
-    public String refuserDemande(DemandeConge demande) {
-        demande.setStatutConge(StatutConge.Refusee);
-        demandeCongeDao.save(demande);
-        return "Demande refusée";
+    public int save(DemandeConge demandeConge) {
+        return 0;
     }
 }

@@ -1,4 +1,8 @@
 package sir.zproject.pfe_back.service.impl;
 
-public class EmployeServiceImpl {
+import org.springframework.stereotype.Service;
+import sir.zproject.pfe_back.service.facade.EmployeService;
+
+@Service
+public class EmployeServiceImpl implements EmployeService {
 }

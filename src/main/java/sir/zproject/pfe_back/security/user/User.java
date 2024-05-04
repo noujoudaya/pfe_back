@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Entity
 @Table(name = "_user")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, Principal {
 
