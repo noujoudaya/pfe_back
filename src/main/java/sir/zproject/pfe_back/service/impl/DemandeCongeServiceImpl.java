@@ -78,7 +78,7 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
     }
 
     @Override
-    public int save(DemandeConge demandeConge) {
-        return 0;
+    public String save(DemandeConge demandeConge) {
+        return "bonjour";
     }
 }

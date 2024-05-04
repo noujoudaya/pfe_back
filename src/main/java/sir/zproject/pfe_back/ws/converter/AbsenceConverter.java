@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 @Component
 public class AbsenceConverter {
 
-    @Autowired
-    private EmployeConverter employeConverter;
 
     public AbsenceDto toDto(Absence absence) {
 
