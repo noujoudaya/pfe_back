@@ -81,4 +81,14 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
     public String save(DemandeConge demandeConge) {
         return "bonjour";
     }
+
+    @Override
+    public String accepterDemande(DemandeConge demande) {
+        return null;
+    }
+
+    @Override
+    public String refuserDemande(DemandeConge demande) {
+        return null;
+    }
 }
