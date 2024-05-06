@@ -1,5 +1,8 @@
 package sir.zproject.pfe_back.enumeration;
 
+import lombok.Getter;
+
+@Getter
 public enum DESIGNATION {
     MANAGER("Manager"),
     INGENIEUR("Ingénieur"),
@@ -19,14 +22,11 @@ public enum DESIGNATION {
     RESPONSABLE_RH("Responsable RH");
 
 
-    private final String designation;
+    private final String label ;
 
-    DESIGNATION(String designation) {
-        this.designation = designation;
+    DESIGNATION(String label) {
+        this.label = label;
     }
 
-    public String getDesignation() {
-        return designation;
-    }
 }
 

@@ -1,6 +1,7 @@
 package sir.zproject.pfe_back.bean;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,9 +36,13 @@ public class Employe extends User {
 
     private BigDecimal salaire;
     private BigDecimal soldeConge;
-
+    @JsonDeserialize(using = DesignationDeserializer.class)
+    @Enumerated(EnumType.STRING)
     private DESIGNATION designation;
+    @Enumerated(EnumType.STRING)
     private GENRE genre;
+    @JsonDeserialize(using = SituationFamilialeDeserializer.class)
+    @Enumerated(EnumType.STRING)
     private SITUATION_FAMILIALE situationFamiliale;
     @ManyToOne
     private StatutEmploye statutEmploye;
@@ -45,10 +50,7 @@ public class Employe extends User {
     private TypeContrat typeContrat;
     @ManyToOne
     private Fonction fonction;
-    @ManyToOne
-    private Service service;
-    @ManyToOne
-    private Departement departement;
+
 
 
 }
