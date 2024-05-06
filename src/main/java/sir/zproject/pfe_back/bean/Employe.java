@@ -43,6 +43,12 @@ public class Employe extends User {
     private StatutEmploye statutEmploye;
     @ManyToOne
     private TypeContrat typeContrat;
+    @ManyToOne
+    private Fonction fonction;
+    @ManyToOne
+    private Service service;
+    @ManyToOne
+    private Departement departement;
 
 
 }

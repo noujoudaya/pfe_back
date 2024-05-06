@@ -1,10 +1,10 @@
 package sir.zproject.pfe_back.ws.dto;
 
 
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
-import sir.zproject.pfe_back.bean.StatutEmploye;
-import sir.zproject.pfe_back.bean.TypeContrat;
+import sir.zproject.pfe_back.bean.*;
 import sir.zproject.pfe_back.enumeration.DESIGNATION;
 import sir.zproject.pfe_back.enumeration.GENRE;
 import sir.zproject.pfe_back.enumeration.SITUATION_FAMILIALE;
@@ -39,5 +39,9 @@ public class EmployeDto {
 
     private StatutEmploye statutEmploye;
     private TypeContrat typeContrat;
+    private Fonction fonction;
+    private Service service;
+    private Departement departement;
+
 
 }
