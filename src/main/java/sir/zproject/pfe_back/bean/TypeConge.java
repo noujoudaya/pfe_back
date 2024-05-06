@@ -11,6 +11,6 @@ import lombok.Setter;
 public class TypeConge {
     @Id
     private Long id;
-    private String Libelle;
+    private String libelle;
     private String code;
 }

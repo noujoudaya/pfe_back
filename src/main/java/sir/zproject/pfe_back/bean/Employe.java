@@ -7,6 +7,7 @@ import lombok.Setter;
 import sir.zproject.pfe_back.enumeration.DESIGNATION;
 import sir.zproject.pfe_back.enumeration.GENRE;
 import sir.zproject.pfe_back.enumeration.SITUATION_FAMILIALE;
+import sir.zproject.pfe_back.security.user.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-public class Employe {
+public class Employe extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,6 +43,12 @@ public class Employe {
     private StatutEmploye statutEmploye;
     @ManyToOne
     private TypeContrat typeContrat;
+    @ManyToOne
+    private Fonction fonction;
+    @ManyToOne
+    private Service service;
+    @ManyToOne
+    private Departement departement;
 
 
 }

@@ -30,6 +30,9 @@ public class EmployeConverter {
         bean.setTelephone(dto.getTelephone());
         bean.setTypeContrat(dto.getTypeContrat());
         bean.setVille(dto.getVille());
+        bean.setDepartement(dto.getDepartement());
+        bean.setService(dto.getService());
+        bean.setFonction(dto.getFonction());
         return bean;
     }
     public List<Employe> toBean(List<EmployeDto> dtos) {
@@ -57,6 +60,9 @@ public class EmployeConverter {
         dto.setTelephone(bean.getTelephone());
         dto.setTypeContrat(bean.getTypeContrat());
         dto.setVille(bean.getVille());
+        dto.setDepartement(bean.getDepartement());
+        dto.setService(bean.getService());
+        dto.setFonction(bean.getFonction());
         return dto;
     }
     public List<EmployeDto> toDto(List<Employe> beans) {

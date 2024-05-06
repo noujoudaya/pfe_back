@@ -39,8 +39,8 @@ public class AuthenticationService {
     private String password;
 
     public void register(RegistrationRequest request) throws Exception {
-        var userRole = roleRepository.findByName("USER")
-                .orElseThrow(() -> new IllegalStateException("ROLE USER was not initialized"));
+        // var userRole = roleRepository.findByName("USER")
+        //        .orElseThrow(() -> new IllegalStateException("ROLE USER was not initialized"));
 
         this.password = request.getPassword();
         var user = User.builder()
@@ -50,7 +50,7 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
                 .enabled(false)
-                .roles(List.of(userRole))
+                .roles(List.of(roleRepository.findByName(request.getRole().getName())))
                 .build();
         userRepository.save(user);
         sendValidationEmail(user);
@@ -58,7 +58,7 @@ public class AuthenticationService {
 
     private ResponseEntity sendValidationEmail(User user) throws Exception {
         var newToken = generateAndSaveActivationToken(user);
-        senderService.sendMail(user,newToken);
+        senderService.sendMail(user, newToken);
         return ResponseEntity.ok("email sent");
     }
 
@@ -87,7 +87,7 @@ public class AuthenticationService {
 
     public void activateAccount(String token) throws Exception {
         Token savedToken = tokenRepository.findByToken(token).orElseThrow(() -> new RuntimeException("token not found"));
-        if(LocalDateTime.now().isAfter(savedToken.getExpiresAt())){
+        if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
             sendValidationEmail(savedToken.getUser());
             throw new RuntimeException(" Activation token expired. A new token has been sent to your email");
         }
@@ -96,17 +96,17 @@ public class AuthenticationService {
         userRepository.save(user);
         savedToken.setValidatedAt(LocalDateTime.now());
         tokenRepository.save(savedToken);
-        senderService.sendCredentials(savedToken.getUser(),password);
+        senderService.sendCredentials(savedToken.getUser(), password);
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         var auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
-        var claims = new HashMap<String,Object>();
-        var user = ((User)auth.getPrincipal());
-        claims.put("fullName",user.getFullName());
-        var jwtToken = jwtService.generateToken(claims,user);
+        var claims = new HashMap<String, Object>();
+        var user = ((User) auth.getPrincipal());
+        claims.put("fullName", user.getFullName());
+        var jwtToken = jwtService.generateToken(claims, (User) auth.getPrincipal());
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
 

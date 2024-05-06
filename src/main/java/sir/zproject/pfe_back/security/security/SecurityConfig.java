@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(
-                                        "/api/v1/**",
+
                                         "/auth/**",
                                         "/v2/api-docs",
                                         "/v3/api-docs",
@@ -49,7 +49,7 @@ public class SecurityConfig {
                                 .requestMatchers("api/v1/secretaire/**").hasAuthority(AuthoritiesConstants.SECRETAIRE)
                                 .requestMatchers("api/v1/employe/**").hasAuthority(AuthoritiesConstants.EMPLOYE)
                                 .anyRequest()
-                                .authenticated()
+                                .permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

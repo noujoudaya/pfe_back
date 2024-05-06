@@ -3,6 +3,7 @@ package sir.zproject.pfe_back.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sir.zproject.pfe_back.bean.DemandeConge;
+import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.StatutConge;
 import sir.zproject.pfe_back.bean.TypeConge;
 import sir.zproject.pfe_back.dao.DemandeCongeDao;
@@ -77,7 +78,17 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
     }
 
     @Override
-    public int save(DemandeConge demandeConge) {
-        return 0;
+    public String save(DemandeConge demandeConge) {
+        return "bonjour";
+    }
+
+    @Override
+    public String accepterDemande(DemandeConge demande) {
+        return null;
+    }
+
+    @Override
+    public String refuserDemande(DemandeConge demande) {
+        return null;
     }
 }

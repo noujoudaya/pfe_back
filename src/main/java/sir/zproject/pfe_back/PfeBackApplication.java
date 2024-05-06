@@ -28,10 +28,10 @@ public class PfeBackApplication {
     @Bean
     public CommandLineRunner runner(RoleRepository roleRepository, UserRepository userRepository) {
         return args -> {
-            if (roleRepository.findByName("USER").isEmpty()) {
+            if (roleRepository.findByName("USER")==null) {
                 roleRepository.save(Role.builder().name("USER").createdDate(LocalDateTime.now()).build());
             }
-            if (roleRepository.findByName("ADMIN").isEmpty() && roleRepository.findByName("EMPLOYE").isEmpty() && roleRepository.findByName("SECRETAIRE").isEmpty()) {
+            if (roleRepository.findByName("ADMIN")==null && roleRepository.findByName("EMPLOYE")==null && roleRepository.findByName("SECRETAIRE")==null) {
                 roleRepository.save(Role.builder().name(AuthoritiesConstants.ADMIN).createdDate(LocalDateTime.now()).build());
                 roleRepository.save(Role.builder().name(AuthoritiesConstants.EMPLOYE).createdDate(LocalDateTime.now()).build());
                 roleRepository.save(Role.builder().name(AuthoritiesConstants.SECRETAIRE).createdDate(LocalDateTime.now()).build());
@@ -40,7 +40,7 @@ public class PfeBackApplication {
             //Create an admin account
             if (userRepository.findByEmail("admin@gmail.com").isEmpty()) {
                 List<Role> roles = new ArrayList<Role>();
-                roles.add(roleRepository.findByName(AuthoritiesConstants.ADMIN).get());
+                roles.add(roleRepository.findByName(AuthoritiesConstants.ADMIN));
                 userRepository.save(User.builder()
                         .email("admin@gmail.com")
                         .password("1234")
