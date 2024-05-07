@@ -31,13 +31,13 @@ public class Fonctionws {
         return fonctionConverter.toDto(fonction);
     }
 
-    @GetMapping("/service/{service}")
+    @PostMapping("/service")
     public List<FonctionDto> findByService(@RequestBody Service service) {
         List<Fonction> fonctions = fonctionService.findByService(service);
         return fonctionConverter.toDto(fonctions);
     }
 
-    @DeleteMapping("/service/{service}")
+    @DeleteMapping("/service")
     public int deleteByService(@RequestBody Service service) {
         return fonctionService.deleteByService(service);
     }

@@ -31,8 +31,8 @@ public class ServiceWs {
         return serviceConverter.toDto(service);
     }
 
-    @GetMapping("departement/{departement}")
-    public List<ServiceDto> findByDepartement(@PathVariable Departement departement) {
+    @PostMapping("/departement")
+    public List<ServiceDto> findByDepartement(@RequestBody Departement departement) {
         List<Service> services = serviceService.findByDepartement(departement);
         return serviceConverter.toDto(services);
     }
