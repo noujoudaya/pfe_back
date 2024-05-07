@@ -5,4 +5,9 @@ import org.springframework.stereotype.Repository;
 import sir.zproject.pfe_back.bean.Departement;
 @Repository
 public interface DepartementDao extends JpaRepository<Departement, Long> {
+
+    Departement findByCode(String code);
+    Departement findByLibelle(String libelle);
+    int deleteByCode(String code);
+    int deleteByLibelle(String libelle);
 }

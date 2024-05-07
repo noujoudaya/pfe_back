@@ -1,4 +1,4 @@
-package sir.zproject.pfe_back.bean;
+package sir.zproject.pfe_back.deserializers;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

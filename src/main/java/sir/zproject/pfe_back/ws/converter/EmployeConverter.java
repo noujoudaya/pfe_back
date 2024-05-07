@@ -29,6 +29,7 @@ public class EmployeConverter {
         bean.setStatutEmploye(dto.getStatutEmploye());
         bean.setTelephone(dto.getTelephone());
         bean.setTypeContrat(dto.getTypeContrat());
+        bean.setTypeSalaire(dto.getTypeSalaire());
         bean.setVille(dto.getVille());
         bean.setDepartement(dto.getDepartement());
         bean.setService(dto.getService());
@@ -59,6 +60,7 @@ public class EmployeConverter {
         dto.setStatutEmploye(bean.getStatutEmploye());
         dto.setTelephone(bean.getTelephone());
         dto.setTypeContrat(bean.getTypeContrat());
+        dto.setTypeSalaire(bean.getTypeSalaire());
         dto.setVille(bean.getVille());
         dto.setDepartement(bean.getDepartement());
         dto.setService(bean.getService());
