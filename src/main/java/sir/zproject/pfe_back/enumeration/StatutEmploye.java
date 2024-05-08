@@ -4,11 +4,11 @@ import lombok.Getter;
 
 @Getter
 public enum StatutEmploye {
-    PERMANENT("Permanent"),
-    OCCASIONNEL("Occasionnel"),
-    VACATAIRE("Vacataire"),
-    TAHFIZ("Tahfiz"),
-    STAGIAIRE("Stagiaire");
+    PERMANENT("PERMANENT"),
+    OCCASIONNEL("OCCASIONNEL"),
+    VACATAIRE("VACATAIRE"),
+    TAHFIZ("TAHFIZ"),
+    STAGIAIRE("STAGIAIRE");
 
     private final String label;
 

@@ -1,13 +1,11 @@
 package sir.zproject.pfe_back.enumeration;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 @Getter
 public enum SITUATION_FAMILIALE {
-    CELIBATAIRE("Célibataire"),
-    MARIE("Marié");
+    CELIBATAIRE("CELIBATAIRE"),
+    MARIE("MARIE");
 
     private final String label;
 

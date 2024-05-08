@@ -40,6 +40,7 @@ public class Employe extends User {
     @Enumerated(EnumType.STRING)
     private DESIGNATION designation;
 
+    @JsonDeserialize(using = GenreDeserializer.class)
     @Enumerated(EnumType.STRING)
     private GENRE genre;
 

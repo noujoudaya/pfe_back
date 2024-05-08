@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @Getter
 public enum TYPE_SALAIRE {
-    MENSUEL("Mensuel"),
-    PAR_HEURE("Par heure");
+    MENSUEL("MENSUEL"),
+    PAR_HEURE("PAR_HEURE");
 
     // Getter for label
     private final String label;

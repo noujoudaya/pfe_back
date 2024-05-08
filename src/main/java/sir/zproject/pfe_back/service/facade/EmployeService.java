@@ -48,4 +48,5 @@ public interface EmployeService {
     List<Employe> findAll();
 
     int save(Employe employe);
+    int update(Employe employe);
 }

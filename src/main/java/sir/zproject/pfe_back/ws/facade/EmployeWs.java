@@ -125,8 +125,13 @@ public class EmployeWs {
         return employeConverter.toDto(employe);
     }
 
-    @PostMapping("/")
+    @PostMapping("/save")
     public int save(@RequestBody Employe employe) {
         return employeService.save(employe);
+    }
+
+    @PostMapping("/update")
+    public int update(@RequestBody Employe employe) {
+        return employeService.update(employe);
     }
 }

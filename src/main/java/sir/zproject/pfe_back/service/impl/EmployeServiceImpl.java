@@ -10,12 +10,14 @@ import sir.zproject.pfe_back.dao.EmployeDao;
 import sir.zproject.pfe_back.service.facade.EmployeService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeServiceImpl implements EmployeService {
 
     @Autowired
     private EmployeDao employeDao;
+
     @Override
     public Employe findByCin(String cin) {
         return employeDao.findByCin(cin);
@@ -119,12 +121,51 @@ public class EmployeServiceImpl implements EmployeService {
     @Override
     public int save(Employe employe) {
         if (employe == null) {
-            return 0;
+            return 0; // Retourne 0 si l'employé est null
         }
-        if (employe.getId() != null && employeDao.findById(employe.getId()).isPresent()) {
-            return -1;
+
+        // Vérifie si l'employé existe déjà (supposant que getId() est la méthode pour obtenir l'ID)
+        if (employe.getId() != null && employeDao.existsById(employe.getId())) {
+            // Mise à jour
+            System.out.println("Mise à jour de l'employé existant.");
+        } else {
+            // Insertion
+            System.out.println("Insertion d'un nouvel employé.");
         }
+
         employeDao.save(employe);
+        return 1; // Retourne 1 pour indiquer que l'opération a réussi
+    }
+
+    @Override
+    public int update(Employe employe) {
+        Employe existingEmp = employeDao.findById(employe.getId()).orElse(null);
+        assert existingEmp != null;
+        existingEmp.setNom(employe.getNom());
+        existingEmp.setPrenom(employe.getPrenom());
+        existingEmp.setCin(employe.getCin());
+        existingEmp.setEmail(employe.getEmail());
+        existingEmp.setTelephone(employe.getTelephone());
+        existingEmp.setVille(employe.getVille());
+        existingEmp.setDepartement(employe.getDepartement());
+        existingEmp.setService(employe.getService());
+        existingEmp.setFonction(employe.getFonction());
+        existingEmp.setTypeSalaire(employe.getTypeSalaire());
+        existingEmp.setSalaire(employe.getSalaire());
+        existingEmp.setService(employe.getService());
+        existingEmp.setFonction(employe.getFonction());
+        existingEmp.setAdresse(employe.getAdresse());
+        existingEmp.setDateEmbauche(employe.getDateEmbauche());
+        existingEmp.setDateEntree(employe.getDateEntree());
+        existingEmp.setDateFinContrat(employe.getDateFinContrat());
+        existingEmp.setDateNaissance(employe.getDateNaissance());
+        existingEmp.setDesignation(employe.getDesignation());
+        existingEmp.setGenre(employe.getGenre());
+        existingEmp.setNumeroCompteBancaire(employe.getNumeroCompteBancaire());
+        existingEmp.setSoldeConge(employe.getSoldeConge());
+        existingEmp.setTypeContrat(employe.getTypeContrat());
+        employeDao.save(existingEmp);
         return 1;
     }
 }
+
