@@ -24,6 +24,17 @@ public class EmployeServiceImpl implements EmployeService {
     }
 
     @Override
+    public Employe findByNumeroCNSS(long numeroCNSS) {
+        return employeDao.findByNumeroCNSS(numeroCNSS);
+    }
+
+    @Override
+    @Transactional
+    public int deleteByNumeroCNSS(long numeroCNSS) {
+        return employeDao.deleteByNumeroCNSS(numeroCNSS);
+    }
+
+    @Override
     public Employe findByEmail(String email) {
         return employeDao.findByEmail(email);
     }
@@ -162,6 +173,7 @@ public class EmployeServiceImpl implements EmployeService {
         existingEmp.setDesignation(employe.getDesignation());
         existingEmp.setGenre(employe.getGenre());
         existingEmp.setNumeroCompteBancaire(employe.getNumeroCompteBancaire());
+        existingEmp.setNumeroCNSS(employe.getNumeroCNSS());
         existingEmp.setSoldeConge(employe.getSoldeConge());
         existingEmp.setTypeContrat(employe.getTypeContrat());
         employeDao.save(existingEmp);

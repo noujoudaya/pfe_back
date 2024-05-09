@@ -11,6 +11,10 @@ import java.util.List;
 public interface EmployeService {
     Employe findByCin(String cin);
 
+    Employe findByNumeroCNSS(long numeroCNSS);
+
+    int deleteByNumeroCNSS(long numeroCNSS);
+
     Employe findByEmail(String email);
 
     Employe findByTelephone(String telephone);
@@ -48,5 +52,6 @@ public interface EmployeService {
     List<Employe> findAll();
 
     int save(Employe employe);
+
     int update(Employe employe);
 }

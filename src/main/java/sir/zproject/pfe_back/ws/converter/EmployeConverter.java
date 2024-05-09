@@ -26,6 +26,7 @@ public class EmployeConverter {
         bean.setSituationFamiliale(dto.getSituationFamiliale());
         bean.setSoldeConge(dto.getSoldeConge());
         bean.setNumeroCompteBancaire(dto.getNumeroCompteBancaire());
+        bean.setNumeroCNSS(dto.getNumeroCNSS());
         bean.setStatutEmploye(dto.getStatutEmploye());
         bean.setTelephone(dto.getTelephone());
         bean.setTypeContrat(dto.getTypeContrat());
@@ -57,6 +58,7 @@ public class EmployeConverter {
         dto.setSituationFamiliale(bean.getSituationFamiliale());
         dto.setSoldeConge(bean.getSoldeConge());
         dto.setNumeroCompteBancaire(bean.getNumeroCompteBancaire());
+        dto.setNumeroCNSS(bean.getNumeroCNSS());
         dto.setStatutEmploye(bean.getStatutEmploye());
         dto.setTelephone(bean.getTelephone());
         dto.setTypeContrat(bean.getTypeContrat());

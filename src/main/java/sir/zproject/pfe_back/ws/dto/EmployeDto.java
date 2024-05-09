@@ -20,7 +20,9 @@ public class EmployeDto {
     private String adresse;
     private String cin;
     private String ville;
+
     private String numeroCompteBancaire;
+    private long numeroCNSS;
 
     private LocalDate dateNaissance;
     private LocalDate dateEmbauche;

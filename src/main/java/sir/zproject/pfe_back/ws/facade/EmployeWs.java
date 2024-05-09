@@ -27,6 +27,17 @@ public class EmployeWs {
         return employeConverter.toDto(employe);
     }
 
+    @GetMapping("/numeroCNSS/{numeroCNSS}")
+    public EmployeDto findByNumeroCNSS(@PathVariable long numeroCNSS) {
+        Employe employe = employeService.findByNumeroCNSS(numeroCNSS);
+        return employeConverter.toDto(employe);
+    }
+
+    @DeleteMapping("/numeroCNSS/{numeroCNSS}")
+    public int deleteByNumeroCNSS(@PathVariable long numeroCNSS) {
+        return employeService.deleteByNumeroCNSS(numeroCNSS);
+    }
+
     @GetMapping("/email/{email}")
     public EmployeDto findByEmail(@PathVariable String email) {
         Employe employe = employeService.findByEmail(email);
