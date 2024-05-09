@@ -11,55 +11,44 @@ import sir.zproject.pfe_back.ws.dto.ServiceDto;
 import java.util.List;
 
 @RestController
-@RequestMapping("services")
+@RequestMapping("service")
 public class ServiceWs {
+    private final ServiceService serviceService;
+    private final ServiceConverter serviceConverter;
 
-    @Autowired
-    private ServiceService serviceService;
-    @Autowired
-    private ServiceConverter serviceConverter;
-
+    public ServiceWs(ServiceService service, ServiceConverter serviceConverter) {
+        this.serviceService = service;
+        this.serviceConverter = serviceConverter;
+    }
+    @GetMapping("departement/code/{code}")
+    public List<ServiceDto> findByDepartementCode(@PathVariable String code) {
+        List<Service> services = serviceService.findByDepartementCode(code);
+        return serviceConverter.toDto(services);
+    }
+    @DeleteMapping("departement/code/{code}")
+    public int deleteByDepartementCode(@PathVariable String code) {
+        return serviceService.deleteByDepartementCode(code);
+    }
     @GetMapping("/code/{code}")
     public ServiceDto findByCode(@PathVariable String code) {
         Service service = serviceService.findByCode(code);
         return serviceConverter.toDto(service);
     }
-
-    @GetMapping("/libelle/{libelle}")
-    public ServiceDto findByLibelle(@PathVariable String libelle) {
-        Service service = serviceService.findByLibelle(libelle);
-        return serviceConverter.toDto(service);
-    }
-
-    @PostMapping("/departement")
-    public List<ServiceDto> findByDepartement(@RequestBody Departement departement) {
-        List<Service> services = serviceService.findByDepartement(departement);
-        return serviceConverter.toDto(services);
-    }
-
-    @DeleteMapping("/departement/{departement}")
-    public int deleteByDepartement(@RequestBody Departement departement) {
-        return serviceService.deleteByDepartement(departement);
-    }
-
     @DeleteMapping("/code/{code}")
     public int deleteByCode(@PathVariable String code) {
         return serviceService.deleteByCode(code);
     }
-
-    @DeleteMapping("/libelle/{libelle}")
-    public int deleteByLibelle(@PathVariable String libelle) {
-        return serviceService.deleteByLibelle(libelle);
-    }
-
     @GetMapping("/")
     public List<ServiceDto> findAll() {
         List<Service> services = serviceService.findAll();
         return serviceConverter.toDto(services);
     }
-
     @PostMapping("/")
     public int save(@RequestBody Service service) {
-        return serviceService.save(service);
+        return this.serviceService.save(service);
+    }
+    @PutMapping("/")
+    public int update(@RequestBody Service newService) {
+        return serviceService.update(newService);
     }
 }

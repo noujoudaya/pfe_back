@@ -7,34 +7,52 @@ import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.dao.DepartementDao;
 import sir.zproject.pfe_back.service.facade.DepartementService;
+import sir.zproject.pfe_back.service.facade.ServiceService;
 
 import java.util.List;
 
-@Service
-public class DepartementServiceImpl implements DepartementService {
 
+@Service
+
+public class DepartementServiceImpl implements DepartementService {
     @Autowired
-    private DepartementDao departementDao;
+    private  DepartementDao departementDao;
+    @Autowired
+    private ServiceService serviceService;
+
+
+
     @Override
     public Departement findByCode(String code) {
         return departementDao.findByCode(code);
     }
-
     @Override
-    public Departement findByLibelle(String libelle) {
-        return departementDao.findByLibelle(libelle);
-    }
+    public Departement findByLibelle(String libelle) {return departementDao.findByLibelle(libelle);}
 
-    @Override
     @Transactional
+    @Override
     public int deleteByCode(String code) {
-        return departementDao.deleteByCode(code);
-    }
+        List<sir.zproject.pfe_back.bean.Service> services = serviceService.findByDepartementCode(code);
+        if (services == null) {
 
-    @Override
-    @Transactional
-    public int deleteByLibelle(String libelle) {
-        return departementDao.deleteByLibelle(libelle);
+            return departementDao.deleteByCode(code);
+        } else {
+            try {
+
+                for (sir.zproject.pfe_back.bean.Service service : services) {
+                    serviceService.deleteByCode(service.getCode());
+                }
+
+
+                return departementDao.deleteByCode(code)+1;
+            } catch (Exception e) {
+                // Handle any exceptions or rollback the transaction if necessary
+                // You may also log the error for debugging purposes
+                // Rollback transaction if necessary
+                // TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                throw new RuntimeException("Failed to delete department and related services", e);
+            }
+        }
     }
 
     @Override
@@ -44,14 +62,26 @@ public class DepartementServiceImpl implements DepartementService {
 
     @Override
     public int save(Departement departement) {
-        if (departement == null) {
-            return 0;
-        }
-        if (departement.getId() != null && departementDao.findById(departement.getId()).isPresent()) {
+        Departement existingdepartement = findByLibelle(departement.getLibelle());
+        if (existingdepartement == null) {
+            departementDao.save(departement);
+            return 1;
+        } else {
             return -1;
         }
-        departementDao.save(departement);
-        return 1;
-    }
     }
 
+
+    @Override
+    public int update(Departement newDepartement) {
+        Departement departement = findByCode(newDepartement.getCode());
+        if (departement == null) {
+            return -1;
+        } else {
+            departement.setCode(newDepartement.getLibelle());
+            departement.setLibelle(newDepartement.getLibelle());
+            departementDao.save(departement);
+            return 1;
+        }
+    }
+}

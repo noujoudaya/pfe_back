@@ -10,44 +10,40 @@ import sir.zproject.pfe_back.ws.dto.DepartementDto;
 import java.util.List;
 
 @RestController
-@RequestMapping("departements")
+@RequestMapping("departement")
 public class DepartementWs {
 
-    @Autowired
-    private DepartementService departementService;
-    @Autowired
+    private final DepartementService departementService;
     private DepartementConverter departementConverter;
+
+    public DepartementWs(DepartementService departementService) {
+        this.departementService = departementService;
+    }
 
     @GetMapping("/code/{code}")
     public DepartementDto findByCode(@PathVariable String code) {
         Departement departement = departementService.findByCode(code);
         return departementConverter.toDto(departement);
     }
-
     @GetMapping("/libelle/{libelle}")
     public DepartementDto findByLibelle(@PathVariable String libelle) {
-        Departement departement = departementService.findByLibelle(libelle);
+        Departement departement = departementService.findByCode(libelle);
         return departementConverter.toDto(departement);
     }
-
     @DeleteMapping("/code/{code}")
     public int deleteByCode(@PathVariable String code) {
         return departementService.deleteByCode(code);
     }
-
-    @DeleteMapping("/libelle/{libelle}")
-    public int deleteByLibelle(@PathVariable String libelle) {
-        return departementService.deleteByLibelle(libelle);
-    }
-
     @GetMapping("/")
-    public List<DepartementDto> findAll() {
-        List<Departement> departements = departementService.findAll();
-        return departementConverter.toDto(departements);
+    public List<Departement> findAll() {
+        return departementService.findAll();
     }
-
     @PostMapping("/")
     public int save(@RequestBody Departement departement) {
         return departementService.save(departement);
+    }
+    @PutMapping("/")
+    public int update(@RequestBody Departement newDepartement) {
+        return departementService.update(newDepartement);
     }
 }

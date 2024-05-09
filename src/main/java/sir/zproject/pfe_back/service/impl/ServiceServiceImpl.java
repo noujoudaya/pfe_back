@@ -5,14 +5,31 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.dao.ServiceDao;
+import sir.zproject.pfe_back.service.facade.DepartementService;
 import sir.zproject.pfe_back.service.facade.ServiceService;
 
 import java.util.List;
 
+
 @Service
 public class ServiceServiceImpl implements ServiceService {
     @Autowired
-    private ServiceDao serviceDao;
+    private DepartementService departementService;
+    @Autowired
+    private  ServiceDao serviceDao;
+
+
+    @Override
+    public List<sir.zproject.pfe_back.bean.Service> findByDepartementCode(String code) {
+        return serviceDao.findByDepartementCode(code);
+    }
+
+    @Transactional
+    @Override
+    public int deleteByDepartementCode(String code) {
+        return serviceDao.deleteByDepartementCode(code);
+    }
+
     @Override
     public sir.zproject.pfe_back.bean.Service findByCode(String code) {
         return serviceDao.findByCode(code);
@@ -23,27 +40,10 @@ public class ServiceServiceImpl implements ServiceService {
         return serviceDao.findByLibelle(libelle);
     }
 
-    @Override
-    public List<sir.zproject.pfe_back.bean.Service> findByDepartement(Departement departement) {
-        return serviceDao.findByDepartement(departement);
-    }
-
-    @Override
     @Transactional
-    public int deleteByDepartement(Departement departement) {
-        return serviceDao.deleteByDepartement(departement);
-    }
-
     @Override
-    @Transactional
     public int deleteByCode(String code) {
         return serviceDao.deleteByCode(code);
-    }
-
-    @Override
-    @Transactional
-    public int deleteByLibelle(String libelle) {
-        return serviceDao.deleteByLibelle(libelle);
     }
 
     @Override
@@ -51,15 +51,44 @@ public class ServiceServiceImpl implements ServiceService {
         return serviceDao.findAll();
     }
 
-    @Override
     public int save(sir.zproject.pfe_back.bean.Service service) {
-        if (service == null) {
+
+
+        Departement departement = departementService.findByLibelle(service.getDepartement().getLibelle());
+        service.setDepartement(departement);
+        sir.zproject.pfe_back.bean.Service existingService = findByLibelle(service.getLibelle());
+
+        if (departement == null) {
+            return -1;
+        } else if  (existingService != null) {
             return 0;
         }
-        if (service.getId() != null && serviceDao.findById(service.getId()).isPresent()) {
-            return -1;
+
+        else {
+            serviceDao.save(service);
+            return 1;
         }
-        serviceDao.save(service);
-        return 1;
+
     }
+
+
+    @Override
+    public int update(sir.zproject.pfe_back.bean.Service newService) {
+        sir.zproject.pfe_back.bean.Service service = findByCode(newService.getCode());
+        if (service == null) {
+            return -1;
+        } else {
+            service.setCode(newService.getLibelle());
+            service.setLibelle(newService.getLibelle());
+            serviceDao.save(service);
+            return 1;
+        }
+    }
+
+
+
 }
+
+
+
+
