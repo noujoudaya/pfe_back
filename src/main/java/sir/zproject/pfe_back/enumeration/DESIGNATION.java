@@ -4,22 +4,22 @@ import lombok.Getter;
 
 @Getter
 public enum DESIGNATION {
-    MANAGER("Manager"),
-    INGENIEUR("Ingénieur"),
-    ANALYSTE("Analyste"),
-    ADMINISTRATEUR("Administrateur"),
-    SPECIALISTE("Spécialiste"),
-    ASSISTANT("Assistant"),
-    DIRECTEUR("Directeur"),
-    SUPERVISEUR("Superviseur"),
-    CONSULTANT("Consultant"),
-    COORDONNATEUR("Coordinateur"),
-    TECHNICIEN("Technicien"),
-    STAGIAIRE("Stagiaire"),
-    CADRE("Cadre"),
-    AGENT("Agent"),
-    CHEF_EQUIPE("Chef d'équipe"),
-    RESPONSABLE_RH("Responsable RH");
+    MANAGER("MANAGER"),
+    INGENIEUR("INGENIEUR"),
+    ANALYSTE("ANALYSTE"),
+    ADMINISTRATEUR("ADMINISTRATEUR"),
+    SPECIALISTE("SPECIALISTE"),
+    ASSISTANT("ASSISTANT"),
+    DIRECTEUR("DIRECTEUR"),
+    SUPERVISEUR("SUPERVISEUR"),
+    CONSULTANT("CONSULTANT"),
+    COORDONNATEUR("COORDONNATEUR"),
+    TECHNICIEN("TECHNICIEN"),
+    STAGIAIRE("STAGIAIRE"),
+    CADRE("CADRE"),
+    AGENT("AGENT"),
+    CHEF_EQUIPE("CHEF_EQUIPE"),
+    RESPONSABLE_RH("RESPONSABLE_RH");
 
 
     private final String label ;

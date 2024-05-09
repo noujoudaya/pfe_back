@@ -7,6 +7,8 @@ import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Fonction;
 import sir.zproject.pfe_back.bean.Service;
 import sir.zproject.pfe_back.service.facade.EmployeService;
+import sir.zproject.pfe_back.ws.converter.EmployeConverter;
+import sir.zproject.pfe_back.ws.dto.EmployeDto;
 
 import java.util.List;
 
@@ -16,45 +18,55 @@ public class EmployeWs {
 
     @Autowired
     private EmployeService employeService;
+    @Autowired
+    private EmployeConverter employeConverter;
 
     @GetMapping("/cin/{cin}")
-    public Employe findByCin(@PathVariable String cin) {
-        return employeService.findByCin(cin);
+    public EmployeDto findByCin(@PathVariable String cin) {
+        Employe employe = employeService.findByCin(cin);
+        return employeConverter.toDto(employe);
     }
 
     @GetMapping("/email/{email}")
-    public Employe findByEmail(@PathVariable String email) {
-        return employeService.findByEmail(email);
+    public EmployeDto findByEmail(@PathVariable String email) {
+        Employe employe = employeService.findByEmail(email);
+        return employeConverter.toDto(employe);
     }
 
     @GetMapping("/telephone/{telephone}")
-    public Employe findByTelephone(@PathVariable String telephone) {
-        return employeService.findByTelephone(telephone);
+    public EmployeDto findByTelephone(@PathVariable String telephone) {
+        Employe employe = employeService.findByTelephone(telephone);
+        return employeConverter.toDto(employe);
     }
 
     @GetMapping("/nom/{nom}/prenom/{prenom}")
-    public List<Employe> findByNomAndPrenom(@PathVariable String nom, @PathVariable String prenom) {
-        return employeService.findByNomAndPrenom(nom, prenom);
+    public List<EmployeDto> findByNomAndPrenom(@PathVariable String nom, @PathVariable String prenom) {
+        List<Employe> employes = employeService.findByNomAndPrenom(nom, prenom);
+        return employeConverter.toDto(employes);
     }
 
     @GetMapping("departement/{departement}")
-    public List<Employe> findByDepartement(@RequestBody Departement departement) {
-        return employeService.findByDepartement(departement);
+    public List<EmployeDto> findByDepartement(@RequestBody Departement departement) {
+        List<Employe> employes = employeService.findByDepartement(departement);
+        return employeConverter.toDto(employes);
     }
 
     @GetMapping("service/{service}")
-    public List<Employe> findByService(@RequestBody Service service) {
-        return employeService.findByService(service);
+    public List<EmployeDto> findByService(@RequestBody Service service) {
+        List<Employe> employes = employeService.findByService(service);
+        return employeConverter.toDto(employes);
     }
 
     @GetMapping("fonction/{fonction}")
-    public List<Employe> findByFonction(@RequestBody Fonction fonction) {
-        return employeService.findByFonction(fonction);
+    public List<EmployeDto> findByFonction(@RequestBody Fonction fonction) {
+        List<Employe> employes = employeService.findByFonction(fonction);
+        return employeConverter.toDto(employes);
     }
 
     @GetMapping("ville/{ville}")
-    public List<Employe> findByVille(@PathVariable String ville) {
-        return employeService.findByVille(ville);
+    public List<EmployeDto> findByVille(@PathVariable String ville) {
+        List<Employe> employes = employeService.findByVille(ville);
+        return employeConverter.toDto(employes);
     }
 
     @DeleteMapping("/nom/{nom}/prenom/{prenom}")
@@ -108,12 +120,18 @@ public class EmployeWs {
     }
 
     @GetMapping("/")
-    public List<Employe> findAll() {
-        return employeService.findAll();
+    public List<EmployeDto> findAll() {
+        List<Employe> employe = employeService.findAll();
+        return employeConverter.toDto(employe);
     }
 
-    @PostMapping("/")
+    @PostMapping("/save")
     public int save(@RequestBody Employe employe) {
         return employeService.save(employe);
+    }
+
+    @PostMapping("/update")
+    public int update(@RequestBody Employe employe) {
+        return employeService.update(employe);
     }
 }
