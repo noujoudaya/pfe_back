@@ -2,9 +2,10 @@ package sir.zproject.pfe_back.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.Absence;
 import sir.zproject.pfe_back.bean.Employe;
-import sir.zproject.pfe_back.bean.StatutAbsence;
+import sir.zproject.pfe_back.enumeration.StatutAbsence;
 import sir.zproject.pfe_back.dao.AbsenceDao;
 import sir.zproject.pfe_back.dao.EmployeDao;
 import sir.zproject.pfe_back.service.facade.AbsenceService;
@@ -27,11 +28,13 @@ public class AbsenceServiceImpl implements AbsenceService {
     }
 
     @Override
+    @Transactional
     public int deleteByEmploye(Employe employe) {
         return absenceDao.deleteByEmploye(employe);
     }
 
     @Override
+    @Transactional
     public int deleteByDateAbsenceAndEmploye(LocalDate dateAbsence, Employe employe) {
         return absenceDao.deleteByDateAbsenceAndEmploye(dateAbsence, employe);
     }
@@ -53,31 +56,45 @@ public class AbsenceServiceImpl implements AbsenceService {
 
 
     @Override
-    public String save(Absence absence) {
+    public int save(Absence absence) {
         if (absence == null) {
-            return "L'objet absence ne doit pas être null";
+            return 0;
         }
         if (absence.getId() != null && absenceDao.findById(absence.getId()).isPresent()) {
-            return "Cette absence existe déjà";
+            return -1;
         }
         if (absence.getEmploye() == null) {
-            return "L'employé est obligatoire";
+            System.out.println("Employe is null");
+            return -2;
         }
         Optional<Employe> employeOptional = employeDao.findById(absence.getEmploye().getId());
         if (employeOptional.isEmpty()) {
-            return "Aucun employé trouvé avec cet ID";
+            return -3;
         }
 
         absence.setEmploye(employeOptional.get());
-        absence.setStatutAbsence(StatutAbsence.NonJustifie);
+        absence.setStatutAbsence(StatutAbsence.Non_Justifiée);
         absenceDao.save(absence);
-        return "Absence ajoutée avec succès";
+        return 1;
+    }
+
+    @Override
+    public int update(Absence absence) {
+        Absence existingAbsence = absenceDao.findById(absence.getId()).orElse(null);
+        if (existingAbsence == null) {
+            return 0;
+        }
+        existingAbsence.setEmploye(absence.getEmploye());
+        existingAbsence.setDateAbsence(absence.getDateAbsence());
+        existingAbsence.setStatutAbsence(absence.getStatutAbsence());
+        absenceDao.save(existingAbsence);
+        return 1;
     }
 
     @Override
     public String justifier(Absence absence) {
-        absence.setStatutAbsence(StatutAbsence.Justifie);
-        absenceDao.save(absence);
+        absence.setStatutAbsence(StatutAbsence.Justifiée);
+        update(absence);
         return "Absence justifier avec succès";
     }
 

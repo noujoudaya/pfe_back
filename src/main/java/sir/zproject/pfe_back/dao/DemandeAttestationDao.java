@@ -4,8 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import sir.zproject.pfe_back.bean.DemandeAttestation;
 import sir.zproject.pfe_back.bean.Employe;
-import sir.zproject.pfe_back.bean.StatutAttestation;
-import sir.zproject.pfe_back.bean.TypeAttestation;
+import sir.zproject.pfe_back.enumeration.StatutAttestation;
+import sir.zproject.pfe_back.enumeration.TypeAttestation;
 
 import java.time.LocalDate;
 import java.util.List;

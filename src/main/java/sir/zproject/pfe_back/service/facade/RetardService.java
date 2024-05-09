@@ -29,5 +29,7 @@ public interface RetardService {
 
     List<Retard> findAll();
 
-    String save(Retard retard);
+    int save(Retard retard);
+    int update(Retard retard);
+
 }

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Retard;
-import sir.zproject.pfe_back.bean.StatutConge;
 import sir.zproject.pfe_back.dao.EmployeDao;
 import sir.zproject.pfe_back.dao.RetardDao;
 import sir.zproject.pfe_back.service.facade.RetardService;
@@ -57,23 +56,37 @@ public class RetardServiceImpl implements RetardService {
     }
 
     @Override
-    public String save(Retard retard) {
+    public int save(Retard retard) {
         if (retard== null) {
-            return "L'objet retard ne doit pas être null";
+            return 0;
         }
         if (retard.getId() != null && retardDao.findById(retard.getId()).isPresent()) {
-            return "Cette retard existe déjà";
+            return -1;
         }
         if (retard.getEmploye() == null) {
-            return "L'employé est obligatoire";
+            return -2;
         }
         Optional<Employe> employeOptional = employeDao.findById(retard.getEmploye().getId());
         if (employeOptional.isEmpty()) {
-            return "Aucun employé trouvé avec cet ID";
+            return -3;
         }
 
         retard.setEmploye(employeOptional.get());
         retardDao.save(retard);
-        return "Retard ajoutée avec succès";
+        return 1;
+    }
+
+    @Override
+    public int update(Retard retard) {
+        Retard existingRetard = retardDao.findById(retard.getId()).orElse(null);
+        if (existingRetard == null) {
+            return -1;
+        }
+        existingRetard.setEmploye(retard.getEmploye());
+        existingRetard.setDateRetard(retard.getDateRetard());
+        existingRetard.setHeureArrivee(retard.getHeureArrivee());
+        existingRetard.setHeureDebutTravail(retard.getHeureDebutTravail());
+        retardDao.save(existingRetard);
+        return 1;
     }
 }

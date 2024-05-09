@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import sir.zproject.pfe_back.bean.Absence;
 import sir.zproject.pfe_back.bean.Employe;
-import sir.zproject.pfe_back.bean.StatutAbsence;
+import sir.zproject.pfe_back.enumeration.StatutAbsence;
 
 import java.time.LocalDate;
 import java.util.List;
