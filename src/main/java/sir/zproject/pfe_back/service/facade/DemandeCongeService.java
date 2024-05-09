@@ -43,9 +43,11 @@ public interface DemandeCongeService {
 
     List<DemandeConge> findAll();
 
-    String save(DemandeConge demandeConge);
+    int save(DemandeConge demandeConge);
     public String accepterDemande(DemandeConge demande);
     public String refuserDemande(DemandeConge demande);
+
+    int update(DemandeConge demandeConge);
 
 
 }
