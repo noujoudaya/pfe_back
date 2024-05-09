@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.Departement;
+import sir.zproject.pfe_back.bean.Fonction;
 import sir.zproject.pfe_back.dao.ServiceDao;
 import sir.zproject.pfe_back.service.facade.DepartementService;
+import sir.zproject.pfe_back.service.facade.FonctionService;
 import sir.zproject.pfe_back.service.facade.ServiceService;
 
 import java.util.List;
@@ -17,6 +19,8 @@ public class ServiceServiceImpl implements ServiceService {
     private DepartementService departementService;
     @Autowired
     private  ServiceDao serviceDao;
+    @Autowired
+    FonctionService fonctionService;
 
 
     @Override
@@ -39,13 +43,29 @@ public class ServiceServiceImpl implements ServiceService {
     public sir.zproject.pfe_back.bean.Service findByLibelle(String libelle) {
         return serviceDao.findByLibelle(libelle);
     }
-
     @Transactional
     @Override
     public int deleteByCode(String code) {
-        return serviceDao.deleteByCode(code);
-    }
+        List<Fonction> fonctions = fonctionService.findByServiceCode(code);
+        if (fonctions == null) {
+            return serviceDao.deleteByCode(code);
+        }
+        else {
+            try {
 
+                for (Fonction fonction : fonctions) {
+                    fonctionService.deleteByCode(fonction.getCode());
+                }
+
+
+                return serviceDao.deleteByCode(code)+1;
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to delete service and related fonctions", e);
+            }
+
+        }
+
+    }
     @Override
     public List<sir.zproject.pfe_back.bean.Service> findAll() {
         return serviceDao.findAll();

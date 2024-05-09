@@ -5,8 +5,10 @@ import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.Departement;
+import sir.zproject.pfe_back.bean.Fonction;
 import sir.zproject.pfe_back.dao.DepartementDao;
 import sir.zproject.pfe_back.service.facade.DepartementService;
+import sir.zproject.pfe_back.service.facade.FonctionService;
 import sir.zproject.pfe_back.service.facade.ServiceService;
 
 import java.util.List;
@@ -19,7 +21,8 @@ public class DepartementServiceImpl implements DepartementService {
     private  DepartementDao departementDao;
     @Autowired
     private ServiceService serviceService;
-
+    @Autowired
+    private FonctionService fonctionService;
 
 
     @Override
@@ -33,23 +36,22 @@ public class DepartementServiceImpl implements DepartementService {
     @Override
     public int deleteByCode(String code) {
         List<sir.zproject.pfe_back.bean.Service> services = serviceService.findByDepartementCode(code);
-        if (services == null) {
 
+        if (services == null) {
             return departementDao.deleteByCode(code);
         } else {
             try {
-
                 for (sir.zproject.pfe_back.bean.Service service : services) {
+                    List<Fonction> fonctions = fonctionService.findByServiceCode(service.getCode());
+                    if (fonctions != null) {
+                        for (Fonction fonction : fonctions) {
+                            fonctionService.deleteByCode(fonction.getCode());
+                        }
+                    }
                     serviceService.deleteByCode(service.getCode());
                 }
-
-
-                return departementDao.deleteByCode(code)+1;
+                return departementDao.deleteByCode(code) + 1;
             } catch (Exception e) {
-                // Handle any exceptions or rollback the transaction if necessary
-                // You may also log the error for debugging purposes
-                // Rollback transaction if necessary
-                // TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                 throw new RuntimeException("Failed to delete department and related services", e);
             }
         }

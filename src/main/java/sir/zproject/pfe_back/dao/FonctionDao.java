@@ -9,12 +9,15 @@ import java.util.List;
 
 @Repository
 public interface FonctionDao extends JpaRepository<Fonction ,Long> {
+    List<Fonction> findByServiceCode(String code);
 
+    int deleteByServiceCode(String code);
     Fonction findByCode(String code);
+
     Fonction findByLibelle(String libelle);
-    List<Fonction> findByService(Service service);
-    int deleteByService(Service service);
+
     int deleteByCode(String code);
-    int deleteByLibelle(String libelle);
+
+    List<Fonction> findAll();
 
 }

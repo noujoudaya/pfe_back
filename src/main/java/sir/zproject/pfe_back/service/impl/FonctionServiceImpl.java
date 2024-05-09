@@ -3,9 +3,12 @@ package sir.zproject.pfe_back.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import sir.zproject.pfe_back.bean.Fonction;
 import sir.zproject.pfe_back.dao.FonctionDao;
+
 import sir.zproject.pfe_back.service.facade.FonctionService;
+import sir.zproject.pfe_back.service.facade.ServiceService;
 
 import java.util.List;
 
@@ -13,7 +16,22 @@ import java.util.List;
 public class FonctionServiceImpl implements FonctionService {
 
     @Autowired
+    private ServiceService serviceService;
+    @Autowired
     private FonctionDao fonctionDao;
+
+
+    @Override
+    public List<Fonction> findByServiceCode(String code) {
+        return fonctionDao.findByServiceCode(code);
+    }
+
+    @Transactional
+    @Override
+    public int deleteByServiceCode(String code) {
+        return fonctionDao.deleteByServiceCode(code);
+    }
+
     @Override
     public Fonction findByCode(String code) {
         return fonctionDao.findByCode(code);
@@ -24,27 +42,10 @@ public class FonctionServiceImpl implements FonctionService {
         return fonctionDao.findByLibelle(libelle);
     }
 
-    @Override
-    public List<Fonction> findByService(sir.zproject.pfe_back.bean.Service service) {
-        return fonctionDao.findByService(service);
-    }
-
-    @Override
     @Transactional
-    public int deleteByService(sir.zproject.pfe_back.bean.Service service) {
-        return fonctionDao.deleteByService(service);
-    }
-
     @Override
-    @Transactional
     public int deleteByCode(String code) {
         return fonctionDao.deleteByCode(code);
-    }
-
-    @Override
-    @Transactional
-    public int deleteByLibelle(String libelle) {
-        return fonctionDao.deleteByLibelle(libelle);
     }
 
     @Override
@@ -52,15 +53,38 @@ public class FonctionServiceImpl implements FonctionService {
         return fonctionDao.findAll();
     }
 
-    @Override
     public int save(Fonction fonction) {
-        if (fonction== null) {
+
+
+        sir.zproject.pfe_back.bean.Service service = serviceService.findByLibelle(fonction.getService().getLibelle());
+        fonction.setService(service);
+        Fonction existingFonction = findByLibelle(fonction.getLibelle());
+
+        if (service == null) {
+            return -1;
+        } else if  (existingFonction != null) {
             return 0;
         }
-        if (fonction.getId() != null && fonctionDao.findById(fonction.getId()).isPresent()) {
-            return -1;
+
+        else {
+            fonctionDao.save(fonction);
+            return 1;
         }
-        fonctionDao.save(fonction);
-        return 1;
+
     }
+
+
+    @Override
+    public int update(Fonction newFonction) {
+        Fonction fonction = findByCode(newFonction.getCode());
+        if (fonction == null) {
+            return -1;
+        } else {
+            fonction.setCode(newFonction.getLibelle());
+            fonction.setLibelle(newFonction.getLibelle());
+            fonctionDao.save(fonction );
+            return 1;
+        }
+    }
+
 }
