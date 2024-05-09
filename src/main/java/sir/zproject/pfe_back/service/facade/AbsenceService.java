@@ -24,7 +24,7 @@ public interface AbsenceService {
 
     List<Absence> findAll();
 
-    String save(Absence absence);
-
+    int save(Absence absence);
+    int update(Absence absence);
     String justifier(Absence absence);
 }
