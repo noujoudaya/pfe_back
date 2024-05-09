@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
-import sir.zproject.pfe_back.bean.StatutConge;
+import sir.zproject.pfe_back.enumeration.StatutConge;
 import sir.zproject.pfe_back.bean.TypeConge;
 import sir.zproject.pfe_back.service.facade.DemandeCongeService;
 import sir.zproject.pfe_back.ws.converter.DemandeCongeConverter;

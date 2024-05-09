@@ -3,8 +3,8 @@ package sir.zproject.pfe_back.ws.dto;
 import lombok.Getter;
 import lombok.Setter;
 import sir.zproject.pfe_back.bean.Employe;
-import sir.zproject.pfe_back.bean.StatutAttestation;
-import sir.zproject.pfe_back.bean.TypeAttestation;
+import sir.zproject.pfe_back.enumeration.StatutAttestation;
+import sir.zproject.pfe_back.enumeration.TypeAttestation;
 
 import java.time.LocalDate;
 

@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import sir.zproject.pfe_back.bean.Absence;
 import sir.zproject.pfe_back.bean.Employe;
-import sir.zproject.pfe_back.bean.StatutAbsence;
+import sir.zproject.pfe_back.enumeration.StatutAbsence;
 import sir.zproject.pfe_back.service.facade.AbsenceService;
 import sir.zproject.pfe_back.ws.converter.AbsenceConverter;
 import sir.zproject.pfe_back.ws.dto.AbsenceDto;

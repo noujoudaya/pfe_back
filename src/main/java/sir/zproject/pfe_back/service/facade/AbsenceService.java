@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.Absence;
 import sir.zproject.pfe_back.bean.Employe;
-import sir.zproject.pfe_back.bean.StatutAbsence;
+import sir.zproject.pfe_back.enumeration.StatutAbsence;
 
 import java.time.LocalDate;
 import java.util.List;
