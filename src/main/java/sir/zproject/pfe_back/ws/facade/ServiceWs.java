@@ -43,6 +43,11 @@ public class ServiceWs {
         List<Service> services = serviceService.findAll();
         return serviceConverter.toDto(services);
     }
+    @GetMapping("/libelle/{libelle}")
+    public Service findByLibelle(@PathVariable String libelle) {
+        return serviceService.findByLibelle(libelle);
+    }
+
     @PostMapping("/")
     public int save(@RequestBody Service service) {
         return this.serviceService.save(service);

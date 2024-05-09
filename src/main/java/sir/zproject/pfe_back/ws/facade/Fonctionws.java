@@ -11,55 +11,45 @@ import sir.zproject.pfe_back.ws.dto.FonctionDto;
 import java.util.List;
 
 @RestController
-@RequestMapping("fonctions")
+@RequestMapping("fonction")
 public class Fonctionws {
 
     @Autowired
     private FonctionService fonctionService;
     @Autowired
     private FonctionConverter fonctionConverter;
-
-    @GetMapping("/code/{code}")
-    public FonctionDto findByCode(@PathVariable String code) {
-        Fonction fonction = fonctionService.findByCode(code);
-        return fonctionConverter.toDto(fonction);
-    }
-
-    @GetMapping("/libelle/{libelle}")
-    public FonctionDto findByLibelle(@PathVariable String libelle) {
-        Fonction fonction = fonctionService.findByLibelle(libelle);
-        return fonctionConverter.toDto(fonction);
-    }
-
-    @PostMapping("/service")
-    public List<FonctionDto> findByService(@RequestBody Service service) {
-        List<Fonction> fonctions = fonctionService.findByService(service);
+    @GetMapping("service/code/{code}")
+    public List<FonctionDto> findByServiceCode(@PathVariable String code) {
+        List<Fonction> fonctions = fonctionService.findByServiceCode(code);
         return fonctionConverter.toDto(fonctions);
-    }
 
-    @DeleteMapping("/service")
-    public int deleteByService(@RequestBody Service service) {
-        return fonctionService.deleteByService(service);
     }
-
+    @DeleteMapping("service/code/{code}")
+    public int deleteByServiceCode(@PathVariable String code) {
+        return fonctionService.deleteByServiceCode(code);
+    }
+    @GetMapping("/code/{code}")
+    public Fonction findByCode(@PathVariable String code) {
+        return fonctionService.findByCode(code);
+    }
+    @GetMapping("/libelle/{libelle}")
+    public Fonction findByLibelle(@PathVariable String libelle) {
+        return fonctionService.findByLibelle(libelle);
+    }
     @DeleteMapping("/code/{code}")
     public int deleteByCode(@PathVariable String code) {
         return fonctionService.deleteByCode(code);
     }
-
-    @DeleteMapping("/libelle/{libelle}")
-    public int deleteByLibelle(@PathVariable String libelle) {
-        return fonctionService.deleteByLibelle(libelle);
-    }
-
     @GetMapping("/")
-    public List<FonctionDto> findAll() {
-        List<Fonction> fonctions = fonctionService.findAll();
-        return fonctionConverter.toDto(fonctions);
+    public List<Fonction> findAll() {
+        return fonctionService.findAll();
     }
-
     @PostMapping("/")
-    public int save(Fonction fonction) {
+    public int save(@RequestBody Fonction fonction) {
         return fonctionService.save(fonction);
+    }
+    @PutMapping("/")
+    public int update(@RequestBody Fonction newFonction) {
+        return fonctionService.update(newFonction);
     }
 }
