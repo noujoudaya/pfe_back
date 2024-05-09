@@ -27,8 +27,9 @@ public interface DemandeAttestationService {
 
     List<DemandeAttestation> findAll();
 
-    String save(DemandeAttestation demandeAttestation);
+    int save(DemandeAttestation demandeAttestation);
 
     public String preparerDemande(DemandeAttestation demande);
     public String validerDemande(DemandeAttestation demande);
+    int update(DemandeAttestation demandeAttestation);
 }

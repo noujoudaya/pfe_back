@@ -2,6 +2,7 @@ package sir.zproject.pfe_back.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.DemandeAttestation;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.StatutAttestation;
@@ -28,11 +29,13 @@ public class DemandeAttestationServiceImpl implements DemandeAttestationService 
     }
 
     @Override
+    @Transactional
     public int deleteByEmploye(Employe employe) {
         return demandeAttestationDao.deleteByEmploye(employe);
     }
 
     @Override
+    @Transactional
     public int deleteByEmployeAndDateDemande(Employe employe, LocalDate dateDemande) {
         return demandeAttestationDao.deleteByEmployeAndDateDemande(employe, dateDemande);
     }
@@ -58,37 +61,52 @@ public class DemandeAttestationServiceImpl implements DemandeAttestationService 
     }
 
     @Override
-    public String save(DemandeAttestation demande) {
+    public int save(DemandeAttestation demande) {
         if (demande == null) {
-            return "L'objet demande ne doit pas être null";
+            return 0;
         }
         if (demande.getId() != null && demandeAttestationDao.findById(demande.getId()).isPresent()) {
-            return "Cette demande existe déjà";
+            return -1;
         }
         if (demande.getEmploye() == null) {
-            return "L'employé est obligatoire";
+            return -2;
         }
         Optional<Employe> employeOptional = employeDao.findById(demande.getEmploye().getId());
         if (employeOptional.isEmpty()) {
-            return "Aucun employé trouvé avec cet ID";
+            return -3;
         }
 
         demande.setEmploye(employeOptional.get());
-        demande.setStatutAttestation(StatutAttestation.Enregistre);
+        demande.setStatutAttestation(StatutAttestation.Enregistrée);
         demandeAttestationDao.save(demande);
-        return "Demande ajoutée avec succès";
+        return 1;
     }
 
+    @Override
     public String preparerDemande(DemandeAttestation demande) {
-        demande.setStatutAttestation(StatutAttestation.EnCours);
-        demandeAttestationDao.save(demande);
+        demande.setStatutAttestation(StatutAttestation.En_Cours);
+        update(demande);
         return "La demande est en cours de preparation";
     }
 
+    @Override
     public String validerDemande(DemandeAttestation demande) {
-        demande.setStatutAttestation(StatutAttestation.Prete);
-        demandeAttestationDao.save(demande);
+        demande.setStatutAttestation(StatutAttestation.Prête);
+        update(demande);
         return "La demande est disponible";
     }
 
+    @Override
+    public int update(DemandeAttestation demandeAttestation) {
+        DemandeAttestation existingDemande = demandeAttestationDao.findById(demandeAttestation.getId()).orElse(null);
+        if (existingDemande == null) {
+            return 0;
+        }
+        existingDemande.setEmploye(demandeAttestation.getEmploye());
+        existingDemande.setDateDemande(demandeAttestation.getDateDemande());
+        existingDemande.setTypeAttestation(demandeAttestation.getTypeAttestation());
+        existingDemande.setStatutAttestation(demandeAttestation.getStatutAttestation());
+        demandeAttestationDao.save(existingDemande);
+        return 1;
+    }
 }

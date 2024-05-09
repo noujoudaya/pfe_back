@@ -101,7 +101,7 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
         }
 
         demande.setEmploye(employeOptional.get());
-        demande.setStatutConge(StatutConge.EnAttente);
+        demande.setStatutConge(StatutConge.En_Attente);
         demandeCongeDao.save(demande);
         return 1;
     }
