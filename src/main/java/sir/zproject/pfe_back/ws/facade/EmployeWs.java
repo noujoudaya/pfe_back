@@ -145,4 +145,9 @@ public class EmployeWs {
     public int update(@RequestBody Employe employe) {
         return employeService.update(employe);
     }
+
+    @GetMapping("/search")
+    public List<Employe> searchEmployes(@RequestParam String search) {
+        return employeService.searchByNomOrPrenomOrEmail(search);
+    }
 }

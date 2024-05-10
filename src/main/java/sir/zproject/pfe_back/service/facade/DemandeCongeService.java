@@ -1,6 +1,7 @@
 package sir.zproject.pfe_back.service.facade;
 
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.DemandeConge;
@@ -48,6 +49,7 @@ public interface DemandeCongeService {
     public String refuserDemande(DemandeConge demande);
 
     int update(DemandeConge demandeConge);
+    List<DemandeConge> searchByAllAttributs(@Param("search") String search);
 
 
 }

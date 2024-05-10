@@ -1,6 +1,8 @@
 package sir.zproject.pfe_back.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
@@ -25,11 +27,21 @@ public interface DemandeCongeDao extends JpaRepository<DemandeConge, Long> {
     int deleteByDateFin(LocalDate dateFin);
 
     List<DemandeConge> findByDateDemande(LocalDate dateDemande);
+
     List<DemandeConge> findByDateDebut(LocalDate dateDebut);
+
     List<DemandeConge> findByDateFin(LocalDate dateFin);
 
     List<DemandeConge> findByTypeConge(TypeConge typeConge);
+
     List<DemandeConge> findByStatutConge(StatutConge statutConge);
+
+    @Query("SELECT d FROM DemandeConge d WHERE " +
+            "LOWER(d.employe.nom) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+            "LOWER(d.employe.prenom) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+            "LOWER(d.typeConge.libelle) LIKE LOWER(CONCAT('%', :search, '%')) ")
+    List<DemandeConge> searchByAllAttributs(@Param("search") String search);
+
 
 
 }

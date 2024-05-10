@@ -1,8 +1,11 @@
 package sir.zproject.pfe_back.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import sir.zproject.pfe_back.bean.DemandeAttestation;
+import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.enumeration.StatutAttestation;
 import sir.zproject.pfe_back.enumeration.TypeAttestation;
@@ -23,4 +26,8 @@ public interface DemandeAttestationDao extends JpaRepository<DemandeAttestation,
 
     List<DemandeAttestation> findByStatutAttestation(StatutAttestation statutAttestation);
 
+    @Query("SELECT d FROM DemandeAttestation d WHERE " +
+            "LOWER(d.employe.nom) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+            "LOWER(d.employe.prenom) LIKE LOWER(CONCAT('%', :search, '%')) ")
+    List<DemandeAttestation> searchByAllAttributs(@Param("search") String search);
 }

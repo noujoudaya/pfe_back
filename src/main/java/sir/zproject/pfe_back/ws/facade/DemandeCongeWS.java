@@ -109,4 +109,9 @@ public class DemandeCongeWS {
     public int update(@RequestBody DemandeConge demandeConge) {
         return demandeCongeService.update(demandeConge);
     }
+
+    @GetMapping("/search")
+    public List<DemandeConge> searchByAllAttributs(@RequestParam String search) {
+        return demandeCongeService.searchByAllAttributs(search);
+    }
 }

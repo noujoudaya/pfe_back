@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import sir.zproject.pfe_back.bean.Absence;
+import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.enumeration.StatutAbsence;
 import sir.zproject.pfe_back.service.facade.AbsenceService;
@@ -71,5 +72,10 @@ public class AbsenceWS {
     @PostMapping("/justifier")
     public String justifier(@RequestBody Absence absence) {
         return absenceService.justifier(absence);
+    }
+
+    @GetMapping("/search")
+    public List<Absence> searchByAllAttributs(@RequestParam String search) {
+        return absenceService.searchByAllAttributs(search);
     }
 }

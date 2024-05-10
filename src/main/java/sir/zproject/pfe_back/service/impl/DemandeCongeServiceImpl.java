@@ -136,4 +136,9 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
         demandeCongeDao.save(existingDemande);
         return 1;
     }
+
+    @Override
+    public List<DemandeConge> searchByAllAttributs(String search) {
+        return demandeCongeDao.searchByAllAttributs(search);
+    }
 }

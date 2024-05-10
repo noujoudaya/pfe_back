@@ -89,4 +89,9 @@ public class RetardServiceImpl implements RetardService {
         retardDao.save(existingRetard);
         return 1;
     }
+
+    @Override
+    public List<Retard> searchByAllAttributs(String search) {
+        return retardDao.searchByAllAttributs(search);
+    }
 }

@@ -1,5 +1,6 @@
 package sir.zproject.pfe_back.service.facade;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
@@ -54,4 +55,5 @@ public interface EmployeService {
     int save(Employe employe);
 
     int update(Employe employe);
+    List<Employe> searchByNomOrPrenomOrEmail(@Param("search") String search);
 }

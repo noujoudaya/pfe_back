@@ -3,6 +3,7 @@ package sir.zproject.pfe_back.ws.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Retard;
 import sir.zproject.pfe_back.service.facade.RetardService;
@@ -72,5 +73,10 @@ public class RetardWS {
     @PostMapping("/update")
     public int update(@RequestBody Retard retard) {
         return retardService.update(retard);
+    }
+
+    @GetMapping("/search")
+    public List<Retard> searchByAllAttributs(@RequestParam String search) {
+        return retardService.searchByAllAttributs(search);
     }
 }

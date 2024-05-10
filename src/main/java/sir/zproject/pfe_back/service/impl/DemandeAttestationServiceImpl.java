@@ -1,9 +1,11 @@
 package sir.zproject.pfe_back.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.DemandeAttestation;
+import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.enumeration.StatutAttestation;
 import sir.zproject.pfe_back.enumeration.TypeAttestation;
@@ -109,4 +111,10 @@ public class DemandeAttestationServiceImpl implements DemandeAttestationService 
         demandeAttestationDao.save(existingDemande);
         return 1;
     }
+
+    @Override
+    public List<DemandeAttestation> searchByAllAttributs(String search) {
+        return demandeAttestationDao.searchByAllAttributs(search);
+    }
 }
+

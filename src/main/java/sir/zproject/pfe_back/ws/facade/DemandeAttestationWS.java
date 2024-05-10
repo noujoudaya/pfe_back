@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import sir.zproject.pfe_back.bean.DemandeAttestation;
+import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.enumeration.StatutAttestation;
 import sir.zproject.pfe_back.enumeration.TypeAttestation;
@@ -83,5 +84,10 @@ public class DemandeAttestationWS {
     @PostMapping("/update")
     public int update(@RequestBody DemandeAttestation demandeAttestation) {
         return demandeAttestationService.update(demandeAttestation);
+    }
+
+    @GetMapping("/search")
+    public List<DemandeAttestation> searchByAllAttributs(@RequestParam String search) {
+        return demandeAttestationService.searchByAllAttributs(search);
     }
 }
