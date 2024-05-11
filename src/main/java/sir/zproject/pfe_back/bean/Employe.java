@@ -26,7 +26,9 @@ public class Employe extends User {
     private String adresse;
     private String cin;
     private String ville;
+
     private String numeroCompteBancaire;
+    private long numeroCNSS;
 
     private LocalDate dateNaissance;
     private LocalDate dateEmbauche;
@@ -48,6 +50,7 @@ public class Employe extends User {
     @Enumerated(EnumType.STRING)
     private SITUATION_FAMILIALE situationFamiliale;
 
+
     @JsonDeserialize(using = StatutEmployeDeserialize.class)
     @Enumerated(EnumType.STRING)
     private StatutEmploye statutEmploye;
@@ -59,14 +62,13 @@ public class Employe extends User {
     @JsonDeserialize(using = TypeContratDeserializer.class)
     @Enumerated(EnumType.STRING)
     private TypeContrat typeContrat;
-    
+
     @ManyToOne
     private Fonction fonction;
     @ManyToOne
     private Service service;
     @ManyToOne
     private Departement departement;
-
 
 
 }

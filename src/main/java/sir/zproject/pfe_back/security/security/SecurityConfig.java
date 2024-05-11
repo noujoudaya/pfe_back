@@ -49,7 +49,7 @@ public class SecurityConfig {
                                 .requestMatchers("api/v1/secretaire/**").hasAuthority(AuthoritiesConstants.SECRETAIRE)
                                 .requestMatchers("api/v1/employe/**").hasAuthority(AuthoritiesConstants.EMPLOYE)
                                 .anyRequest()
-                                .permitAll()
+                                .authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

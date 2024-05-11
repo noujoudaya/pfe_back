@@ -14,6 +14,10 @@ public interface EmployeDao extends JpaRepository<Employe, Long> {
 
     Employe findByCin(String cin);
 
+    Employe findByNumeroCNSS(long numeroCNSS);
+
+    int deleteByNumeroCNSS(long numeroCNSS);
+
     Employe findByEmail(String email);
 
     Employe findByTelephone(String telephone);
