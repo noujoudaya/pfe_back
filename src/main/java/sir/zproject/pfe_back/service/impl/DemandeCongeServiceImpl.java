@@ -118,7 +118,7 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
     public String refuserDemande(DemandeConge demande) {
         demande.setStatutConge(StatutConge.Refusée);
         update(demande);
-        return "Demande refusee";
+        return "Demande refusée";
     }
 
     @Override
