@@ -90,4 +90,9 @@ public class DemandeAttestationWS {
     public List<DemandeAttestation> searchByAllAttributs(@RequestParam String search) {
         return demandeAttestationService.searchByAllAttributs(search);
     }
+
+    @GetMapping("/countByStatutDemande")
+    public long countByStatutDemande() {
+        return demandeAttestationService.countByStatutDemande();
+    }
 }

@@ -49,6 +49,8 @@ public interface DemandeCongeService {
     public String refuserDemande(DemandeConge demande);
 
     int update(DemandeConge demandeConge);
+
+    long countByStatutConge();
     List<DemandeConge> searchByAllAttributs(@Param("search") String search);
 
 

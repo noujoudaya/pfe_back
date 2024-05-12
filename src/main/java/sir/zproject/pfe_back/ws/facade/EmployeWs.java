@@ -146,6 +146,15 @@ public class EmployeWs {
         return employeService.update(employe);
     }
 
+    @GetMapping("/count")
+    public long count() {
+        return employeService.count();
+    }
+
+    public List<Employe> searchByNomOrPrenomOrEmail(String search) {
+        return employeService.searchByNomOrPrenomOrEmail(search);
+    }
+
     @GetMapping("/search")
     public List<Employe> searchEmployes(@RequestParam String search) {
         return employeService.searchByNomOrPrenomOrEmail(search);

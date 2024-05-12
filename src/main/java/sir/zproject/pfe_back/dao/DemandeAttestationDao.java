@@ -26,6 +26,8 @@ public interface DemandeAttestationDao extends JpaRepository<DemandeAttestation,
 
     List<DemandeAttestation> findByStatutAttestation(StatutAttestation statutAttestation);
 
+    long countByStatutAttestation(StatutAttestation statutAttestation);
+
     @Query("SELECT d FROM DemandeAttestation d WHERE " +
             "LOWER(d.employe.nom) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
             "LOWER(d.employe.prenom) LIKE LOWER(CONCAT('%', :search, '%')) ")

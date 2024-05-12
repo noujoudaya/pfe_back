@@ -138,6 +138,11 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
     }
 
     @Override
+    public long countByStatutConge() {
+        return demandeCongeDao.countByStatutConge(StatutConge.En_Attente);
+    }
+
+    @Override
     public List<DemandeConge> searchByAllAttributs(String search) {
         return demandeCongeDao.searchByAllAttributs(search);
     }

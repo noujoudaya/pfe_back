@@ -36,6 +36,8 @@ public interface DemandeCongeDao extends JpaRepository<DemandeConge, Long> {
 
     List<DemandeConge> findByStatutConge(StatutConge statutConge);
 
+    long countByStatutConge(StatutConge statutConge);
+
     @Query("SELECT d FROM DemandeConge d WHERE " +
             "LOWER(d.employe.nom) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
             "LOWER(d.employe.prenom) LIKE LOWER(CONCAT('%', :search, '%')) OR " +

@@ -130,6 +130,11 @@ public class EmployeServiceImpl implements EmployeService {
     }
 
     @Override
+    public long count() {
+        return employeDao.count();
+    }
+
+    @Override
     public int save(Employe employe) {
         if (employe == null) {
             return 0; // Retourne 0 si l'employé est null

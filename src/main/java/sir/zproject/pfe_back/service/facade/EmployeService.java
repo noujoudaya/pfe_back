@@ -52,6 +52,8 @@ public interface EmployeService {
 
     List<Employe> findAll();
 
+    long count();
+
     int save(Employe employe);
 
     int update(Employe employe);

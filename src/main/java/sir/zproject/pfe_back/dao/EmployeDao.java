@@ -54,6 +54,7 @@ public interface EmployeDao extends JpaRepository<Employe, Long> {
 
     int countEmployeByVille(String ville);
 
+
     @Query("SELECT e FROM Employe e WHERE " +
             "LOWER(e.nom) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
             "LOWER(e.prenom) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
