@@ -113,6 +113,11 @@ public class DemandeAttestationServiceImpl implements DemandeAttestationService 
     }
 
     @Override
+    public long countByStatutDemande() {
+        return demandeAttestationDao.countByStatutAttestation(StatutAttestation.Enregistrée);
+    }
+
+    @Override
     public List<DemandeAttestation> searchByAllAttributs(String search) {
         return demandeAttestationDao.searchByAllAttributs(search);
     }

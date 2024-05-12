@@ -34,5 +34,7 @@ public interface DemandeAttestationService {
     public String preparerDemande(DemandeAttestation demande);
     public String validerDemande(DemandeAttestation demande);
     int update(DemandeAttestation demandeAttestation);
+
+    long countByStatutDemande();
     List<DemandeAttestation> searchByAllAttributs(@Param("search") String search);
 }

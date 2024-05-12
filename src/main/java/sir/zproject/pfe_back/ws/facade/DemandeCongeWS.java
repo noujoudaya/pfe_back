@@ -114,4 +114,9 @@ public class DemandeCongeWS {
     public List<DemandeConge> searchByAllAttributs(@RequestParam String search) {
         return demandeCongeService.searchByAllAttributs(search);
     }
+
+    @GetMapping("/countByStatutConge")
+    public long countByStatutConge() {
+        return demandeCongeService.countByStatutConge();
+    }
 }
