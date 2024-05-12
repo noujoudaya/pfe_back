@@ -1,7 +1,10 @@
 package sir.zproject.pfe_back.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import sir.zproject.pfe_back.bean.Absence;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Retard;
 
@@ -22,5 +25,10 @@ public interface RetardDao extends JpaRepository<Retard,Long> {
     List<Retard> findByDateRetard(LocalDate dateRetard);
 
     List<Retard> findByHeureDebutTravail(LocalTime heureDebutTravail);
+
+    @Query("SELECT r FROM Retard r WHERE " +
+            "LOWER(r.employe.nom) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+            "LOWER(r.employe.prenom) LIKE LOWER(CONCAT('%', :search, '%')) ")
+    List<Retard> searchByAllAttributs(@Param("search") String search);
 
 }

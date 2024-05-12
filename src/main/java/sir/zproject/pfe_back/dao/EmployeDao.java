@@ -1,6 +1,8 @@
 package sir.zproject.pfe_back.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
@@ -51,4 +53,13 @@ public interface EmployeDao extends JpaRepository<Employe, Long> {
     int countEmployeByFonction(Fonction fonction);
 
     int countEmployeByVille(String ville);
+
+    @Query("SELECT e FROM Employe e WHERE " +
+            "LOWER(e.nom) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+            "LOWER(e.prenom) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+            "LOWER(e.email) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+            "LOWER(e.departement.libelle) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+            "LOWER(e.fonction.libelle) LIKE LOWER(CONCAT('%', :search, '%'))")
+    List<Employe> searchByNomOrPrenomOrEmailOrDepartementLibelleOrFonctionLibelle(@Param("search") String search);
+
 }

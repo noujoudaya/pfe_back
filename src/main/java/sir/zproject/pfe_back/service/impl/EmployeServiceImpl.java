@@ -179,5 +179,11 @@ public class EmployeServiceImpl implements EmployeService {
         employeDao.save(existingEmp);
         return 1;
     }
+
+    @Override
+    public List<Employe> searchByNomOrPrenomOrEmail(String search) {
+        return employeDao.searchByNomOrPrenomOrEmailOrDepartementLibelleOrFonctionLibelle(search);
+    }
+
 }
 

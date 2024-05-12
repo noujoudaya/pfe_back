@@ -21,5 +21,5 @@ public interface TypeCongeService {
 
     List<TypeConge> findAll();
 
-    String save(TypeConge typeConge);
+    int save(TypeConge typeConge);
 }

@@ -118,7 +118,7 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
     public String refuserDemande(DemandeConge demande) {
         demande.setStatutConge(StatutConge.Refusée);
         update(demande);
-        return "Demande refusee";
+        return "Demande refusée";
     }
 
     @Override
@@ -135,5 +135,10 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
         existingDemande.setStatutConge(demandeConge.getStatutConge());
         demandeCongeDao.save(existingDemande);
         return 1;
+    }
+
+    @Override
+    public List<DemandeConge> searchByAllAttributs(String search) {
+        return demandeCongeDao.searchByAllAttributs(search);
     }
 }
