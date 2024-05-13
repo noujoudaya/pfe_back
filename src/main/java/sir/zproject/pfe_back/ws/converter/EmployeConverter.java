@@ -35,6 +35,7 @@ public class EmployeConverter {
         bean.setDepartement(dto.getDepartement());
         bean.setService(dto.getService());
         bean.setFonction(dto.getFonction());
+        bean.setImage(dto.getImage());
         return bean;
     }
     public List<Employe> toBean(List<EmployeDto> dtos) {
@@ -67,6 +68,7 @@ public class EmployeConverter {
         dto.setDepartement(bean.getDepartement());
         dto.setService(bean.getService());
         dto.setFonction(bean.getFonction());
+        dto.setImage(bean.getImage());
         return dto;
     }
     public List<EmployeDto> toDto(List<Employe> beans) {

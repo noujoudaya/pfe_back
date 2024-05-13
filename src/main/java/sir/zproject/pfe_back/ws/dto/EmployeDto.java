@@ -42,6 +42,7 @@ public class EmployeDto {
     private Fonction fonction;
     private Service service;
     private Departement departement;
+    private Image image;
 
 
 }
