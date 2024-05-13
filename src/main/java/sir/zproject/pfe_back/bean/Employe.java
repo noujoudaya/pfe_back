@@ -38,6 +38,9 @@ public class Employe extends User {
     private BigDecimal salaire;
     private BigDecimal soldeConge;
 
+    @OneToOne
+    private Image image;
+
     @JsonDeserialize(using = DesignationDeserializer.class)
     @Enumerated(EnumType.STRING)
     private DESIGNATION designation;
