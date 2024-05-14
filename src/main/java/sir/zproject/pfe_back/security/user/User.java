@@ -2,7 +2,6 @@ package sir.zproject.pfe_back.security.user;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -36,7 +35,7 @@ public class User implements UserDetails, Principal {
     private String lastname;
     private LocalDate dateOfBirth;
     @Column(unique = true)
-    private String email;
+    private String login;
     private String password;
     private boolean accountLocked;
     private boolean enabled;
@@ -50,6 +49,13 @@ public class User implements UserDetails, Principal {
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
+
+    public User(String login, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.login = login;
+        this.password = password;
+        this.roles = authorities.stream().map(auth -> new Role(auth.getAuthority())).collect(Collectors.toList());
+    }
+
 
 
     @Override
@@ -67,7 +73,7 @@ public class User implements UserDetails, Principal {
 
     @Override
     public String getUsername() {
-        return email;
+        return login;
     }
 
     @Override
@@ -92,7 +98,7 @@ public class User implements UserDetails, Principal {
 
     @Override
     public String getName() {
-        return email;
+        return login;
     }
 
     public String getFullName() {

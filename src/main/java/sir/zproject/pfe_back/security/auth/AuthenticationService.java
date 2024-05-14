@@ -1,5 +1,7 @@
 package sir.zproject.pfe_back.security.auth;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +12,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import sir.zproject.pfe_back.bean.Employe;
+import sir.zproject.pfe_back.dao.EmployeDao;
 import sir.zproject.pfe_back.security.role.RoleRepository;
 import sir.zproject.pfe_back.security.security.JwtService;
 import sir.zproject.pfe_back.security.user.Token;
@@ -33,6 +37,7 @@ public class AuthenticationService {
     private final EmailSenderService senderService;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final EmployeDao employeRepository;
     @Value("${spring.application.mailing.frontend.activation-url}")
     private String activationUrl;
 
@@ -46,7 +51,7 @@ public class AuthenticationService {
         var user = User.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
-                .email(request.getEmail())
+                .login(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .accountLocked(false)
                 .enabled(false)
@@ -89,7 +94,7 @@ public class AuthenticationService {
         Token savedToken = tokenRepository.findByToken(token).orElseThrow(() -> new RuntimeException("token not found"));
         if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
             sendValidationEmail(savedToken.getUser());
-            throw new RuntimeException(" Activation token expired. A new token has been sent to your email");
+            throw new RuntimeException(" Activation token expired. A new token has been sent to your login");
         }
         var user = userRepository.findById(savedToken.getUser().getId()).orElseThrow(() -> new UsernameNotFoundException("user not found"));
         user.setEnabled(true);
@@ -99,6 +104,8 @@ public class AuthenticationService {
         senderService.sendCredentials(savedToken.getUser(), password);
     }
 
+
+
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         var auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
@@ -107,7 +114,13 @@ public class AuthenticationService {
         var user = ((User) auth.getPrincipal());
         claims.put("fullName", user.getFullName());
         var jwtToken = jwtService.generateToken(claims, (User) auth.getPrincipal());
-        return AuthenticationResponse.builder().token(jwtToken).build();
+
+        Employe employe = employeRepository.findByEmail(user.getUsername());
+
+        return AuthenticationResponse.builder()
+                .token(jwtToken)
+                .employe(employe) // Ajoutez l'employé à la réponse
+                .build();
     }
 
 
@@ -117,7 +130,7 @@ public class AuthenticationService {
             throw new IllegalStateException("New passwords do not match");
         }
 
-        // Authentification de l'utilisateur avec son email et mot de passe actuel
+        // Authentification de l'utilisateur avec son login et mot de passe actuel
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 request.getEmail(), request.getCurrentPassword());
         try {
@@ -127,8 +140,8 @@ public class AuthenticationService {
         }
 
         // Mise à jour du mot de passe dans la base de données
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + request.getEmail()));
+        User user = userRepository.findByLogin(request.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with login: " + request.getEmail()));
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
 

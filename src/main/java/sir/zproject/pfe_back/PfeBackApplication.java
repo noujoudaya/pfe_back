@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import sir.zproject.pfe_back.security.role.Role;
 import sir.zproject.pfe_back.security.role.RoleRepository;
 import sir.zproject.pfe_back.security.security.AuthoritiesConstants;
@@ -20,6 +21,12 @@ import java.util.List;
 @EnableJpaAuditing
 @EnableAsync
 public class PfeBackApplication {
+
+    private final PasswordEncoder passwordEncoder;
+
+    public PfeBackApplication(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(PfeBackApplication.class, args);
@@ -38,12 +45,12 @@ public class PfeBackApplication {
             }
 
             //Create an admin account
-            if (userRepository.findByEmail("admin@gmail.com").isEmpty()) {
+            if (userRepository.findByLogin("admin@gmail.com").isEmpty()) {
                 List<Role> roles = new ArrayList<Role>();
                 roles.add(roleRepository.findByName(AuthoritiesConstants.ADMIN));
                 userRepository.save(User.builder()
-                        .email("admin@gmail.com")
-                        .password("1234")
+                        .login("admin@gmail.com")
+                        .password(passwordEncoder.encode("12345678"))
                         .enabled(true)
                         .createdDate(LocalDateTime.now())
                         .accountLocked(false)

@@ -36,5 +36,8 @@ public class Role {
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
 
+    public Role(String name) {
+        this.name = name;
+    }
 
 }
