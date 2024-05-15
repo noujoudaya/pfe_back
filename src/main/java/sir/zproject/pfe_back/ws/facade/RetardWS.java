@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Retard;
+import sir.zproject.pfe_back.enumeration.StatutAbsence;
 import sir.zproject.pfe_back.service.facade.RetardService;
 import sir.zproject.pfe_back.ws.converter.RetardsConverter;
 import sir.zproject.pfe_back.ws.dto.RetardDto;
@@ -59,6 +60,11 @@ public class RetardWS {
         return retardConverter.toDto(list);
     }
 
+    @GetMapping("/statutRetard/{statutRetard}")
+    public List<Retard> findByStatutRetard(@PathVariable StatutAbsence statutRetard) {
+        return retardService.findByStatutRetard(statutRetard);
+    }
+
     @GetMapping("/")
     public List<RetardDto> findAll() {
         List<Retard> list = retardService.findAll();
@@ -78,5 +84,10 @@ public class RetardWS {
     @GetMapping("/search")
     public List<Retard> searchByAllAttributs(@RequestParam String search) {
         return retardService.searchByAllAttributs(search);
+    }
+
+    @PostMapping("/justifier")
+    public String justifier(@RequestBody Retard retard) {
+        return retardService.justifier(retard);
     }
 }

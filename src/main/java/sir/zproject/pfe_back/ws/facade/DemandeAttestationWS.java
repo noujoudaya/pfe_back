@@ -24,7 +24,7 @@ public class DemandeAttestationWS {
     @Autowired
     private DemandeAttestationConverter demandeAttestationConverter;
 
-    @GetMapping("/employe")
+    @PostMapping("/employe")
     public List<DemandeAttestationDto> findByEmploye(@RequestBody Employe employe) {
         List<DemandeAttestation> list = demandeAttestationService.findByEmploye(employe);
         return demandeAttestationConverter.toDto(list);
@@ -37,9 +37,9 @@ public class DemandeAttestationWS {
     }
 
     @Transactional
-    @DeleteMapping("/employe/dateDemande/{dateDemande}")
-    public int deleteByEmployeAndDateDemande(@RequestBody Employe employe, @PathVariable LocalDate dateDemande) {
-        return demandeAttestationService.deleteByEmployeAndDateDemande(employe, dateDemande);
+    @DeleteMapping("/deleteAttest/{employeId}/{dateDemande}")
+    public int deleteByEmployeIdAndDateDemande(@PathVariable long employeId , @PathVariable LocalDate dateDemande) {
+        return demandeAttestationService.deleteByEmployeIdAndDateDemande(employeId, dateDemande);
     }
 
     @GetMapping("/dateDemande/{dateDemande}")

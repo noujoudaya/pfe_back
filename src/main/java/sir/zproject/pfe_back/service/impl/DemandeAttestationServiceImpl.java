@@ -38,8 +38,8 @@ public class DemandeAttestationServiceImpl implements DemandeAttestationService 
 
     @Override
     @Transactional
-    public int deleteByEmployeAndDateDemande(Employe employe, LocalDate dateDemande) {
-        return demandeAttestationDao.deleteByEmployeAndDateDemande(employe, dateDemande);
+    public int deleteByEmployeIdAndDateDemande(long employeId, LocalDate dateDemande) {
+        return demandeAttestationDao.deleteByEmployeIdAndDateDemande(employeId, dateDemande);
     }
 
     @Override

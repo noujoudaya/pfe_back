@@ -20,7 +20,7 @@ public interface DemandeAttestationService {
     int deleteByEmploye(Employe employe);
 
     @Transactional
-    int deleteByEmployeAndDateDemande(Employe employe, LocalDate dateDemande);
+    int deleteByEmployeIdAndDateDemande(long employeId, LocalDate dateDemande);
 
     List<DemandeAttestation> findByDateDemande(LocalDate dateDemande);
     List<DemandeAttestation> findByTypeAttestation(TypeAttestation typeAttestation);
