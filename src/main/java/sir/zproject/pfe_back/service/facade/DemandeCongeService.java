@@ -21,6 +21,10 @@ public interface DemandeCongeService {
     int deleteByEmploye(Employe employe);
 
     @Transactional
+    int deleteByDateDemandeAndEmployeIdAndTypeCongeLibelle(LocalDate dateDemande, long employeId, String typeCongeLibelle);
+
+
+    @Transactional
     int deleteByStatutConge(StatutConge statutConge);
 
     @Transactional
@@ -45,12 +49,15 @@ public interface DemandeCongeService {
     List<DemandeConge> findAll();
 
     int save(DemandeConge demandeConge);
+
     public String accepterDemande(DemandeConge demande);
+
     public String refuserDemande(DemandeConge demande);
 
     int update(DemandeConge demandeConge);
 
     long countByStatutConge();
+
     List<DemandeConge> searchByAllAttributs(@Param("search") String search);
 
 

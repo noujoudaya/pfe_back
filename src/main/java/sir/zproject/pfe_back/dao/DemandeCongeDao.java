@@ -18,6 +18,8 @@ public interface DemandeCongeDao extends JpaRepository<DemandeConge, Long> {
 
     int deleteByEmploye(Employe employe);
 
+    int deleteByDateDemandeAndEmployeIdAndTypeCongeLibelle(LocalDate dateDemande, long employeId, String typeCongeLibelle);
+
     int deleteByStatutConge(StatutConge statutConge);
 
     int deleteByTypeConge(TypeConge typeConge);

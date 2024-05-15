@@ -33,6 +33,12 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
 
     @Override
     @Transactional
+    public int deleteByDateDemandeAndEmployeIdAndTypeCongeLibelle(LocalDate dateDemande, long employeId, String typeCongeLibelle) {
+        return demandeCongeDao.deleteByDateDemandeAndEmployeIdAndTypeCongeLibelle(dateDemande, employeId, typeCongeLibelle);
+    }
+
+    @Override
+    @Transactional
     public int deleteByStatutConge(StatutConge statutConge) {
         return demandeCongeDao.deleteByStatutConge(statutConge);
     }
