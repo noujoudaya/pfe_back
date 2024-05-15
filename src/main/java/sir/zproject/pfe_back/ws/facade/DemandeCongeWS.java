@@ -23,7 +23,7 @@ public class DemandeCongeWS {
     private DemandeCongeConverter demandeCongeConverter;
 
 
-    @GetMapping("/employe")
+    @PostMapping("/employe")
     public List<DemandeCongeDto> findByEmploye(@RequestBody Employe employe) {
         List<DemandeConge> list = demandeCongeService.findByEmploye(employe);
         return demandeCongeConverter.toDto(list);
