@@ -20,7 +20,7 @@ public interface DemandeAttestationDao extends JpaRepository<DemandeAttestation,
 
     int deleteByEmploye(Employe employe);
 
-    int deleteByEmployeAndDateDemande(Employe employe,LocalDate dateDemande);
+    int deleteByEmployeIdAndDateDemande(long employeId,LocalDate dateDemande);
     List<DemandeAttestation> findByDateDemande(LocalDate dateDemande);
     List<DemandeAttestation> findByTypeAttestation(TypeAttestation typeAttestation);
 

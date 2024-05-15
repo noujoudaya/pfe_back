@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Retard;
+import sir.zproject.pfe_back.enumeration.StatutAbsence;
+import sir.zproject.pfe_back.enumeration.StatutConge;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,11 +29,14 @@ public interface RetardService {
     List<Retard> findByDateRetard(LocalDate dateRetard);
 
     List<Retard> findByHeureDebutTravail(LocalTime heureDebutTravail);
+    List<Retard> findByStatutRetard(StatutAbsence statutRetard);
 
     List<Retard> findAll();
 
     int save(Retard retard);
     int update(Retard retard);
     List<Retard> searchByAllAttributs(@Param("search") String search);
+
+    String justifier(Retard retard);
 
 }

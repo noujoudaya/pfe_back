@@ -4,9 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import sir.zproject.pfe_back.bean.Absence;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Retard;
+import sir.zproject.pfe_back.enumeration.StatutAbsence;
+import sir.zproject.pfe_back.enumeration.StatutConge;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,6 +26,7 @@ public interface RetardDao extends JpaRepository<Retard,Long> {
     List<Retard> findByDateRetard(LocalDate dateRetard);
 
     List<Retard> findByHeureDebutTravail(LocalTime heureDebutTravail);
+    List<Retard> findByStatutRetard(StatutAbsence statutRetard);
 
     @Query("SELECT r FROM Retard r WHERE " +
             "LOWER(r.employe.nom) LIKE LOWER(CONCAT('%', :search, '%')) OR " +

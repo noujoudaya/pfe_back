@@ -2,10 +2,13 @@ package sir.zproject.pfe_back.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Retard;
 import sir.zproject.pfe_back.dao.EmployeDao;
 import sir.zproject.pfe_back.dao.RetardDao;
+import sir.zproject.pfe_back.enumeration.StatutAbsence;
+import sir.zproject.pfe_back.enumeration.StatutConge;
 import sir.zproject.pfe_back.service.facade.RetardService;
 
 import java.time.LocalDate;
@@ -20,6 +23,7 @@ public class RetardServiceImpl implements RetardService {
     private RetardDao retardDao;
     @Autowired
     private EmployeDao employeDao;
+
     @Override
     public List<Retard> findByEmploye(Employe employe) {
         return retardDao.findByEmploye(employe);
@@ -32,7 +36,7 @@ public class RetardServiceImpl implements RetardService {
 
     @Override
     public int deleteByDateRetardAndEmploye(LocalDate dateRetard, Employe employe) {
-        return retardDao.deleteByDateRetardAndEmploye(dateRetard,employe);
+        return retardDao.deleteByDateRetardAndEmploye(dateRetard, employe);
     }
 
     @Override
@@ -51,13 +55,18 @@ public class RetardServiceImpl implements RetardService {
     }
 
     @Override
+    public List<Retard> findByStatutRetard(@PathVariable StatutAbsence statutRetard) {
+        return retardDao.findByStatutRetard(statutRetard);
+    }
+
+    @Override
     public List<Retard> findAll() {
         return retardDao.findAll();
     }
 
     @Override
     public int save(Retard retard) {
-        if (retard== null) {
+        if (retard == null) {
             return 0;
         }
         if (retard.getId() != null && retardDao.findById(retard.getId()).isPresent()) {
@@ -72,6 +81,7 @@ public class RetardServiceImpl implements RetardService {
         }
 
         retard.setEmploye(employeOptional.get());
+        retard.setStatutRetard(StatutAbsence.Non_Justifiée);
         retardDao.save(retard);
         return 1;
     }
@@ -86,6 +96,7 @@ public class RetardServiceImpl implements RetardService {
         existingRetard.setDateRetard(retard.getDateRetard());
         existingRetard.setHeureArrivee(retard.getHeureArrivee());
         existingRetard.setHeureDebutTravail(retard.getHeureDebutTravail());
+        existingRetard.setStatutRetard(retard.getStatutRetard());
         retardDao.save(existingRetard);
         return 1;
     }
@@ -94,4 +105,13 @@ public class RetardServiceImpl implements RetardService {
     public List<Retard> searchByAllAttributs(String search) {
         return retardDao.searchByAllAttributs(search);
     }
+
+    @Override
+    public String justifier(Retard retard) {
+        retard.setStatutRetard(StatutAbsence.Justifiée);
+        update(retard);
+        return "retard justifié avec succès";
+    }
+
+
 }
