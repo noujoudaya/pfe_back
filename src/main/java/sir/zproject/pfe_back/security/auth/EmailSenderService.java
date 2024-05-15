@@ -29,7 +29,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import static com.google.api.services.gmail.GmailScopes.GMAIL_SEND;
-import static jakarta.mail.Message.RecipientType.TO;
 
 @Service
 public class EmailSenderService {
@@ -66,7 +65,7 @@ public class EmailSenderService {
         Session session = Session.getDefaultInstance(props, null);
         MimeMessage email = new MimeMessage(session);
         email.setFrom(new InternetAddress(TEST_EMAIL));
-        email.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(user.getEmail()));
+        email.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(user.getLogin()));
         email.setSubject(CONFIRMATION_SUBJECT);
         String emailContent = String.format(
                 "Cher/Chère %s %s,\n\n" +
@@ -109,7 +108,7 @@ public class EmailSenderService {
         Session session = Session.getDefaultInstance(props, null);
         MimeMessage email = new MimeMessage(session);
         email.setFrom(new InternetAddress(TEST_EMAIL));
-        email.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(user.getEmail()));
+        email.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress(user.getLogin()));
         email.setSubject(CREDENTIALS_SUBJECT);
         String emailContent = String.format(
                 "Bonjour %s %s,\n" +
@@ -134,7 +133,7 @@ public class EmailSenderService {
                         "[L'Équipe de [Nom de l'Application]]\n" +
                         "[Coordonnées de Contact, optionnel]\n" +
                         "\n",
-                user.getFirstname(), user.getLastname(), user.getEmail(), password
+                user.getFirstname(), user.getLastname(), user.getLogin(), password
         );
         email.setText(emailContent);
 

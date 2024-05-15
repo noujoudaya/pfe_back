@@ -22,8 +22,8 @@ public class RegistrationRequest {
     @NotEmpty(message = "Le nom ne peut pas être vide.")
     @NotBlank(message = "Le nom ne peut pas être vide.")
     private String lastname;
-    @NotEmpty(message = "L'adresse email ne peut pas être vide.")
-    @NotBlank(message = "L'adresse email ne peut pas être vide.")
+    @NotEmpty(message = "L'adresse login ne peut pas être vide.")
+    @NotBlank(message = "L'adresse login ne peut pas être vide.")
     @Email(message = "Email invalide.")
     private String email;
     @NotEmpty(message = "Le mot de passe ne peut pas être vide.")

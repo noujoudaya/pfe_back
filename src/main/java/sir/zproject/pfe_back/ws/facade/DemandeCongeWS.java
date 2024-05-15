@@ -1,6 +1,7 @@
 package sir.zproject.pfe_back.ws.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
@@ -23,7 +24,7 @@ public class DemandeCongeWS {
     private DemandeCongeConverter demandeCongeConverter;
 
 
-    @GetMapping("/employe")
+    @PostMapping("/employe")
     public List<DemandeCongeDto> findByEmploye(@RequestBody Employe employe) {
         List<DemandeConge> list = demandeCongeService.findByEmploye(employe);
         return demandeCongeConverter.toDto(list);
@@ -118,5 +119,10 @@ public class DemandeCongeWS {
     @GetMapping("/countByStatutConge")
     public long countByStatutConge() {
         return demandeCongeService.countByStatutConge();
+    }
+
+    @PostMapping("/deleteConge/{dateDemande}/{employeId}/{typeCongeLibelle}")
+    public int deleteByDateDemandeAndEmployeIdAndTypeCongeLibelle(@PathVariable LocalDate dateDemande, @PathVariable long employeId, @PathVariable String typeCongeLibelle) {
+        return demandeCongeService.deleteByDateDemandeAndEmployeIdAndTypeCongeLibelle(dateDemande, employeId, typeCongeLibelle);
     }
 }
