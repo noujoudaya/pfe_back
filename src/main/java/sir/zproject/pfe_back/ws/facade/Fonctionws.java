@@ -11,44 +11,43 @@ import sir.zproject.pfe_back.ws.dto.FonctionDto;
 import java.util.List;
 
 @RestController
-@RequestMapping("fonction")
 public class Fonctionws {
 
     @Autowired
     private FonctionService fonctionService;
     @Autowired
     private FonctionConverter fonctionConverter;
-    @GetMapping("service/code/{code}")
+    @GetMapping("fonction/service/code/{code}")
     public List<FonctionDto> findByServiceCode(@PathVariable String code) {
         List<Fonction> fonctions = fonctionService.findByServiceCode(code);
         return fonctionConverter.toDto(fonctions);
 
     }
-    @DeleteMapping("service/code/{code}")
+    @DeleteMapping("fonction/service/code/{code}")
     public int deleteByServiceCode(@PathVariable String code) {
         return fonctionService.deleteByServiceCode(code);
     }
-    @GetMapping("/code/{code}")
+    @GetMapping("fonction/code/{code}")
     public Fonction findByCode(@PathVariable String code) {
         return fonctionService.findByCode(code);
     }
-    @GetMapping("/libelle/{libelle}")
+    @GetMapping("fonction/libelle/{libelle}")
     public Fonction findByLibelle(@PathVariable String libelle) {
         return fonctionService.findByLibelle(libelle);
     }
-    @DeleteMapping("/code/{code}")
+    @DeleteMapping("admin/fonction/code/{code}")
     public int deleteByCode(@PathVariable String code) {
         return fonctionService.deleteByCode(code);
     }
-    @GetMapping("/")
+    @GetMapping("all/fonction/")
     public List<Fonction> findAll() {
         return fonctionService.findAll();
     }
-    @PostMapping("/")
+    @PostMapping("admin/fonction/")
     public int save(@RequestBody Fonction fonction) {
         return fonctionService.save(fonction);
     }
-    @PutMapping("/")
+    @PutMapping("admin/fonction/")
     public int update(@RequestBody Fonction newFonction) {
         return fonctionService.update(newFonction);
     }

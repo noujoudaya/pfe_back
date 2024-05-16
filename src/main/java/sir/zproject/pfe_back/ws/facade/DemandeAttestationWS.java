@@ -16,7 +16,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/demandesAttestation")
 public class DemandeAttestationWS {
 
     @Autowired
@@ -24,74 +23,74 @@ public class DemandeAttestationWS {
     @Autowired
     private DemandeAttestationConverter demandeAttestationConverter;
 
-    @PostMapping("/employe")
+    @PostMapping("employe-secretaire/demandesAttestation/employe")
     public List<DemandeAttestationDto> findByEmploye(@RequestBody Employe employe) {
         List<DemandeAttestation> list = demandeAttestationService.findByEmploye(employe);
         return demandeAttestationConverter.toDto(list);
     }
 
     @Transactional
-    @DeleteMapping("/employe")
+    @DeleteMapping("demandesAttestation/employe")
     public int deleteByEmploye(@RequestBody Employe employe) {
         return demandeAttestationService.deleteByEmploye(employe);
     }
 
     @Transactional
-    @DeleteMapping("/deleteAttest/{employeId}/{dateDemande}")
+    @DeleteMapping("all/demandesAttestation/deleteAttest/{employeId}/{dateDemande}")
     public int deleteByEmployeIdAndDateDemande(@PathVariable long employeId , @PathVariable LocalDate dateDemande) {
         return demandeAttestationService.deleteByEmployeIdAndDateDemande(employeId, dateDemande);
     }
 
-    @GetMapping("/dateDemande/{dateDemande}")
+    @GetMapping("demandesAttestation/dateDemande/{dateDemande}")
     public List<DemandeAttestationDto> findByDateDemande(@PathVariable LocalDate dateDemande) {
         List<DemandeAttestation> list = demandeAttestationService.findByDateDemande(dateDemande);
         return demandeAttestationConverter.toDto(list);
     }
 
-    @GetMapping("/typeAttestation/{typeAttestation}")
+    @GetMapping("demandesAttestation/typeAttestation/{typeAttestation}")
     public List<DemandeAttestationDto> findByTypeAttestation(@PathVariable TypeAttestation typeAttestation) {
         List<DemandeAttestation> list = demandeAttestationService.findByTypeAttestation(typeAttestation);
         return demandeAttestationConverter.toDto(list);
     }
 
-    @GetMapping("/statutAttestation/{statutAttestation}")
+    @GetMapping("demandesAttestation/statutAttestation/{statutAttestation}")
     public List<DemandeAttestationDto> findByStatutAttestation(@PathVariable StatutAttestation statutAttestation) {
         List<DemandeAttestation> list = demandeAttestationService.findByStatutAttestation(statutAttestation);
         return demandeAttestationConverter.toDto(list);
     }
 
-    @GetMapping("/")
+    @GetMapping("admin/demandesAttestation/")
     public List<DemandeAttestationDto> findAll() {
         List<DemandeAttestation> list = demandeAttestationService.findAll();
         return demandeAttestationConverter.toDto(list);
     }
 
-    @PostMapping("/save")
+    @PostMapping("employe-secretaire/demandesAttestation/save")
     public int save(@RequestBody DemandeAttestation demandeAttestation) {
         return demandeAttestationService.save(demandeAttestation);
     }
 
-    @PostMapping("/preparerDemande")
+    @PostMapping("admin/demandesAttestation/preparerDemande")
     public String preparerDemande(@RequestBody DemandeAttestation demande) {
         return demandeAttestationService.preparerDemande(demande);
     }
 
-    @PostMapping("/validerDemande")
+    @PostMapping("admin/demandesAttestation/validerDemande")
     public String validerDemande(@RequestBody DemandeAttestation demande) {
         return demandeAttestationService.validerDemande(demande);
     }
 
-    @PostMapping("/update")
+    @PostMapping("demandesAttestation/update")
     public int update(@RequestBody DemandeAttestation demandeAttestation) {
         return demandeAttestationService.update(demandeAttestation);
     }
 
-    @GetMapping("/search")
+    @GetMapping("admin/demandesAttestation/search")
     public List<DemandeAttestation> searchByAllAttributs(@RequestParam String search) {
         return demandeAttestationService.searchByAllAttributs(search);
     }
 
-    @GetMapping("/countByStatutDemande")
+    @GetMapping("admin/demandesAttestation/countByStatutDemande")
     public long countByStatutDemande() {
         return demandeAttestationService.countByStatutDemande();
     }

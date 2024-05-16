@@ -15,7 +15,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("demandesConge")
 public class DemandeCongeWS {
 
     @Autowired
@@ -24,13 +23,13 @@ public class DemandeCongeWS {
     private DemandeCongeConverter demandeCongeConverter;
 
 
-    @PostMapping("/employe")
+    @PostMapping("employe-secretaire/demandesConge/employe")
     public List<DemandeCongeDto> findByEmploye(@RequestBody Employe employe) {
         List<DemandeConge> list = demandeCongeService.findByEmploye(employe);
         return demandeCongeConverter.toDto(list);
     }
 
-    @DeleteMapping("/employe")
+    @DeleteMapping("demandesConge/employe")
     public int deleteByEmploye(@RequestBody Employe employe) {
         return demandeCongeService.deleteByEmploye(employe);
     }
@@ -55,7 +54,7 @@ public class DemandeCongeWS {
         return demandeCongeService.deleteByDateFin(dateFin);
     }
 
-    @GetMapping("/dateDemande/{dateDemande}")
+    @GetMapping("demandesConge/dateDemande/{dateDemande}")
     public List<DemandeCongeDto> findByDateDemande(@PathVariable LocalDate dateDemande) {
         List<DemandeConge> list = demandeCongeService.findByDateDemande(dateDemande);
         return demandeCongeConverter.toDto(list);
@@ -85,43 +84,43 @@ public class DemandeCongeWS {
         return demandeCongeConverter.toDto(list);
     }
 
-    @GetMapping("/")
+    @GetMapping("admin/demandesConge/")
     public List<DemandeCongeDto> findAll() {
         List<DemandeConge> list = demandeCongeService.findAll();
         return demandeCongeConverter.toDto(list);
     }
 
-    @PostMapping("/save")
+    @PostMapping("employe-secretaire/demandesConge/save")
     public int save(@RequestBody DemandeConge demandeConge) {
         return demandeCongeService.save(demandeConge);
     }
 
-    @PostMapping("/accepterDemande")
+    @PostMapping("admin/demandesConge/accepterDemande")
     public String accepterDemande(@RequestBody DemandeConge demande) {
         return demandeCongeService.accepterDemande(demande);
     }
 
-    @PostMapping("/refuserDemande")
+    @PostMapping("admin/demandesConge/refuserDemande")
     public String refuserDemande(@RequestBody DemandeConge demande) {
         return demandeCongeService.refuserDemande(demande);
     }
 
-    @PostMapping("/update")
+    @PostMapping("demandesConge/update")
     public int update(@RequestBody DemandeConge demandeConge) {
         return demandeCongeService.update(demandeConge);
     }
 
-    @GetMapping("/search")
+    @GetMapping("admin/demandesConge/search")
     public List<DemandeConge> searchByAllAttributs(@RequestParam String search) {
         return demandeCongeService.searchByAllAttributs(search);
     }
 
-    @GetMapping("/countByStatutConge")
+    @GetMapping("admin/demandesConge/countByStatutConge")
     public long countByStatutConge() {
         return demandeCongeService.countByStatutConge();
     }
 
-    @PostMapping("/deleteConge/{dateDemande}/{employeId}/{typeCongeLibelle}")
+    @PostMapping("all/demandesConge/deleteConge/{dateDemande}/{employeId}/{typeCongeLibelle}")
     public int deleteByDateDemandeAndEmployeIdAndTypeCongeLibelle(@PathVariable LocalDate dateDemande, @PathVariable long employeId, @PathVariable String typeCongeLibelle) {
         return demandeCongeService.deleteByDateDemandeAndEmployeIdAndTypeCongeLibelle(dateDemande, employeId, typeCongeLibelle);
     }
