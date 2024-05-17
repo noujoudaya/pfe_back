@@ -45,9 +45,13 @@ public class SecurityConfig {
                                         "/webjars/**",
                                         "/swagger-ui.html"
                                 ).permitAll()
-                                .requestMatchers("api/v1/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
-                                .requestMatchers("api/v1/secretaire/**").hasAuthority(AuthoritiesConstants.SECRETAIRE)
-                                .requestMatchers("api/v1/employe/**").hasAuthority(AuthoritiesConstants.EMPLOYE)
+                                .requestMatchers("/api/v1/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                                .requestMatchers("/api/v1/secretaire/**").hasAuthority(AuthoritiesConstants.SECRETAIRE)
+                                .requestMatchers("/api/v1/employe/**").hasAuthority(AuthoritiesConstants.EMPLOYE)
+                                .requestMatchers("/api/v1/sup/**").hasAnyAuthority(AuthoritiesConstants.ADMIN, AuthoritiesConstants.SECRETAIRE)
+                                .requestMatchers("/api/v1/all/**").hasAnyAuthority(AuthoritiesConstants.ADMIN, AuthoritiesConstants.EMPLOYE, AuthoritiesConstants.SECRETAIRE)
+                                .requestMatchers("/api/v1/admin-employe/**").hasAnyAuthority(AuthoritiesConstants.ADMIN, AuthoritiesConstants.EMPLOYE)
+                                .requestMatchers("/api/v1/employe-secretaire/**").hasAnyAuthority(AuthoritiesConstants.EMPLOYE, AuthoritiesConstants.SECRETAIRE)
                                 .anyRequest()
                                 .authenticated()
                 )

@@ -16,7 +16,6 @@ import java.time.LocalTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("retards")
 public class RetardWS {
 
     @Autowired
@@ -37,7 +36,7 @@ public class RetardWS {
     }
 
     @Transactional
-    @DeleteMapping("/dateRetard/{dateRetard}/employe")
+    @DeleteMapping("secretaire/retards/dateRetard/{dateRetard}/employe")
     public int deleteByDateRetardAndEmploye(@PathVariable LocalDate dateRetard, @RequestBody Employe employe) {
         return retardService.deleteByDateRetardAndEmploye(dateRetard, employe);
     }
@@ -65,13 +64,13 @@ public class RetardWS {
         return retardService.findByStatutRetard(statutRetard);
     }
 
-    @GetMapping("/")
+    @GetMapping("sup/retards/")
     public List<RetardDto> findAll() {
         List<Retard> list = retardService.findAll();
         return retardConverter.toDto(list);
     }
 
-    @PostMapping("/save")
+    @PostMapping("secretaire/retards/save")
     public int save(@RequestBody Retard retard) {
         return retardService.save(retard);
     }
@@ -81,12 +80,12 @@ public class RetardWS {
         return retardService.update(retard);
     }
 
-    @GetMapping("/search")
+    @GetMapping("sup/retards/search")
     public List<Retard> searchByAllAttributs(@RequestParam String search) {
         return retardService.searchByAllAttributs(search);
     }
 
-    @PostMapping("/justifier")
+    @PostMapping("admin/retards/justifier")
     public String justifier(@RequestBody Retard retard) {
         return retardService.justifier(retard);
     }

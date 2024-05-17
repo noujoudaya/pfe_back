@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import sir.zproject.pfe_back.bean.Absence;
-import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.enumeration.StatutAbsence;
 import sir.zproject.pfe_back.service.facade.AbsenceService;
@@ -15,7 +14,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("absences")
 public class AbsenceWS {
 
     @Autowired
@@ -23,58 +21,58 @@ public class AbsenceWS {
     @Autowired
     private AbsenceConverter absenceConverter;
 
-    @GetMapping("/employe")
+    @GetMapping("employe/absences/employe")
     public List<AbsenceDto> findByEmploye(@RequestBody Employe employe) {
         List<Absence> list = absenceService.findByEmploye(employe);
         return absenceConverter.toDto(list);
     }
 
     @Transactional
-    @DeleteMapping("/employe")
+    @DeleteMapping("secretaire/absences/employe")
     public int deleteByEmploye(@RequestBody Employe employe) {
         return absenceService.deleteByEmploye(employe);
     }
 
     @Transactional
-    @DeleteMapping("/dateAbsence/{dateAbsence}/employe")
+    @DeleteMapping("secretaire/absences/dateAbsence/{dateAbsence}/employe")
     public int deleteByDateAbsenceAndEmploye(@PathVariable LocalDate dateAbsence, @RequestBody Employe employe) {
         return absenceService.deleteByDateAbsenceAndEmploye(dateAbsence, employe);
     }
 
-    @GetMapping("/dateAbsence/{dateAbsence}")
+    @GetMapping("sup/absences/dateAbsence/{dateAbsence}")
     public List<AbsenceDto> findByDateAbsence(@PathVariable LocalDate dateAbsence) {
         List<Absence> list = absenceService.findByDateAbsence(dateAbsence);
         return absenceConverter.toDto(list);
     }
 
-    @GetMapping("/statutAbsence/{statutAbsence}")
+    @GetMapping("sup/absences/statutAbsence/{statutAbsence}")
     public List<AbsenceDto> findByStatutAbsence(@PathVariable StatutAbsence statutAbsence) {
         List<Absence> list = absenceService.findByStatutAbsence(statutAbsence);
         return absenceConverter.toDto(list);
     }
 
-    @GetMapping("/")
+    @GetMapping("sup/absences/")
     public List<AbsenceDto> findAll() {
         List<Absence> list = absenceService.findAll();
         return absenceConverter.toDto(list);
     }
 
-    @PostMapping("/save")
+    @PostMapping("secretaire/absences/save")
     public int save(@RequestBody Absence absence) {
         return absenceService.save(absence);
     }
 
-    @PostMapping("/update")
+    @PostMapping("secretaire/absences/update")
     public int update(@RequestBody Absence absence) {
         return absenceService.update(absence);
     }
 
-    @PostMapping("/justifier")
+    @PostMapping("admin/absences/justifier")
     public String justifier(@RequestBody Absence absence) {
         return absenceService.justifier(absence);
     }
 
-    @GetMapping("/search")
+    @GetMapping("sup/absences/search")
     public List<Absence> searchByAllAttributs(@RequestParam String search) {
         return absenceService.searchByAllAttributs(search);
     }

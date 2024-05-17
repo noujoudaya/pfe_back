@@ -13,7 +13,6 @@ import sir.zproject.pfe_back.ws.dto.EmployeDto;
 import java.util.List;
 
 @RestController
-@RequestMapping("employes")
 public class EmployeWs {
 
     @Autowired
@@ -85,7 +84,7 @@ public class EmployeWs {
         return employeService.deleteByNomAndPrenom(nom, prenom);
     }
 
-    @DeleteMapping("/cin/{cin}")
+    @DeleteMapping("admin/employes/cin/{cin}")
     public int deleteByCin(@PathVariable String cin) {
         return employeService.deleteByCin(cin);
     }
@@ -130,32 +129,29 @@ public class EmployeWs {
         return employeService.countEmployeByVille(ville);
     }
 
-    @GetMapping("/")
+    @GetMapping("sup/employes/")
     public List<EmployeDto> findAll() {
         List<Employe> employe = employeService.findAll();
         return employeConverter.toDto(employe);
     }
 
-    @PostMapping("/save")
+    @PostMapping("admin/employes/save")
     public int save(@RequestBody Employe employe) {
         return employeService.save(employe);
     }
 
-    @PostMapping("/update")
+    @PostMapping("admin/employes/update")
     public int update(@RequestBody Employe employe) {
         return employeService.update(employe);
     }
 
-    @GetMapping("/count")
+    @GetMapping("admin/employes/count")
     public long count() {
         return employeService.count();
     }
 
-    public List<Employe> searchByNomOrPrenomOrEmail(String search) {
-        return employeService.searchByNomOrPrenomOrEmail(search);
-    }
 
-    @GetMapping("/search")
+    @GetMapping("admin/employes/search")
     public List<Employe> searchEmployes(@RequestParam String search) {
         return employeService.searchByNomOrPrenomOrEmail(search);
     }
