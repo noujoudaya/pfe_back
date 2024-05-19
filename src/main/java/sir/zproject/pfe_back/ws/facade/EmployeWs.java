@@ -55,7 +55,7 @@ public class EmployeWs {
         return employeConverter.toDto(employes);
     }
 
-    @GetMapping("departement/{departement}")
+    @PostMapping("sup/employes/departement/")
     public List<EmployeDto> findByDepartement(@RequestBody Departement departement) {
         List<Employe> employes = employeService.findByDepartement(departement);
         return employeConverter.toDto(employes);
@@ -114,7 +114,7 @@ public class EmployeWs {
         return employeService.countEmployeByDepartement(departement);
     }
 
-    @GetMapping("/count/service/{service}")
+    @PostMapping("/count/service")
     public int countEmployeByService(@RequestBody Service service) {
         return employeService.countEmployeByService(service);
     }
