@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Fonction;
+import sir.zproject.pfe_back.enumeration.GENRE;
 
 import java.util.List;
 
@@ -49,6 +50,8 @@ public interface EmployeService {
     int countEmployeByFonction(Fonction fonction);
 
     int countEmployeByVille(String ville);
+
+    int countEmployeByGenre(GENRE genre);
 
     List<Employe> findAll();
 

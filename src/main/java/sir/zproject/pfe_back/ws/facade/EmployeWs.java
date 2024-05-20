@@ -6,6 +6,7 @@ import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Fonction;
 import sir.zproject.pfe_back.bean.Service;
+import sir.zproject.pfe_back.enumeration.GENRE;
 import sir.zproject.pfe_back.service.facade.EmployeService;
 import sir.zproject.pfe_back.ws.converter.EmployeConverter;
 import sir.zproject.pfe_back.ws.dto.EmployeDto;
@@ -109,12 +110,12 @@ public class EmployeWs {
         return employeService.deleteByFonction(fonction);
     }
 
-    @GetMapping("/count/departement/{departement}")
+    @PostMapping("count/departement/")
     public int countEmployeByDepartement(@RequestBody Departement departement) {
         return employeService.countEmployeByDepartement(departement);
     }
 
-    @PostMapping("/count/service")
+    @PostMapping("count/service")
     public int countEmployeByService(@RequestBody Service service) {
         return employeService.countEmployeByService(service);
     }
@@ -127,6 +128,15 @@ public class EmployeWs {
     @GetMapping("/count/ville/{ville}")
     public int countEmployeByVille(@PathVariable String ville) {
         return employeService.countEmployeByVille(ville);
+    }
+
+    @GetMapping("count/genre/{genre}")
+    public int countEmployeByGenre(@PathVariable GENRE genre) {
+        return employeService.countEmployeByGenre(genre);
+    }
+
+    public List<Employe> searchByNomOrPrenomOrEmail(String search) {
+        return employeService.searchByNomOrPrenomOrEmail(search);
     }
 
     @GetMapping("sup/employes/")
