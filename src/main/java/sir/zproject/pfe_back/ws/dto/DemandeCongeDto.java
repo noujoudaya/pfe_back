@@ -17,5 +17,6 @@ public class DemandeCongeDto {
     private LocalDate dateDemande;
     private StatutConge statutConge;
     private TypeConge typeConge;
+    private String motifRefus;
 }
 

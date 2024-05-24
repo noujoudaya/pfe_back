@@ -22,6 +22,7 @@ public class DemandeCongeConverter {
         demandeCongeDto.setDateDemande(demandeConge.getDateDemande());
         demandeCongeDto.setStatutConge(demandeConge.getStatutConge());
         demandeCongeDto.setTypeConge(demandeConge.getTypeConge());
+        demandeCongeDto.setMotifRefus(demandeConge.getMotifRefus());
         return demandeCongeDto;
     }
 
@@ -35,6 +36,7 @@ public class DemandeCongeConverter {
         demandeConge.setDateDemande(demandeCongeDto.getDateDemande());
         demandeConge.setStatutConge(demandeCongeDto.getStatutConge());
         demandeConge.setTypeConge(demandeCongeDto.getTypeConge());
+        demandeConge.setMotifRefus(demandeCongeDto.getMotifRefus());
         return demandeConge;
     }
 

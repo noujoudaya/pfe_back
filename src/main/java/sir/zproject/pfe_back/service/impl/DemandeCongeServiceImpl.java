@@ -139,6 +139,7 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
         existingDemande.setDateFin(demandeConge.getDateFin());
         existingDemande.setTypeConge(demandeConge.getTypeConge());
         existingDemande.setStatutConge(demandeConge.getStatutConge());
+        existingDemande.setMotifRefus(demandeConge.getMotifRefus());
         demandeCongeDao.save(existingDemande);
         return 1;
     }
