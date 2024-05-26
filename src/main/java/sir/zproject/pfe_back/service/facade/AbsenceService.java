@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.Absence;
 import sir.zproject.pfe_back.bean.DemandeAttestation;
+import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.enumeration.StatutAbsence;
 
@@ -30,4 +31,6 @@ public interface AbsenceService {
     int update(Absence absence);
     String justifier(Absence absence);
     List<Absence> searchByAllAttributs(@Param("search") String search);
+
+    List<Absence> findByEmployeDepartement(Departement departement);
 }

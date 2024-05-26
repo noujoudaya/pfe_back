@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import sir.zproject.pfe_back.bean.Absence;
 import sir.zproject.pfe_back.bean.DemandeAttestation;
+import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.enumeration.StatutAbsence;
 
@@ -30,5 +31,6 @@ public interface AbsenceDao extends JpaRepository<Absence, Long> {
             "LOWER(a.employe.prenom) LIKE LOWER(CONCAT('%', :search, '%')) ")
     List<Absence> searchByAllAttributs(@Param("search") String search);
 
+    List<Absence> findByEmployeDepartement(Departement departement);
 
 }

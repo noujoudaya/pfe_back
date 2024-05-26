@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import sir.zproject.pfe_back.bean.Absence;
+import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.enumeration.StatutAbsence;
 import sir.zproject.pfe_back.service.facade.AbsenceService;
@@ -75,5 +76,11 @@ public class AbsenceWS {
     @GetMapping("sup/absences/search")
     public List<Absence> searchByAllAttributs(@RequestParam String search) {
         return absenceService.searchByAllAttributs(search);
+    }
+
+    @PostMapping("sup/absences/departement")
+    public List<AbsenceDto> findByEmployeDepartement(@RequestBody Departement departement) {
+        List<Absence> list = absenceService.findByEmployeDepartement(departement);
+        return absenceConverter.toDto(list);
     }
 }
