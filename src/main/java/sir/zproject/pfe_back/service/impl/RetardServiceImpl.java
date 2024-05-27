@@ -3,6 +3,7 @@ package sir.zproject.pfe_back.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Retard;
 import sir.zproject.pfe_back.dao.EmployeDao;
@@ -111,6 +112,11 @@ public class RetardServiceImpl implements RetardService {
         retard.setStatutRetard(StatutAbsence.Justifiée);
         update(retard);
         return "retard justifié avec succès";
+    }
+
+    @Override
+    public List<Retard> findByEmployeDepartement(Departement departement) {
+        return retardDao.findByEmployeDepartement(departement);
     }
 
 

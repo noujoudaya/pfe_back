@@ -3,6 +3,7 @@ package sir.zproject.pfe_back.service.facade;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Retard;
 import sir.zproject.pfe_back.enumeration.StatutAbsence;
@@ -38,5 +39,6 @@ public interface RetardService {
     List<Retard> searchByAllAttributs(@Param("search") String search);
 
     String justifier(Retard retard);
+    List<Retard> findByEmployeDepartement(Departement departement);
 
 }

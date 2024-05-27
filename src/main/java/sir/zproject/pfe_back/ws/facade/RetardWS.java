@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import sir.zproject.pfe_back.bean.DemandeConge;
+import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Retard;
 import sir.zproject.pfe_back.enumeration.StatutAbsence;
@@ -88,5 +89,11 @@ public class RetardWS {
     @PostMapping("admin/retards/justifier")
     public String justifier(@RequestBody Retard retard) {
         return retardService.justifier(retard);
+    }
+
+    @PostMapping("sup/retards/departement")
+    public List<RetardDto> findByEmployeDepartement(@RequestBody Departement departement) {
+        List<Retard> list = retardService.findByEmployeDepartement(departement);
+        return retardConverter.toDto(list);
     }
 }
