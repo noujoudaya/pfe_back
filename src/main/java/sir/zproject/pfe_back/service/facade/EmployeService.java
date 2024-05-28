@@ -1,5 +1,7 @@
 package sir.zproject.pfe_back.service.facade;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import sir.zproject.pfe_back.bean.Departement;
@@ -61,4 +63,6 @@ public interface EmployeService {
 
     int update(Employe employe);
     List<Employe> searchByNomOrPrenomOrEmail(@Param("search") String search);
+
+    Page<Employe> getEmployes(int page, int size);
 }

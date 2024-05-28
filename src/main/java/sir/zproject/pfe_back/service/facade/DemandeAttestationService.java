@@ -1,5 +1,6 @@
 package sir.zproject.pfe_back.service.facade;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,4 +38,6 @@ public interface DemandeAttestationService {
 
     long countByStatutDemande();
     List<DemandeAttestation> searchByAllAttributs(@Param("search") String search);
+
+    Page<DemandeAttestation> getDemandesAttest(int page, int size);
 }

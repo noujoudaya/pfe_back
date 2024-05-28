@@ -1,6 +1,8 @@
 package sir.zproject.pfe_back.ws.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import sir.zproject.pfe_back.bean.DemandeAttestation;
@@ -93,5 +95,13 @@ public class DemandeAttestationWS {
     @GetMapping("admin/demandesAttestation/countByStatutDemande")
     public long countByStatutDemande() {
         return demandeAttestationService.countByStatutDemande();
+    }
+
+    @GetMapping("admin/demandesAttestation/paginated")
+    public ResponseEntity<Page<DemandeAttestation>> getDemandesAttestation(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "6") int size) {
+        Page<DemandeAttestation> demandesPage = demandeAttestationService.getDemandesAttest(page, size);
+        return ResponseEntity.ok().body(demandesPage);
     }
 }

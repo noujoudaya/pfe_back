@@ -1,7 +1,10 @@
 package sir.zproject.pfe_back.dao;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Fonction;
 import sir.zproject.pfe_back.bean.Service;
 
@@ -19,5 +22,8 @@ public interface FonctionDao extends JpaRepository<Fonction ,Long> {
     int deleteByCode(String code);
 
     List<Fonction> findAll();
+
+    @Override
+    Page<Fonction> findAll(Pageable pageable);
 
 }

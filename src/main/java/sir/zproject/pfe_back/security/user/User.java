@@ -1,5 +1,6 @@
 package sir.zproject.pfe_back.security.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 @Table(name = "_user")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @EntityListeners(AuditingEntityListener.class)
+
 public class User implements UserDetails, Principal {
 
     @Id

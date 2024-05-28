@@ -1,7 +1,10 @@
 package sir.zproject.pfe_back.ws.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sir.zproject.pfe_back.bean.DemandeAttestation;
 import sir.zproject.pfe_back.bean.Fonction;
 import sir.zproject.pfe_back.bean.Service;
 import sir.zproject.pfe_back.service.facade.FonctionService;
@@ -50,5 +53,13 @@ public class Fonctionws {
     @PutMapping("admin/fonction/")
     public int update(@RequestBody Fonction newFonction) {
         return fonctionService.update(newFonction);
+    }
+
+    @GetMapping("admin/fonction/paginated")
+    public ResponseEntity<Page<Fonction>> getFonctions(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "6") int size) {
+        Page<Fonction> demandesPage = fonctionService.getFonctions(page, size);
+        return ResponseEntity.ok().body(demandesPage);
     }
 }

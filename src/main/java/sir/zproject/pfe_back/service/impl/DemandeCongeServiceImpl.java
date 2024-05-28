@@ -1,6 +1,8 @@
 package sir.zproject.pfe_back.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.*;
@@ -153,4 +155,11 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
     public List<DemandeConge> searchByAllAttributs(String search) {
         return demandeCongeDao.searchByAllAttributs(search);
     }
+
+    @Override
+    public Page<DemandeConge> getDemandesConge(int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return demandeCongeDao.findAll(pageable);
+    }
+
 }

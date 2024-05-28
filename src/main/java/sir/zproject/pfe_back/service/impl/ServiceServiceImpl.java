@@ -1,6 +1,8 @@
 package sir.zproject.pfe_back.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.Departement;
@@ -105,6 +107,11 @@ public class ServiceServiceImpl implements ServiceService {
         }
     }
 
+    @Override
+    public Page<sir.zproject.pfe_back.bean.Service> getServices(int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return serviceDao.findAll(pageable);
+    }
 
 
 }

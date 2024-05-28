@@ -1,6 +1,8 @@
 package sir.zproject.pfe_back.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -120,6 +122,12 @@ public class DemandeAttestationServiceImpl implements DemandeAttestationService 
     @Override
     public List<DemandeAttestation> searchByAllAttributs(String search) {
         return demandeAttestationDao.searchByAllAttributs(search);
+    }
+
+    @Override
+    public Page<DemandeAttestation> getDemandesAttest(int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return demandeAttestationDao.findAll(pageable);
     }
 }
 
