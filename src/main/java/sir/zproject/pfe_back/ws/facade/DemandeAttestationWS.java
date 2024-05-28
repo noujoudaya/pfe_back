@@ -5,9 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import sir.zproject.pfe_back.bean.DemandeAttestation;
-import sir.zproject.pfe_back.bean.DemandeConge;
-import sir.zproject.pfe_back.bean.Employe;
+import sir.zproject.pfe_back.bean.*;
 import sir.zproject.pfe_back.enumeration.StatutAttestation;
 import sir.zproject.pfe_back.enumeration.TypeAttestation;
 import sir.zproject.pfe_back.service.facade.DemandeAttestationService;
@@ -39,7 +37,7 @@ public class DemandeAttestationWS {
 
     @Transactional
     @DeleteMapping("all/demandesAttestation/deleteAttest/{employeId}/{dateDemande}")
-    public int deleteByEmployeIdAndDateDemande(@PathVariable long employeId , @PathVariable LocalDate dateDemande) {
+    public int deleteByEmployeIdAndDateDemande(@PathVariable long employeId, @PathVariable LocalDate dateDemande) {
         return demandeAttestationService.deleteByEmployeIdAndDateDemande(employeId, dateDemande);
     }
 
@@ -104,4 +102,14 @@ public class DemandeAttestationWS {
         Page<DemandeAttestation> demandesPage = demandeAttestationService.getDemandesAttest(page, size);
         return ResponseEntity.ok().body(demandesPage);
     }
+
+    @PostMapping("employe-secretaire/demandesAttestation/employe/paginated")
+    public ResponseEntity<Page<DemandeAttestation>> getDemandesAttestByEmploye(
+            @RequestBody Employe employe,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Page<DemandeAttestation> demandesPage = demandeAttestationService.getDemandesAttestByEmploye(employe, page, size);
+        return ResponseEntity.ok().body(demandesPage);
+    }
+
 }

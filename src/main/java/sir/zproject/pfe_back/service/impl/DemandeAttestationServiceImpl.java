@@ -6,9 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sir.zproject.pfe_back.bean.DemandeAttestation;
-import sir.zproject.pfe_back.bean.DemandeConge;
-import sir.zproject.pfe_back.bean.Employe;
+import sir.zproject.pfe_back.bean.*;
 import sir.zproject.pfe_back.enumeration.StatutAttestation;
 import sir.zproject.pfe_back.enumeration.TypeAttestation;
 import sir.zproject.pfe_back.dao.DemandeAttestationDao;
@@ -129,5 +127,12 @@ public class DemandeAttestationServiceImpl implements DemandeAttestationService 
         PageRequest pageable = PageRequest.of(page, size);
         return demandeAttestationDao.findAll(pageable);
     }
+
+    @Override
+    public Page<DemandeAttestation> getDemandesAttestByEmploye(Employe employe, int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return demandeAttestationDao.findByEmploye(employe,pageable);
+    }
+
 }
 

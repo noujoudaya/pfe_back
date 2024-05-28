@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Fonction;
@@ -204,6 +205,11 @@ public class EmployeServiceImpl implements EmployeService {
         return employeDao.findAll(pageable);
     }
 
+    @Override
+    public Page<Employe> getEmployesByDepartement(Departement departement, int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return employeDao.findByDepartement(departement,pageable);
+    }
 
 }
 

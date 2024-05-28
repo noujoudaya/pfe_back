@@ -72,4 +72,6 @@ public interface EmployeDao extends JpaRepository<Employe, Long>, PagingAndSorti
     @Override
     Page<Employe> findAll(Pageable pageable);
 
+    Page<Employe> findByDepartement(Departement departement,Pageable pageable);
+
 }

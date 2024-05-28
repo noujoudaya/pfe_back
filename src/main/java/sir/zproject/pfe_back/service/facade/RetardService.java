@@ -1,10 +1,12 @@
 package sir.zproject.pfe_back.service.facade;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
+import sir.zproject.pfe_back.bean.Fonction;
 import sir.zproject.pfe_back.bean.Retard;
 import sir.zproject.pfe_back.enumeration.StatutAbsence;
 import sir.zproject.pfe_back.enumeration.StatutConge;
@@ -40,5 +42,7 @@ public interface RetardService {
 
     String justifier(Retard retard);
     List<Retard> findByEmployeDepartement(Departement departement);
+
+    Page<Retard> getRetards(Departement departement, int page, int size);
 
 }

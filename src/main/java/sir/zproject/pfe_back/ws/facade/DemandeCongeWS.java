@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import sir.zproject.pfe_back.bean.DemandeAttestation;
 import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.enumeration.StatutConge;
@@ -134,4 +135,14 @@ public class DemandeCongeWS {
         Page<DemandeConge> demandesPage = demandeCongeService.getDemandesConge(page, size);
         return ResponseEntity.ok().body(demandesPage);
     }
+
+    @PostMapping("employe-secretaire/demandesConge/employe/paginated")
+    public ResponseEntity<Page<DemandeConge>> getDemandesCongeByEmploye(
+            @RequestBody Employe employe,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Page<DemandeConge> demandesPage = demandeCongeService.getDemandesCongeByEmploye(employe, page, size);
+        return ResponseEntity.ok().body(demandesPage);
+    }
+
 }

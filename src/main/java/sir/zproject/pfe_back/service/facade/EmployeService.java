@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+import sir.zproject.pfe_back.bean.DemandeAttestation;
 import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Fonction;
@@ -65,4 +66,7 @@ public interface EmployeService {
     List<Employe> searchByNomOrPrenomOrEmail(@Param("search") String search);
 
     Page<Employe> getEmployes(int page, int size);
+
+    Page<Employe> getEmployesByDepartement(Departement departement, int page, int size);
+
 }

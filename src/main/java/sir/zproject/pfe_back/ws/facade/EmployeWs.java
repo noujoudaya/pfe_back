@@ -6,10 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sir.zproject.pfe_back.bean.Departement;
-import sir.zproject.pfe_back.bean.Employe;
-import sir.zproject.pfe_back.bean.Fonction;
-import sir.zproject.pfe_back.bean.Service;
+import sir.zproject.pfe_back.bean.*;
 import sir.zproject.pfe_back.enumeration.GENRE;
 import sir.zproject.pfe_back.service.facade.EmployeService;
 import sir.zproject.pfe_back.ws.converter.EmployeConverter;
@@ -182,6 +179,15 @@ public class EmployeWs {
             @RequestParam(defaultValue = "5") int size) {
         Page<Employe> employesPage = employeService.getEmployes(page, size);
         return ResponseEntity.ok().body(employesPage);
+    }
+
+    @PostMapping("sup/employes/departement/paginated")
+    public ResponseEntity<Page<Employe>> getEmployeByDepartement(
+            @RequestBody Departement departement,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Page<Employe> demandesPage = employeService.getEmployesByDepartement(departement, page, size);
+        return ResponseEntity.ok().body(demandesPage);
     }
 
 

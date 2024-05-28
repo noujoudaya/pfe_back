@@ -37,4 +37,6 @@ public interface DemandeAttestationDao extends JpaRepository<DemandeAttestation,
 
     @Override
     Page<DemandeAttestation> findAll(Pageable pageable);
+
+    Page<DemandeAttestation> findByEmploye(Employe employe,Pageable pageable);
 }

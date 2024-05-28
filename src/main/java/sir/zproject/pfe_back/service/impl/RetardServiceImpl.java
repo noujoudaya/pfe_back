@@ -1,6 +1,8 @@
 package sir.zproject.pfe_back.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import sir.zproject.pfe_back.bean.Departement;
@@ -119,5 +121,9 @@ public class RetardServiceImpl implements RetardService {
         return retardDao.findByEmployeDepartement(departement);
     }
 
-
+    @Override
+    public Page<Retard> getRetards(Departement departement,int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return retardDao.findByEmployeDepartement(departement,pageable);
+    }
 }

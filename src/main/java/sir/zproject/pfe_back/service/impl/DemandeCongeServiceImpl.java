@@ -162,4 +162,10 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
         return demandeCongeDao.findAll(pageable);
     }
 
+    @Override
+    public Page<DemandeConge> getDemandesCongeByEmploye(Employe employe, int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return demandeCongeDao.findByEmploye(employe,pageable);
+    }
+
 }

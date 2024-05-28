@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import sir.zproject.pfe_back.bean.DemandeAttestation;
 import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.enumeration.StatutConge;
@@ -50,5 +51,8 @@ public interface DemandeCongeDao extends JpaRepository<DemandeConge, Long> {
 
     @Override
     Page<DemandeConge> findAll(Pageable pageable);
+
+    Page<DemandeConge> findByEmploye(Employe employe, Pageable pageable);
+
 
 }

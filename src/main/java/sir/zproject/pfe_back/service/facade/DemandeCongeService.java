@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sir.zproject.pfe_back.bean.DemandeAttestation;
 import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.enumeration.StatutConge;
@@ -62,4 +63,6 @@ public interface DemandeCongeService {
     List<DemandeConge> searchByAllAttributs(@Param("search") String search);
 
     Page<DemandeConge> getDemandesConge(int page, int size);
+
+    Page<DemandeConge> getDemandesCongeByEmploye(Employe employe, int page, int size);
 }
