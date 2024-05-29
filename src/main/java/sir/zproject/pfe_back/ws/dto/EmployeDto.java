@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @Setter
 public class EmployeDto {
     private Long id;
+    private Long matricule;
     private String nom;
     private String prenom;
     private String telephone;
@@ -23,6 +24,7 @@ public class EmployeDto {
 
     private String numeroCompteBancaire;
     private long numeroCNSS;
+    private long numeroMutuelle;
 
     private LocalDate dateNaissance;
     private LocalDate dateEmbauche;
@@ -39,10 +41,14 @@ public class EmployeDto {
     private StatutEmploye statutEmploye;
     private TypeContrat typeContrat;
     private TYPE_SALAIRE typeSalaire;
+    private ModePaiement modePaiement;
     private Fonction fonction;
     private Service service;
     private Departement departement;
     private Image image;
+    private int nbrEnfant;
+    private int nbrDeduction;
+    private int nbrJourTravaille;
 
 
 }

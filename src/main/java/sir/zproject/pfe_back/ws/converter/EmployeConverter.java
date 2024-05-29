@@ -11,6 +11,7 @@ public class EmployeConverter {
     public Employe toBean(EmployeDto dto) {
         Employe bean = new Employe();
         bean.setId(dto.getId());
+        bean.setMatricule(dto.getMatricule());
         bean.setNom(dto.getNom());
         bean.setPrenom(dto.getPrenom());
         bean.setAdresse(dto.getAdresse());
@@ -36,6 +37,11 @@ public class EmployeConverter {
         bean.setService(dto.getService());
         bean.setFonction(dto.getFonction());
         bean.setImage(dto.getImage());
+        bean.setNumeroMutuelle(dto.getNumeroMutuelle());
+        bean.setNbrEnfant(dto.getNbrEnfant());
+        bean.setNbrDeduction(dto.getNbrDeduction());
+        bean.setModePaiement(dto.getModePaiement());
+        bean.setNbrJourTravaille(dto.getNbrJourTravaille());
         return bean;
     }
     public List<Employe> toBean(List<EmployeDto> dtos) {
@@ -44,6 +50,7 @@ public class EmployeConverter {
     public EmployeDto toDto(Employe bean) {
         EmployeDto dto = new EmployeDto();
         dto.setId(bean.getId());
+        dto.setMatricule(bean.getMatricule());
         dto.setNom(bean.getNom());
         dto.setPrenom(bean.getPrenom());
         dto.setAdresse(bean.getAdresse());
@@ -69,6 +76,11 @@ public class EmployeConverter {
         dto.setService(bean.getService());
         dto.setFonction(bean.getFonction());
         dto.setImage(bean.getImage());
+        dto.setNumeroMutuelle(bean.getNumeroMutuelle());
+        dto.setNbrEnfant(bean.getNbrEnfant());
+        dto.setNbrDeduction(bean.getNbrDeduction());
+        dto.setModePaiement(bean.getModePaiement());
+        dto.setNbrJourTravaille(bean.getNbrJourTravaille());
         return dto;
     }
     public List<EmployeDto> toDto(List<Employe> beans) {

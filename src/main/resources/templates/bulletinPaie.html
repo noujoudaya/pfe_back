@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulletin de Paie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }body, html {
+             width: 100%;
+             height: 100%;
+             margin: 0;
+             padding: 0;
+         }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        p {
+            color: black;
+            font-family: "Courier New", monospace;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 9pt;
+
+        }
+
+
+        .table1 {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-bottom: 2px;
+
+            border-bottom: 1.5px solid #000;
+
+
+
+
+        }
+
+        .table1 td {
+            border: 1.3px solid #000;
+            padding-top: 1px;
+            border-top: none;
+            /* Remove horizontal borders between rows */
+            border-bottom: none;
+            /* Remove horizontal borders between rows */
+            border-left: 1px solid rgb(0, 0, 0);
+            /* Keep vertical borders between columns */
+            border-right: 1px solid rgb(0, 0, 0);
+            /* Keep vertical borders between columns */
+            text-align: right;
+            padding-right: 5px;
+
+        }
+
+        .table1 th {
+            border: 1.3px solid #000;
+            padding: 10px;
+            color: #ffffff;
+            background-color: #ACD4D4;
+            text-align: center;
+
+        }
+
+        .table1 tr td:nth-child(1) {
+            text-align: center;
+            width: 70px;
+        }
+
+        .table1 tr td:nth-child(4) {
+
+            width: 65px;
+            padding-right: 0px;
+        }
+
+        .table1 tr td:nth-child(5) {
+            padding-right: 0px;
+            width: 100px;
+        }
+
+        .table1 tr td:nth-child(6) {
+            padding-right: 0px;
+            width: 80px;
+        }
+
+        .table1 tr td:nth-child(2) {
+            text-align: left;
+            padding-left: 5px;
+            width: 305px;
+        }
+
+        .content {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+
+
+
+
+
+
+        .header-card {
+            background-color: #ACD4D4;
+            border: 1.5px solid rgb(0, 0, 0);
+            border-radius: 4px;
+            padding: 4.5px;
+            margin: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            text-align: center;
+            color: white;
+            font-family: "Times New Roman", serif;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 16pt;
+        }
+
+
+
+        .mat-cnss-mut {
+            color: black;
+            font-family: Times New Roman, serif;
+            font-style: normal;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 9pt;
+            white-space: nowrap;
+            /* Prevent line break */
+        }
+
+        .mat-mut {
+            margin-left: 8px;
+            /* Adjust the margin to create space */
+        }
+
+
+        .table-one {
+            border-spacing: 0;
+            width: 100%;
+
+        }
+
+        .table-one td {
+            border: 1px solid #000;
+            padding: 0px;
+
+        }
+
+        .table-one th {
+            text-align: center;
+            background-color: #ACD4D4;
+            color: #ffffff;
+            border: 1px solid #000;
+            padding: 0;
+        }
+
+        .rounded-left {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            overflow: hidden;
+
+        }
+
+        .rounded-right {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            overflow: hidden;
+
+        }
+
+        .table-one tr td:nth-child(2),
+        .table-one tr td:nth-child(3),
+        .table-one tr td:nth-child(4) {
+            text-align: left;
+            padding-left: 5px;
+            width: 48px;
+        }
+
+        .table-one tr td:nth-child(6) {
+            padding-left: 5px;
+            width: 102px;
+        }
+
+        .table-one tr td:nth-child(9) {
+            text-align: center;
+            padding-left: 5px;
+            width: 102px;
+        }
+
+        .s9 {
+            color: black;
+            font-family: "Courier New", monospace;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 9pt;
+        }
+
+        .table2 {
+            width: 100%;
+
+        }
+
+        .th2,
+        .td2 {
+            border: 1px solid #000000;
+            text-align: left;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .th2 {
+            background-color: #f2f2f2;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<div class="content">
+    <div class="header-card ">BULLETIN DE PAIE</div>
+
+    <table class="table2">
+        <tr class="tr2">
+            <td class="td2">
+                <p style="text-indent: 0pt;text-align: left;"><span th:text="${bulletinPaie.entreprise.identifiantFiscale}"
+                        style=" color: black; font-family:Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt;"></span>
+                </p>
+                <p style="text-indent: 0pt;text-align: left;"><span th:text="${bulletinPaie.entreprise.adresse}"
+                        style=" color: black; font-family:Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt;"></span></p>
+                <p style="text-indent: 0pt;text-align: left;"><span
+                        style=" color: black; font-family:Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt;">N°
+                        CNSS : <span th:text="${bulletinPaie.entreprise.numeroCNSS}"></span> <span style="margin-left: 40px;">N° Mut. :<span th:text="${bulletinPaie.entreprise.numeromutuelle}"></span></span></span></p>
+            </td>
+            <td class="td2" rowspan="2">
+                <p style="text-indent: 0pt;ltext-align: left;"><span
+                        style=" color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt;">Période
+                        du : <span th:text="${bulletinPaie.month}" ></span> <span th:text="${bulletinPaie.year}" ></span> </span></p>
+                <p style="padding-top: 7pt;text-indent: 0pt;text-align: left;"><span
+                        style=" color: black; font-family:Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt;">Paiement
+                        le / / Par <span th:text="${bulletinPaie.employe.modePaiement}" ></span></span></p>
+                <p style="padding-left: 16pt;text-indent: -5pt;text-align: left;">
+                    <span
+                            style=" color: black; font-family:Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt; vertical-align: 1pt;">Matricule
+                        :</span><span th:text="${bulletinPaie.employe.matricule}"
+                                      style=" color: black; font-family:Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt;">
+                    </span>
+
+                <p style="padding-left: 11pt;text-indent: 0pt;text-align: left;"><span
+                        style=" color: black; font-family:Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt;">Service:
+                        <span th:text="${bulletinPaie.employe.service.libelle}" ></span></span></p>
+                <p style="padding-left: 11pt;text-indent: 0pt;text-align: left;"><span
+                        style=" color: black; font-family:Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt;">Fonction:
+                         <span th:text="${bulletinPaie.employe.fonction.libelle}" ></span></span></p>
+
+
+
+                <p style="padding-top: 5pt; padding-left: 5pt; text-indent: 0pt; text-align: left;">
+    <span style="color: black; font-family: Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt;">
+        Date naiss.:
+    </span>
+                    <span th:text="${bulletinPaie.employe.dateNaissance}" style="color: black; font-family: Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt;">
+    </span>
+                    <span style="margin-left: 3px; color: black; font-family: Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt;">
+        S.fam.:
+    </span>
+                    <span th:text="${bulletinPaie.employe.situationFamiliale}" style="color: black; font-family: Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt;">
+    </span>
+                </p>
+
+
+
+
+                <p style="padding-top: 5pt; padding-left: 5pt; text-indent: 0pt; text-align: left;">
+    <span style="color: black; font-family: Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt;">
+        Embauche:
+    </span>
+                    <span th:text="${bulletinPaie.employe.dateEmbauche}" style="color: black; font-family: Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt;">
+    </span>
+                    <span style="margin-left: 5px; color: black; font-family: Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt;">
+        Enfant:
+    </span>
+                    <span th:text="${bulletinPaie.employe.nbrEnfant}" style="color: black; font-family: Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt;">
+    </span>
+                    <span style="margin-left: 5px; color: black; font-family: Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt;">
+        Déd.:
+    </span>
+                    <span th:text="${bulletinPaie.employe.nbrDeduction}" style="color: black; font-family: Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt;">
+    </span>
+                </p>
+
+                <p style="padding-top: 5pt; text-indent: 0pt; text-align: left;">
+                    <span class="mat-cnss-mut"
+                          style="color: black; font-family: Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9pt;">
+                        Mat. CNSS : <span th:text="${bulletinPaie.employe.numeroCNSS}"></span> <span class="mat-mut"> Mat. Mut.:<span th:text="${bulletinPaie.employe.numeroMutuelle}"></span></span>
+                    </span>
+                </p>
+            </td>
+        </tr>
+        <tr class="tr2">
+            <td class="td2">
+                <p style="text-align: center;">
+    <span th:text="${bulletinPaie.employe.prenom + ' ' + bulletinPaie.employe.nom}"
+          style="color: black; font-family: Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 12pt;">
+    </span>
+                </p>
+
+                <p style="padding-top: 11pt;text-indent: 0pt;text-align: left;"><span th:text="${bulletinPaie.employe.adresse}"
+                        style=" color: black; font-family:Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10pt;"></span>
+                </p>
+            </td>
+        </tr>
+    </table>
+
+
+
+    <table class="table1" >
+        <thead>
+        <tr>
+            <th class="rounded-left">CODE</th>
+            <th>LIBELLE</th>
+            <th>BASE</th>
+            <th>TAUX</th>
+            <th>GAINS</th>
+            <th class="rounded-right">RETENUES</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr >
+            <td>10</td>
+            <td>Salaire de base</td>
+            <td th:text="${bulletinPaie.employe.salaire}" ></td>
+            <td th:text="${bulletinPaie.nbrJourTravaille}" ></td>
+            <td th:text="${bulletinPaie.salaireBaseMensuelle}" ></td>
+            <td></td>
+        </tr>
+        <tr th:if="${bulletinPaie.heuresSupp25 != 0}">
+            <td>16</td>
+            <td>Heures Supp</td>
+            <td th:text="${bulletinPaie.salaireBaseMensuelle}"></td>
+            <td>25.00</td>
+            <td th:text="${bulletinPaie.heuresSupp25}"></td>
+            <td></td>
+        </tr>
+        <tr th:if="${bulletinPaie.heuresSupp50 != 0}">
+            <td>17</td>
+            <td>Heures Supp</td>
+            <td th:text="${bulletinPaie.salaireBaseMensuelle}"></td>
+            <td>25.00</td>
+            <td th:text="${bulletinPaie.heuresSupp50}"></td>
+            <td></td>
+        </tr>
+        <tr th:if="${bulletinPaie.heuresSupp100 != 0}">
+            <td>18</td>
+            <td>Heures Supp</td>
+            <td th:text="${bulletinPaie.salaireBaseMensuelle}"></td>
+            <td>25.00</td>
+            <td th:text="${bulletinPaie.heuresSupp100}"></td>
+            <td></td>
+        </tr>
+        <tr th:if="${bulletinPaie.tauxAnc != 0}">
+            <td>11</td>
+            <td>Prime d'ancienneté</td>
+            <td th:text="${bulletinPaie.salaireBaseImposable}"></td>
+            <td th:text="${bulletinPaie.tauxAnc}"></td>
+            <td th:text="${bulletinPaie.primeAnc}"></td>
+            <td></td>
+        </tr>
+        <tr >
+            <td>300</td>
+            <td>Cotisation CNSS</td>
+            <td th:text="${bulletinPaie.salaireBrutImp}"></td>
+            <td>4.48</td>
+            <td></td>
+            <td th:text="${bulletinPaie.retenusCnss}"></td>
+        </tr>
+        <tr >
+            <td>310</td>
+            <td>Cotisation AMO</td>
+            <td th:text="${bulletinPaie.salaireBrutImp}"></td>
+            <td>2.26</td>
+            <td></td>
+            <td th:text="${bulletinPaie.retenusAmo}"></td>
+        </tr>
+        <tr th:if="${bulletinPaie.retenusIr != 0}">
+            <td>11</td>
+            <td>Retenue IR</td>
+            <td th:text="${bulletinPaie.salaireNetImp}"></td>
+            <td th:text="${bulletinPaie.tauxIr}"></td>
+            <td></td>
+            <td th:text="${bulletinPaie.retenusIr}"></td>
+        </tr>
+        <tr th:each="bpr : ${bulletinPaie.bulletinPaieRubriques}"
+            th:if="${bpr.rubrique.code != 11 and bpr.rubrique.code != 16 and bpr.rubrique.code != 17 and bpr.rubrique.code != 18 and bpr.montant != 0}">
+            <td th:text="${bpr.rubrique.code}"></td>
+            <td th:text="${bpr.rubrique.libelle}"></td>
+            <td></td>
+            <td></td>
+            <td th:text="${bpr.montant}"></td>
+            <td></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+
+    <table class="table-one">
+        <thead>
+        <tr>
+            <th>CUMULS</th>
+            <th style="font-size: 11px;">Jours<br>travaillés</th>
+            <th style="font-size: 11px;">Heures<br>travaillés</th>
+            <th style="font-size: 11px;">Heures<br>supp.</th>
+            <th style="font-size: 14px;">Brut</th>
+            <th style="font-size: 14px;">CNSS</th>
+            <th style="font-size: 12px;">MUTUELLE</th>
+            <th>I.R</th>
+            <th style="font-size: 7px;">NET<br>A<br>PAYER</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td> Col1</td>
+            <td> 26</td>
+            <td> 25</td>
+            <td> 24</td>
+            <td> Col2</td>
+            <td> Col 3</td>
+            <td> Col 4</td>
+            <td> col 5</td>
+            <td rowspan="2" style="text-align: right;">merged</td>
+        </tr>
+        <tr >
+            <td> Col 6</td>
+            <td> 27</td>
+            <td> 29</td>
+            <td> 28</td>
+            <td> Col 7</td>
+            <td> Col 8</td>
+            <td> Col 9</td>
+            <td> Col 10</td>
+
+        </tr>
+        <tr>
+            <td colspan="4">
+                <p class="s9" style=" padding-right: 80px; padding-top: 5pt;text-indent: 0pt;">signature</p>
+            </td>
+
+            <td colspan="5"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p style="padding-left: 5pt;text-align: left;">Pour vous aider à faire valoir vos droits,
+        conservez ce bulletin de paie sans limitaion de durée.</p>
+
+
+</div>
+</body>
+
+
+</html>
