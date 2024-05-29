@@ -7,6 +7,7 @@ import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Fonction;
 import sir.zproject.pfe_back.dao.EmployeDao;
+import sir.zproject.pfe_back.enumeration.GENRE;
 import sir.zproject.pfe_back.service.facade.EmployeService;
 import sir.zproject.pfe_back.service.facade.FonctionService;
 
@@ -129,6 +130,11 @@ public class EmployeServiceImpl implements EmployeService {
     @Override
     public int countEmployeByVille(String ville) {
         return employeDao.countEmployeByVille(ville);
+    }
+
+    @Override
+    public int countEmployeByGenre(GENRE genre) {
+        return employeDao.countEmployeByGenre(genre);
     }
 
     @Override

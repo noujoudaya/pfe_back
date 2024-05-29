@@ -8,6 +8,7 @@ import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Fonction;
 import sir.zproject.pfe_back.bean.Service;
+import sir.zproject.pfe_back.enumeration.GENRE;
 
 import java.util.List;
 
@@ -54,6 +55,8 @@ public interface EmployeDao extends JpaRepository<Employe, Long> {
     int countEmployeByFonction(Fonction fonction);
 
     int countEmployeByVille(String ville);
+
+    int countEmployeByGenre(GENRE genre);
 
 
     @Query("SELECT e FROM Employe e WHERE " +
