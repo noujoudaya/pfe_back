@@ -1,8 +1,11 @@
 package sir.zproject.pfe_back.ws.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import sir.zproject.pfe_back.bean.DemandeAttestation;
 import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.enumeration.StatutConge;
@@ -124,4 +127,22 @@ public class DemandeCongeWS {
     public int deleteByDateDemandeAndEmployeIdAndTypeCongeLibelle(@PathVariable LocalDate dateDemande, @PathVariable long employeId, @PathVariable String typeCongeLibelle) {
         return demandeCongeService.deleteByDateDemandeAndEmployeIdAndTypeCongeLibelle(dateDemande, employeId, typeCongeLibelle);
     }
+
+    @GetMapping("admin/demandesConge/paginated")
+    public ResponseEntity<Page<DemandeConge>> getDemandesConge(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "6") int size) {
+        Page<DemandeConge> demandesPage = demandeCongeService.getDemandesConge(page, size);
+        return ResponseEntity.ok().body(demandesPage);
+    }
+
+    @PostMapping("employe-secretaire/demandesConge/employe/paginated")
+    public ResponseEntity<Page<DemandeConge>> getDemandesCongeByEmploye(
+            @RequestBody Employe employe,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Page<DemandeConge> demandesPage = demandeCongeService.getDemandesCongeByEmploye(employe, page, size);
+        return ResponseEntity.ok().body(demandesPage);
+    }
+
 }

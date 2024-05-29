@@ -1,6 +1,8 @@
 package sir.zproject.pfe_back.service.facade;
 
 
+import org.springframework.data.domain.Page;
+import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Fonction;
 
 import java.util.List;
@@ -22,6 +24,7 @@ public interface FonctionService {
     int save(Fonction fonction);
 
 
-
     int update(Fonction newFonction);
+
+    Page<Fonction> getFonctions(int page, int size);
 }

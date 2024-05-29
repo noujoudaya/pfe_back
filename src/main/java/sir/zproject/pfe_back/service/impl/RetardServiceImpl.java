@@ -1,8 +1,11 @@
 package sir.zproject.pfe_back.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Retard;
 import sir.zproject.pfe_back.dao.EmployeDao;
@@ -113,5 +116,14 @@ public class RetardServiceImpl implements RetardService {
         return "retard justifié avec succès";
     }
 
+    @Override
+    public List<Retard> findByEmployeDepartement(Departement departement) {
+        return retardDao.findByEmployeDepartement(departement);
+    }
 
+    @Override
+    public Page<Retard> getRetards(Departement departement,int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return retardDao.findByEmployeDepartement(departement,pageable);
+    }
 }

@@ -1,11 +1,11 @@
 package sir.zproject.pfe_back.ws.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import sir.zproject.pfe_back.bean.DemandeConge;
-import sir.zproject.pfe_back.bean.Employe;
-import sir.zproject.pfe_back.bean.Retard;
+import sir.zproject.pfe_back.bean.*;
 import sir.zproject.pfe_back.enumeration.StatutAbsence;
 import sir.zproject.pfe_back.service.facade.RetardService;
 import sir.zproject.pfe_back.ws.converter.RetardsConverter;
@@ -88,5 +88,20 @@ public class RetardWS {
     @PostMapping("admin/retards/justifier")
     public String justifier(@RequestBody Retard retard) {
         return retardService.justifier(retard);
+    }
+
+    @PostMapping("sup/retards/departement")
+    public List<RetardDto> findByEmployeDepartement(@RequestBody Departement departement) {
+        List<Retard> list = retardService.findByEmployeDepartement(departement);
+        return retardConverter.toDto(list);
+    }
+
+    @PostMapping("sup/retards/paginated")
+    public ResponseEntity<Page<Retard>> getRetards(
+            @RequestBody Departement departement,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Page<Retard> demandesPage = retardService.getRetards(departement, page, size);
+        return ResponseEntity.ok().body(demandesPage);
     }
 }

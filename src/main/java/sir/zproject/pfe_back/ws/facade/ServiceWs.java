@@ -1,8 +1,11 @@
 package sir.zproject.pfe_back.ws.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sir.zproject.pfe_back.bean.Departement;
+import sir.zproject.pfe_back.bean.Fonction;
 import sir.zproject.pfe_back.bean.Service;
 import sir.zproject.pfe_back.service.facade.ServiceService;
 import sir.zproject.pfe_back.ws.converter.ServiceConverter;
@@ -54,5 +57,13 @@ public class ServiceWs {
     @PutMapping("admin/service/")
     public int update(@RequestBody Service newService) {
         return serviceService.update(newService);
+    }
+
+    @GetMapping("admin/service/paginated")
+    public ResponseEntity<Page<Service>> getServices(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "6") int size) {
+        Page<Service> demandesPage = serviceService.getServices(page, size);
+        return ResponseEntity.ok().body(demandesPage);
     }
 }

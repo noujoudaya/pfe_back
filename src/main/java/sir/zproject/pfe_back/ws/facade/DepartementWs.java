@@ -1,7 +1,10 @@
 package sir.zproject.pfe_back.ws.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sir.zproject.pfe_back.bean.DemandeAttestation;
 import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.service.facade.DepartementService;
 import sir.zproject.pfe_back.ws.converter.DepartementConverter;
@@ -50,5 +53,13 @@ public class DepartementWs {
     @PutMapping("admin/departement/")
     public int update(@RequestBody Departement newDepartement) {
         return departementService.update(newDepartement);
+    }
+
+    @GetMapping("admin/departement/paginated")
+    public ResponseEntity<Page<Departement>> getDepartements(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Page<Departement> demandesPage = departementService.getDepartements(page, size);
+        return ResponseEntity.ok().body(demandesPage);
     }
 }

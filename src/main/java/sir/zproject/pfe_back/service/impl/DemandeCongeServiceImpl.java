@@ -1,6 +1,8 @@
 package sir.zproject.pfe_back.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.*;
@@ -139,6 +141,7 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
         existingDemande.setDateFin(demandeConge.getDateFin());
         existingDemande.setTypeConge(demandeConge.getTypeConge());
         existingDemande.setStatutConge(demandeConge.getStatutConge());
+        existingDemande.setMotifRefus(demandeConge.getMotifRefus());
         demandeCongeDao.save(existingDemande);
         return 1;
     }
@@ -152,4 +155,17 @@ public class DemandeCongeServiceImpl implements DemandeCongeService {
     public List<DemandeConge> searchByAllAttributs(String search) {
         return demandeCongeDao.searchByAllAttributs(search);
     }
+
+    @Override
+    public Page<DemandeConge> getDemandesConge(int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return demandeCongeDao.findAll(pageable);
+    }
+
+    @Override
+    public Page<DemandeConge> getDemandesCongeByEmploye(Employe employe, int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return demandeCongeDao.findByEmploye(employe,pageable);
+    }
+
 }

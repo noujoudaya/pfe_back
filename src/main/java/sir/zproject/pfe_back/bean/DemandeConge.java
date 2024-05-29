@@ -22,5 +22,6 @@ public class DemandeConge {
     private StatutConge statutConge;
     @ManyToOne
     private TypeConge typeConge;
+    private String motifRefus;
 }
 

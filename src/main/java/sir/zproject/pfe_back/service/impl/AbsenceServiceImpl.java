@@ -1,10 +1,13 @@
 package sir.zproject.pfe_back.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sir.zproject.pfe_back.bean.Absence;
 import sir.zproject.pfe_back.bean.DemandeAttestation;
+import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.enumeration.StatutAbsence;
 import sir.zproject.pfe_back.dao.AbsenceDao;
@@ -102,6 +105,17 @@ public class AbsenceServiceImpl implements AbsenceService {
     @Override
     public List<Absence> searchByAllAttributs(String search) {
         return absenceDao.searchByAllAttributs(search);
+    }
+
+    @Override
+    public List<Absence> findByEmployeDepartement(Departement departement) {
+        return absenceDao.findByEmployeDepartement(departement);
+    }
+
+    @Override
+    public Page<Absence> getAbsences(Departement departement, int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return absenceDao.findByEmployeDepartement(departement,pageable);
     }
 
 }

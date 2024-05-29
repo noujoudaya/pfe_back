@@ -1,6 +1,8 @@
 package sir.zproject.pfe_back.ws.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
@@ -174,4 +176,23 @@ public class EmployeWs {
     public List<Employe> searchEmployes(@RequestParam String search) {
         return employeService.searchByNomOrPrenomOrEmail(search);
     }
+
+    @GetMapping("admin/employes/paginated")
+    public ResponseEntity<Page<Employe>> getEmployes(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Page<Employe> employesPage = employeService.getEmployes(page, size);
+        return ResponseEntity.ok().body(employesPage);
+    }
+
+    @PostMapping("sup/employes/departement/paginated")
+    public ResponseEntity<Page<Employe>> getEmployeByDepartement(
+            @RequestBody Departement departement,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Page<Employe> demandesPage = employeService.getEmployesByDepartement(departement, page, size);
+        return ResponseEntity.ok().body(demandesPage);
+    }
+
+
 }

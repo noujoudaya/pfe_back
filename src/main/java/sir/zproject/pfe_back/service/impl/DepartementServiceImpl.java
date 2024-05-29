@@ -2,8 +2,11 @@ package sir.zproject.pfe_back.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sir.zproject.pfe_back.bean.DemandeConge;
 import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Fonction;
 import sir.zproject.pfe_back.dao.DepartementDao;
@@ -85,5 +88,11 @@ public class DepartementServiceImpl implements DepartementService {
             departementDao.save(departement);
             return 1;
         }
+    }
+
+    @Override
+    public Page<Departement> getDepartements(int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return departementDao.findAll(pageable);
     }
 }

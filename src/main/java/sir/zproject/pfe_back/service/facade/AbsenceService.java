@@ -1,11 +1,10 @@
 package sir.zproject.pfe_back.service.facade;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sir.zproject.pfe_back.bean.Absence;
-import sir.zproject.pfe_back.bean.DemandeAttestation;
-import sir.zproject.pfe_back.bean.Employe;
+import sir.zproject.pfe_back.bean.*;
 import sir.zproject.pfe_back.enumeration.StatutAbsence;
 
 import java.time.LocalDate;
@@ -30,4 +29,8 @@ public interface AbsenceService {
     int update(Absence absence);
     String justifier(Absence absence);
     List<Absence> searchByAllAttributs(@Param("search") String search);
+
+    List<Absence> findByEmployeDepartement(Departement departement);
+
+    Page<Absence> getAbsences(Departement departement,int page, int size);
 }

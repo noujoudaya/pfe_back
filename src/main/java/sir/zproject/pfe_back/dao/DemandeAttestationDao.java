@@ -1,5 +1,7 @@
 package sir.zproject.pfe_back.dao;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -32,4 +34,9 @@ public interface DemandeAttestationDao extends JpaRepository<DemandeAttestation,
             "LOWER(d.employe.nom) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
             "LOWER(d.employe.prenom) LIKE LOWER(CONCAT('%', :search, '%')) ")
     List<DemandeAttestation> searchByAllAttributs(@Param("search") String search);
+
+    @Override
+    Page<DemandeAttestation> findAll(Pageable pageable);
+
+    Page<DemandeAttestation> findByEmploye(Employe employe,Pageable pageable);
 }

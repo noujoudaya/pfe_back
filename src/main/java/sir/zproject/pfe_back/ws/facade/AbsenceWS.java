@@ -1,10 +1,14 @@
 package sir.zproject.pfe_back.ws.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import sir.zproject.pfe_back.bean.Absence;
+import sir.zproject.pfe_back.bean.Departement;
 import sir.zproject.pfe_back.bean.Employe;
+import sir.zproject.pfe_back.bean.Service;
 import sir.zproject.pfe_back.enumeration.StatutAbsence;
 import sir.zproject.pfe_back.service.facade.AbsenceService;
 import sir.zproject.pfe_back.ws.converter.AbsenceConverter;
@@ -75,5 +79,20 @@ public class AbsenceWS {
     @GetMapping("sup/absences/search")
     public List<Absence> searchByAllAttributs(@RequestParam String search) {
         return absenceService.searchByAllAttributs(search);
+    }
+
+    @PostMapping("sup/absences/departement")
+    public List<AbsenceDto> findByEmployeDepartement(@RequestBody Departement departement) {
+        List<Absence> list = absenceService.findByEmployeDepartement(departement);
+        return absenceConverter.toDto(list);
+    }
+
+    @PostMapping("sup/absences/paginated")
+    public ResponseEntity<Page<Absence>> getAbsences(
+            @RequestBody Departement departement,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        Page<Absence> demandesPage = absenceService.getAbsences(departement,page, size);
+        return ResponseEntity.ok().body(demandesPage);
     }
 }
