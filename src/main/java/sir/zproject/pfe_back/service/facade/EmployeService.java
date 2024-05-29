@@ -10,6 +10,8 @@ import java.util.List;
 
 @Service
 public interface EmployeService {
+    Employe findByMatricule(Long matricule);
+
     Employe findByCin(String cin);
 
     Employe findByNumeroCNSS(long numeroCNSS);

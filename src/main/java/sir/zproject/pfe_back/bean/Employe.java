@@ -11,6 +11,7 @@ import sir.zproject.pfe_back.security.user.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,6 +20,7 @@ public class Employe extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long matricule;
     private String nom;
     private String prenom;
     private String telephone;
@@ -29,6 +31,7 @@ public class Employe extends User {
 
     private String numeroCompteBancaire;
     private long numeroCNSS;
+    private long numeroMutuelle;
 
     private LocalDate dateNaissance;
     private LocalDate dateEmbauche;
@@ -37,6 +40,10 @@ public class Employe extends User {
 
     private BigDecimal salaire;
     private BigDecimal soldeConge;
+
+    private int nbrEnfant;
+    private int nbrDeduction;
+    private int nbrJourTravaille;
 
     @OneToOne
     private Image image;
@@ -65,6 +72,10 @@ public class Employe extends User {
     @JsonDeserialize(using = TypeContratDeserializer.class)
     @Enumerated(EnumType.STRING)
     private TypeContrat typeContrat;
+
+    @JsonDeserialize(using = ModePaiementDeserializer.class)
+    @Enumerated(EnumType.STRING)
+    private ModePaiement modePaiement;
 
     @ManyToOne
     private Fonction fonction;

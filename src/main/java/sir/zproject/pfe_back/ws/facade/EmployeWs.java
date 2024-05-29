@@ -25,6 +25,11 @@ public class EmployeWs {
         Employe employe = employeService.findByCin(cin);
         return employeConverter.toDto(employe);
     }
+    @GetMapping("/matricule/{matricule}")
+    public EmployeDto findByMatricule(@PathVariable Long matricule) {
+        Employe employe = employeService.findByMatricule(matricule);
+        return employeConverter.toDto(employe);
+    }
 
     @GetMapping("/numeroCNSS/{numeroCNSS}")
     public EmployeDto findByNumeroCNSS(@PathVariable long numeroCNSS) {
@@ -41,6 +46,10 @@ public class EmployeWs {
     public EmployeDto findByEmail(@PathVariable String email) {
         Employe employe = employeService.findByEmail(email);
         return employeConverter.toDto(employe);
+    }
+
+    public List<Employe> searchByNomOrPrenomOrEmail(String search) {
+        return employeService.searchByNomOrPrenomOrEmail(search);
     }
 
     @GetMapping("/telephone/{telephone}")

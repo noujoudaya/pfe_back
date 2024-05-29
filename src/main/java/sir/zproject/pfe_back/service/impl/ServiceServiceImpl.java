@@ -20,7 +20,7 @@ public class ServiceServiceImpl implements ServiceService {
     @Autowired
     private  ServiceDao serviceDao;
     @Autowired
-    FonctionService fonctionService;
+    private FonctionService fonctionService;
 
 
     @Override

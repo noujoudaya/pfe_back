@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import sir.zproject.pfe_back.bean.Image;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 public interface ImageService {
     ResponseEntity<String> uploadImage(MultipartFile file, String cin) throws IOException;
@@ -15,4 +16,5 @@ public interface ImageService {
 
 
     byte[] decompressBytes(byte[] data);
+
 }

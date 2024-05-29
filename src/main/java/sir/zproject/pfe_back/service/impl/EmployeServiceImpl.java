@@ -8,6 +8,7 @@ import sir.zproject.pfe_back.bean.Employe;
 import sir.zproject.pfe_back.bean.Fonction;
 import sir.zproject.pfe_back.dao.EmployeDao;
 import sir.zproject.pfe_back.service.facade.EmployeService;
+import sir.zproject.pfe_back.service.facade.FonctionService;
 
 import java.util.List;
 
@@ -16,6 +17,12 @@ public class EmployeServiceImpl implements EmployeService {
 
     @Autowired
     private EmployeDao employeDao;
+    @Autowired
+    private FonctionService fonctionService;
+@Override
+    public Employe findByMatricule(Long matricule) {
+        return employeDao.findByMatricule(matricule);
+    }
 
     @Override
     public Employe findByCin(String cin) {
@@ -67,6 +74,7 @@ public class EmployeServiceImpl implements EmployeService {
     public List<Employe> findByVille(String ville) {
         return employeDao.findByVille(ville);
     }
+
 
     @Override
     @Transactional
@@ -135,12 +143,14 @@ public class EmployeServiceImpl implements EmployeService {
 
     @Override
     public int save(Employe employe) {
+        Fonction fonction = fonctionService.findByLibelle(employe.getFonction().getLibelle());
+        employe.setFonction(fonction);
         if (employe == null) {
             return 0; // Retourne 0 si l'employé est null
         }
 
         // Vérifie si l'employé existe déjà (supposant que getId() est la méthode pour obtenir l'ID)
-        if (employe.getId() != null && employeDao.existsById(employe.getId())) {
+       else  if (employe.getId() != null && employeDao.existsById(employe.getId())) {
             // Mise à jour
             System.out.println("Mise à jour de l'employé existant.");
         } else {

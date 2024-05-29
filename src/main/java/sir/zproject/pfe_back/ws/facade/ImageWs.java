@@ -9,6 +9,7 @@ import sir.zproject.pfe_back.dao.ImageDao;
 import sir.zproject.pfe_back.service.facade.ImageService;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("image")
@@ -22,9 +23,12 @@ public class ImageWs {
     public ResponseEntity<String> uploadImage(@RequestParam("imageFile") MultipartFile file, @RequestParam("cin") String cin) throws IOException {
         return imageService.uploadImage(file, cin);
     }
-
-    @GetMapping(path = {"/id/{imageId}"})
+    @GetMapping("/get/{imageId}")
     public Image getImage(@PathVariable Long imageId) throws IOException {
-        return imageService.getImage(imageId);
+
+        final Optional<Image> retrievedImage = imageDao.findById(imageId);
+        Image img = new Image(retrievedImage.get().getName(), retrievedImage.get().getType(),
+                imageService.decompressBytes(retrievedImage.get().getPicByte()));
+        return img;
     }
 }

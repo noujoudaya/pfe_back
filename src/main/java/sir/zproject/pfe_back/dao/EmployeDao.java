@@ -14,6 +14,7 @@ import java.util.List;
 @Repository
 public interface EmployeDao extends JpaRepository<Employe, Long> {
 
+    Employe findByMatricule(Long matricule);
     Employe findByCin(String cin);
 
     Employe findByNumeroCNSS(long numeroCNSS);
