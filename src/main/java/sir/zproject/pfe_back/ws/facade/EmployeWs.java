@@ -1,24 +1,19 @@
 package sir.zproject.pfe_back.ws.facade;
 
-import com.nimbusds.oauth2.sdk.http.HTTPResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sir.zproject.pfe_back.bean.*;
+import sir.zproject.pfe_back.bean.Departement;
+import sir.zproject.pfe_back.bean.Employe;
+import sir.zproject.pfe_back.bean.Fonction;
+import sir.zproject.pfe_back.bean.Service;
 import sir.zproject.pfe_back.enumeration.GENRE;
 import sir.zproject.pfe_back.service.facade.EmployeService;
 import sir.zproject.pfe_back.ws.converter.EmployeConverter;
 import sir.zproject.pfe_back.ws.dto.EmployeDto;
 
-import java.net.http.HttpResponse;
 import java.util.List;
-import java.util.Optional;
-
-import static java.time.LocalTime.now;
-import static javax.security.auth.callback.ConfirmationCallback.OK;
-import static org.springframework.boot.ssl.SslOptions.of;
 
 @RestController
 public class EmployeWs {
