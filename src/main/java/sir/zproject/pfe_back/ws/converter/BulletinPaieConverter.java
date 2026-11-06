@@ -50,6 +50,7 @@ public class BulletinPaieConverter {
         bean.setHeuresSupp25(dto.getHeuresSupp25());
         bean.setHeuresSupp50(dto.getHeuresSupp50());
         bean.setHeuresSupp100(dto.getHeuresSupp100());
+        bean.setArrondie(dto.getArrondie());
         bean.setBulletinPaieRubriques(dto.getBulletinPaieRubriques().stream()
                 .map(bulletinPaieRubriqueConverter::toBean)
                 .collect(Collectors.toSet()));
@@ -90,6 +91,7 @@ public class BulletinPaieConverter {
         dto.setHeuresSupp25(bean.getHeuresSupp25());
         dto.setHeuresSupp50(bean.getHeuresSupp50());
         dto.setHeuresSupp100(bean.getHeuresSupp100());
+        dto.setArrondie(bean.getArrondie());
         dto.setBulletinPaieRubriques(bean.getBulletinPaieRubriques().stream()
                 .map(bulletinPaieRubriqueConverter::toDto)
                 .collect(Collectors.toList()));

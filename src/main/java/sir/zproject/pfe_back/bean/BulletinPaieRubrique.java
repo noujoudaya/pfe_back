@@ -16,13 +16,13 @@ public class BulletinPaieRubrique {
 
     @ManyToOne
     @MapsId("bulletinPaieId")
-    @JoinColumn(name = "bulletinPaie_id")
-    BulletinPaie bulletinPaie;
+    @JoinColumn(name = "bulletin_paie_id")  // Use consistent naming
+    private BulletinPaie bulletinPaie;
 
     @ManyToOne
     @MapsId("rubriqueId")
     @JoinColumn(name = "rubrique_id")
-    Rubrique rubrique;
+    private Rubrique rubrique;
 
     private BigDecimal montant;
     private BigDecimal nombre;

@@ -10,8 +10,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class BulletinPaieRubriqueKey implements Serializable {
-    @Column(name = "bulletinPaie_id")
-    Long bulletinPaieId;
+    @Column(name = "bulletin_paie_id")
+    private Long bulletinPaieId;
+
     @Column(name = "rubrique_id")
-    Long rubriqueId;
+    private Long rubriqueId;
 }

@@ -49,6 +49,7 @@ public class BulletinCalculeConverter {
         dto.setHeuresSupp25(bulletinPaie.getHeuresSupp25());
         dto.setHeuresSupp50(bulletinPaie.getHeuresSupp50());
         dto.setHeuresSupp100(bulletinPaie.getHeuresSupp100());
+        dto.setArrondie(bulletinPaie.getArrondie());
        dto.setBulletinPaieRubriques(bulletinPaieRubriqueTobulletinPaieRubriqueDto(bulletinPaie.getBulletinPaieRubriques()));
 
         return dto;

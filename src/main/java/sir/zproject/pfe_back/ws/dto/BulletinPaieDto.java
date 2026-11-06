@@ -37,5 +37,6 @@ public class BulletinPaieDto {
     private BigDecimal  heuresSupp25;
     private BigDecimal  heuresSupp50;
     private BigDecimal  heuresSupp100;
+    private BigDecimal  arrondie;
 
 }

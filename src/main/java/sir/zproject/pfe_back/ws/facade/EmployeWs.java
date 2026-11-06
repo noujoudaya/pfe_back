@@ -51,9 +51,7 @@ public class EmployeWs {
         return employeConverter.toDto(employe);
     }
 
-    public List<Employe> searchByNomOrPrenomOrEmail(String search) {
-        return employeService.searchByNomOrPrenomOrEmail(search);
-    }
+
 
     @GetMapping("/telephone/{telephone}")
     public EmployeDto findByTelephone(@PathVariable String telephone) {
@@ -146,9 +144,7 @@ public class EmployeWs {
         return employeService.countEmployeByGenre(genre);
     }
 
-    public List<Employe> searchByNomOrPrenomOrEmail(String search) {
-        return employeService.searchByNomOrPrenomOrEmail(search);
-    }
+
 
     @GetMapping("sup/employes/")
     public List<EmployeDto> findAll() {

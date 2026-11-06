@@ -17,6 +17,7 @@ import java.util.Set;
 public class BulletinPaie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
     private Long code;
     @ManyToOne
@@ -26,6 +27,7 @@ public class BulletinPaie {
 
 
     private String month;
+    private BigDecimal arrondie;
 
 
     private int year;

@@ -149,8 +149,6 @@ public class BulletinPaieServiceImpl implements BulletinPaieService {
             }
             bpRubrique.setBulletinPaie(bulletinPaie);
             bpRubrique.setRubrique(rubrique);
-
-            // Ensure the BulletinPaieRubriqueKey is properly initialized
             BulletinPaieRubriqueKey key = new BulletinPaieRubriqueKey();
             key.setBulletinPaieId(bulletinPaie.getId());
             key.setRubriqueId(rubrique.getId());
@@ -170,7 +168,10 @@ public class BulletinPaieServiceImpl implements BulletinPaieService {
 
     @Override
     public Resource getPdfByCode(String code) throws IOException {
-         BulletinPaie bulletinPaie = findByCode(Long.valueOf(code));
+        BulletinPaie bulletinPaie = findByCode(Long.valueOf(code));
+        List<BulletinPaieRubrique> bulletinPaieRubriques = bulletinPaieRubriqueDao.findByBulletinPaieId(bulletinPaie.getId());
+        Set<BulletinPaieRubrique> bulletinPaieRubriqueSet = new HashSet<>(bulletinPaieRubriques);
+        bulletinPaie.setBulletinPaieRubriques(bulletinPaieRubriqueSet);
         if (bulletinPaie == null) {
             throw new IOException("BulletinPaie not found with code: " + code);
         }
@@ -190,8 +191,10 @@ public class BulletinPaieServiceImpl implements BulletinPaieService {
         BigDecimal heuresSupp25 = BigDecimal.ZERO;
         BigDecimal heuresSupp50 = BigDecimal.ZERO;
         BigDecimal heuresSupp100 = BigDecimal.ZERO;
-        BigDecimal taux = BigDecimal.ZERO; // Default value
-
+        BigDecimal taux = BigDecimal.ZERO;
+        BigDecimal sommeHeures = BigDecimal.ZERO;;
+        BigDecimal salaireBaseMensuelle = bulletinPaie.getSalaireBaseMensuelle();
+        BigDecimal salaireBaseImp=BigDecimal.ZERO;
         for (BulletinPaieRubrique bpRubrique : bulletinPaie.getBulletinPaieRubriques()) {
             Long code = bpRubrique.getRubrique().getCode();
            if (code == 16) {
@@ -207,11 +210,11 @@ public class BulletinPaieServiceImpl implements BulletinPaieService {
                heuresSupp100 = bpRubrique.getNombre().multiply(bulletinPaie.getTauxHoraire()).multiply(taux);
                bulletinPaie.setHeuresSupp100(heuresSupp100.setScale(2, RoundingMode.HALF_UP));
             }
-            BigDecimal salaireBaseImp = bulletinPaie.getSalaireBaseMensuelle().add(heuresSupp25).add(heuresSupp50).add(heuresSupp100);
-            bulletinPaie.setSalaireBaseImposable(salaireBaseImp.setScale(2, RoundingMode.HALF_UP));
+             sommeHeures = (heuresSupp25).add(heuresSupp50).add(heuresSupp100);
+
         }
 
-        return bulletinPaie.getSalaireBaseImposable();
+        return salaireBaseImp=salaireBaseMensuelle.add(sommeHeures);
     }
 
 
@@ -260,10 +263,11 @@ public class BulletinPaieServiceImpl implements BulletinPaieService {
 
 
     public BigDecimal salBasImpToSalBrutG(BulletinPaie bulletinPaie) {
+        BigDecimal salBrutGlobal =BigDecimal.ZERO;
         BigDecimal salaireBaseImposable = bulletinPaie.getSalaireBaseImposable();
         BigDecimal tauxAnc = new BigDecimal(primeAnciennete(bulletinPaie.getAnciennete()));
         BigDecimal primeAnc = salaireBaseImposable.multiply(tauxAnc);
-        salaireBaseImposable = salaireBaseImposable.add(primeAnc);
+        salBrutGlobal = salaireBaseImposable.add(primeAnc);
         tauxAnc = tauxAnc.multiply(BigDecimal.valueOf(100)).setScale(2, RoundingMode.HALF_UP);
         bulletinPaie.setTauxAnc(tauxAnc);
         primeAnc = primeAnc.setScale(2, RoundingMode.HALF_UP);
@@ -274,10 +278,10 @@ public class BulletinPaieServiceImpl implements BulletinPaieService {
                 continue;
             }
             BigDecimal montantRubrique = bpRubrique.getMontant();
-            salaireBaseImposable = salaireBaseImposable.add(montantRubrique);
+            salBrutGlobal = salBrutGlobal.add(montantRubrique);
         }
 
-        return salaireBaseImposable;
+        return salBrutGlobal;
     }
 
 
@@ -379,20 +383,30 @@ public class BulletinPaieServiceImpl implements BulletinPaieService {
     }
 
     public BulletinPaie salBaseTosalNetPayer(BulletinPaie bulletinPaie) /*throws IOException */{
+
         Employe employe = employeService.findByMatricule(bulletinPaie.getEmploye().getMatricule());
         bulletinPaie.setEmploye(employe);
         Entreprise entreprise = entrepriseService.findByIce(bulletinPaie.getEntreprise().getIce());
         bulletinPaie.setEntreprise(entreprise);
-        List<BulletinPaieRubrique> bulletinPaieRubriques = new ArrayList<>(bulletinPaie.getBulletinPaieRubriques());
-        for (BulletinPaieRubrique bpRubrique : bulletinPaieRubriques) {
-            Rubrique rubrique = rubriqueService.findByCode(bpRubrique.getRubrique().getCode());
-            bpRubrique.setBulletinPaie(bulletinPaie);
-            bpRubrique.setRubrique(rubrique);
+        Set<BulletinPaieRubrique> bulletinPaieRubriques = bulletinPaie.getBulletinPaieRubriques();
+        if (bulletinPaieRubriques == null) {
+            bulletinPaieRubriques = new HashSet<>();
+            bulletinPaie.setBulletinPaieRubriques(bulletinPaieRubriques);
+        }
+
+        if (!bulletinPaieRubriques.isEmpty()) {
+            for (BulletinPaieRubrique bpRubrique : bulletinPaieRubriques) {
+                Rubrique rubrique = rubriqueService.findByCode(bpRubrique.getRubrique().getCode());
+                bpRubrique.setBulletinPaie(bulletinPaie);
+                bpRubrique.setRubrique(rubrique);
+            }
         }
         BigDecimal salBaseMen = salBaseToSalBasMen(bulletinPaie).setScale(2, RoundingMode.HALF_UP);
         bulletinPaie.setSalaireBaseMensuelle(salBaseMen);
 
-        salBasMenToSalBasImp(bulletinPaie);
+
+        BigDecimal salBasImp = salBasMenToSalBasImp(bulletinPaie);
+        bulletinPaie.setSalaireBaseImposable(salBasImp);
 
 
         BigDecimal salBrutGlobal = salBasImpToSalBrutG(bulletinPaie).setScale(2, RoundingMode.HALF_UP);
@@ -408,14 +422,32 @@ public class BulletinPaieServiceImpl implements BulletinPaieService {
         bulletinPaie.setSalNetPayer(salNetAPayer);
       return  bulletinPaie;
     }
+    public  BulletinPaie round(BulletinPaie bulletinPaie) {
+        BigDecimal number = bulletinPaie.getSalNetPayer();
+        // Get the fractional part of the number
+        BigDecimal fractionalPart = number.remainder(BigDecimal.ONE);
+        BigDecimal arrondie = (new BigDecimal(1)).subtract(fractionalPart);
+        bulletinPaie.setArrondie(arrondie);
+        // If the fractional part is greater than or equal to 0.5, round up by 1
+        if (fractionalPart.compareTo(new BigDecimal("0.5")) >= 0) {
+            bulletinPaie.setSalNetPayer(number.setScale(0, BigDecimal.ROUND_UP));
+            return bulletinPaie;
+        } else { // Otherwise, round down to the nearest integer
+            bulletinPaie.setSalNetPayer (number.setScale(0, BigDecimal.ROUND_DOWN));
+            return bulletinPaie;
+        }
+    }
 
     public BulletinPaieDto bulletinCalculated(BulletinPaie bulletinPaie){
+
         salBaseTosalNetPayer(bulletinPaie);
+        round(bulletinPaie);
         BulletinPaieDto bulletinPaieDto = bulletinCalculeConverter.bulletinToBulletinDto(bulletinPaie);
         return  bulletinPaieDto;
     }
     public int saveBulletin(BulletinPaie bulletinPaie){
         salBaseTosalNetPayer(bulletinPaie);
+        round(bulletinPaie);
         int response = save(bulletinPaie);
         if (response == -1) {
             return-1;

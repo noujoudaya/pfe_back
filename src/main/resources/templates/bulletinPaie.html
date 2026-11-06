@@ -316,7 +316,7 @@
         <tr class="tr2">
             <td class="td2">
                 <p style="text-align: center;">
-    <span th:text="${bulletinPaie.employe.prenom + ' ' + bulletinPaie.employe.nom}"
+    <span th:text="${bulletinPaie.employe.nom + ' ' + bulletinPaie.employe.prenom}"
           style="color: black; font-family: Times New Roman, serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 12pt;">
     </span>
                 </p>
@@ -415,6 +415,14 @@
             <td th:text="${bpr.montant}"></td>
             <td></td>
         </tr>
+        <tr >
+            <td>700</td>
+            <td>Arrondie</td>
+            <td></td>
+            <td></td>
+            <td th:text="${bulletinPaie.arrondie}" th:if="${bulletinPaie.arrondie <= 0.5}"></td>
+            <td th:text="${bulletinPaie.arrondie}" th:if="${bulletinPaie.arrondie > 0.5}"></td>
+        </tr>
 
         </tbody>
     </table>
@@ -437,26 +445,27 @@
         </thead>
         <tbody>
         <tr>
-            <td> Col1</td>
-            <td> 26</td>
-            <td> 25</td>
-            <td> 24</td>
-            <td> Col2</td>
-            <td> Col 3</td>
-            <td> Col 4</td>
-            <td> col 5</td>
-            <td rowspan="2" style="text-align: right;">merged</td>
+            <td>Période</td>
+            <td th:text="${bulletinPaie.nbrJourTravaille}"> </td>
+            <td></td>
+            <td></td>
+            <td style="text-align: right" th:text="${bulletinPaie.salaireBrutImp}"></td>
+            <td style="text-align: right" th:text="${bulletinPaie.retenusCnss}"> </td>
+            <td style="text-align: right" th:text="${bulletinPaie.retenusAmo}"></td>
+            <td style="text-align: right" th:if="${bulletinPaie.retenusIr != 0}" th:text="${bulletinPaie.retenusIr}"></td>
+            <td style="text-align: right" th:if="${bulletinPaie.retenusIr == 0}"> </td>
+            <td rowspan="2" th:text="${bulletinPaie.salNetPayer}" style="text-align: right;"></td>
         </tr>
-        <tr >
-            <td> Col 6</td>
-            <td> 27</td>
-            <td> 29</td>
-            <td> 28</td>
-            <td> Col 7</td>
-            <td> Col 8</td>
-            <td> Col 9</td>
-            <td> Col 10</td>
-
+        <tr>
+            <td>Année</td>
+            <td th:text="${bulletinPaie.nbrJourTravaille}"> </td>
+            <td></td>
+            <td></td>
+            <td style="text-align: right" th:text="${bulletinPaie.salaireBrutImp}"></td>
+            <td style="text-align: right" th:text="${bulletinPaie.retenusCnss}"> </td>
+            <td style="text-align: right" th:text="${bulletinPaie.retenusAmo}"></td>
+            <td style="text-align: right" th:if="${bulletinPaie.retenusIr != 0}" th:text="${bulletinPaie.retenusIr}"></td>
+            <td style="text-align: right" th:if="${bulletinPaie.retenusIr == 0}"> </td>
         </tr>
         <tr>
             <td colspan="4">
