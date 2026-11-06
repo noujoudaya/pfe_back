@@ -1,5 +1,6 @@
 package sir.zproject.pfe_back;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,7 +34,9 @@ public class PfeBackApplication {
     }
 
     @Bean
-    public CommandLineRunner runner(RoleRepository roleRepository, UserRepository userRepository) {
+    public CommandLineRunner runner(RoleRepository roleRepository, UserRepository userRepository,
+                                    @Value("${app.admin.email}") String adminEmail,
+                                    @Value("${app.admin.password}") String adminPassword) {
         return args -> {
             if (roleRepository.findByName("USER")==null) {
                 roleRepository.save(Role.builder().name("USER").createdDate(LocalDateTime.now()).build());
@@ -45,12 +48,12 @@ public class PfeBackApplication {
             }
 
             //Create an admin account
-            if (userRepository.findByLogin("admin@gmail.com").isEmpty()) {
+            if (userRepository.findByLogin(adminEmail).isEmpty()) {
                 List<Role> roles = new ArrayList<Role>();
                 roles.add(roleRepository.findByName(AuthoritiesConstants.ADMIN));
                 userRepository.save(User.builder()
-                        .login("admin@gmail.com")
-                        .password(passwordEncoder.encode("12345678"))
+                        .login(adminEmail)
+                        .password(passwordEncoder.encode(adminPassword))
                         .enabled(true)
                         .createdDate(LocalDateTime.now())
                         .accountLocked(false)

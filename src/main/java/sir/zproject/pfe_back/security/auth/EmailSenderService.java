@@ -17,13 +17,14 @@ import jakarta.mail.Session;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import sir.zproject.pfe_back.security.user.User;
 
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.FileReader;
 import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.Set;
@@ -38,17 +39,19 @@ public class EmailSenderService {
     private static final String CREDENTIALS_SUBJECT = "Identifiants de votre compte";
     private final Gmail service;
 
-    public EmailSenderService() throws Exception {
+    // clientSecretFile: path of the Google OAuth client secret JSON, taken from the
+    // GOOGLE_CLIENT_SECRET_FILE environment variable or .env (default: client_secret.json)
+    public EmailSenderService(@Value("${GOOGLE_CLIENT_SECRET_FILE:client_secret.json}") String clientSecretFile) throws Exception {
         NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
         GsonFactory jsonFactory = GsonFactory.getDefaultInstance();
-        service = new Gmail.Builder(httpTransport, jsonFactory, getCredentials(httpTransport, jsonFactory))
+        service = new Gmail.Builder(httpTransport, jsonFactory, getCredentials(httpTransport, jsonFactory, clientSecretFile))
                 .setApplicationName("Test Mailer")
                 .build();
     }
 
-    private static Credential getCredentials(final NetHttpTransport httpTransport, GsonFactory jsonFactory)
+    private static Credential getCredentials(final NetHttpTransport httpTransport, GsonFactory jsonFactory, String clientSecretFile)
             throws IOException {
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(EmailSenderService.class.getResourceAsStream("/client_secret_762963967563-1dghsuit15651s55j0u2c0rp5ip9t4ph.apps.googleusercontent.com.json")));
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new FileReader(clientSecretFile));
 
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 httpTransport, jsonFactory, clientSecrets, Set.of(GMAIL_SEND))
