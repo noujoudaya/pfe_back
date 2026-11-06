@@ -1,0 +1,15 @@
+# Store all text files with Linux (LF) line endings
+* text=auto eol=lf
+
+# Windows scripts need Windows (CRLF) line endings
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Binary files: never modify
+*.jar binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary

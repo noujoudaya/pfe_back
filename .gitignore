@@ -31,3 +31,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Secrets & local config (never commit) ###
+.env
+tokens/
+client_secret*.json
+!client_secret.example.json
+
+### Generated payslip PDFs ###
+src/main/resources/pdf/*.pdf
+
+### OneNote leftovers ###
+*.onetoc2
